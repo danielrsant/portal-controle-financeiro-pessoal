@@ -1,0 +1,16 @@
+<mat-accordion>
+    <mat-expansion-panel style="padding: 0;" fxFlex class="filter" [expanded]="expanded">
+        <mat-expansion-panel-header class="header">
+            <mat-panel-title>
+                <div fxLayout="row">
+                    <h2 style="margin: 0;">{{title}}</h2>
+                    <mat-icon style="padding-left: 10px; padding-top: 5px;" *ngIf="icon">{{icon}}</mat-icon>
+                </div>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-content>
+        </ng-content>
+
+    </mat-expansion-panel>
+</mat-accordion>

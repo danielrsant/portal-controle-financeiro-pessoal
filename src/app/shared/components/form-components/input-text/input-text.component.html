@@ -1,0 +1,18 @@
+<mat-form-field [formGroup]="formGroup" [appearance]="appearance" fxFlex="100">
+
+  <mat-label>{{ label }}</mat-label>
+
+  <input #input matInput (keydown)="$event.key === '%' ? $event.preventDefault() : ''"
+    (keydown.space)="input.value?.length === 0 ? $event.preventDefault() : $event;" [mask]="mask"
+    [dropSpecialCharacters]="dropSpecialCharacters" [formControlName]="formcontrolname" [required]="checkRequired()"
+    [placeholder]="placeholder">
+
+  <mat-icon *ngIf="iconName" matSuffix class="secondary-text">{{ iconName }}</mat-icon>
+
+  <mat-hint align="end" *ngIf="maxLength">{{input.value?.length || 0}}/{{ maxLength }}</mat-hint>
+
+  <mat-error>
+    <app-errors [formcontrolname]="formcontrolname" [formGroup]="formGroup"></app-errors>
+  </mat-error>
+
+</mat-form-field>

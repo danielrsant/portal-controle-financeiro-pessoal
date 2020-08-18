@@ -1,0 +1,114 @@
+.portaCartao {
+  max-width: 500px;
+  perspective: 1000px;
+  }
+  
+  .cartao {
+    height: 300px;
+    transform-style: preserve-3d;
+    transition: all 500ms linear; 
+    //animation: girar 5s infinite ease-out both;
+    transform: translate3d(0,0,0);
+  }
+  .portaCartao:hover .cartao {
+    transform: rotateY(180deg);
+  }
+  
+  .lado {
+    backface-visibility: hidden;       
+    transform: translate3d(0,0,0);
+    cursor: e-resize;
+  }
+  
+  /* Inverte o lado do verso para que só apareça quando o cartão for virado*/
+  .lado.verso {
+    transform: rotateY(180deg);
+    cursor: w-resize;
+  }
+   
+  @keyframes girar {
+    0%, 40% {
+       transform: rotateY(0deg); 
+    }
+    50%, 90% {
+      transform: rotateY(180deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+  
+  .cartao {
+    font-family: Arial;
+    font-size: 10px;
+    color: #666666;
+    background-color: #efefef;
+    box-shadow: -5px 5px 5px #aaa;
+  }
+  
+  .cartao .lado.frente {
+    text-align: center;
+    vertical-align: top; 
+    height: 300px;
+  }
+
+  .cartao .lado.frente .info {
+    justify-content: center;
+    margin: 0;
+  }
+
+  .cartao .lado.frente h1 {
+    font-size: 3em;
+  }
+
+  .cartao .lado.frente p {
+    font-size: 1.5em;
+    transform: translate3d(0,2em,0);
+  }
+  
+  .cartao .lado.verso p { 
+    position: absolute;
+    font-size: 1.5em;
+    bottom: 1em;
+    left: 1em;
+  }
+
+  .image {
+    position: fixed !important; 
+    bottom: 11em !important; 
+    left: 13em !important; 
+    width: 130px !important;
+  }
+
+@media only screen and (max-width: 600px) and (min-width: 500px) {
+  .image {
+    justify-content: center !important;
+    text-align: center !important;
+    position: fixed !important; 
+    bottom: 8em !important;
+    left: 11em !important; 
+    width: 130px !important;
+  }   
+}
+
+@media only screen and (max-width: 500px) and (min-width: 400px) {
+  .image {
+    justify-content: center !important;
+    text-align: center !important;
+    position: fixed !important; 
+    bottom: 10em !important;
+    left: 9em !important; 
+    width: 130px !important;
+  }   
+}
+
+@media only screen and (max-width: 450px) {
+  .image {
+    justify-content: center !important;
+    text-align: center !important;
+    position: fixed !important; 
+    bottom: 10em !important;
+    left: 5em !important; 
+    width: 130px !important;
+  }   
+}

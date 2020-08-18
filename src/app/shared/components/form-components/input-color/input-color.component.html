@@ -1,0 +1,10 @@
+<mat-form-field [formGroup]="formGroup" fxFlex>
+  <mat-label>{{ label }}</mat-label>
+    <input matInput [attr.disabled]="disabled" [formControlName]="formcontrolname" [required]="checkRequired()"
+      (keypress)="this.formGroup.get(this.formcontrolname).setValue(onChange($event.target.value))"
+      #input type="color" [placeholder]="placeholder" >
+    <mat-error>
+      <app-errors [formcontrolname]="formcontrolname" [formGroup]="formGroup"></app-errors>
+    </mat-error>
+</mat-form-field>
+  

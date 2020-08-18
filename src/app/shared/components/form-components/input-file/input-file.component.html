@@ -1,0 +1,21 @@
+<mat-form-field fxFlex="100" class="pointer" [formGroup]="formGroup" [appearance]="appearance">
+
+  <mat-label>{{ label }}</mat-label>
+
+  <span fxLayout="column">
+    <span>
+      <ngx-mat-file-input [multiple]="multipleFiles" [accept]="accept" [formControlName]="formcontrolname"
+        [placeholder]="placeholder">
+      </ngx-mat-file-input>
+      <mat-icon fxFlex fxLayoutAlign="end">attach_file</mat-icon>
+    </span>
+
+    <img fxFlex [src]="image" height="200" *ngIf="showImage && image">
+  </span>
+
+  <mat-error
+    *ngIf="!formGroup?.get(formcontrolname).value && formGroup?.get(formcontrolname).touched && formGroup.touched">
+    <app-errors [formcontrolname]="formcontrolname" [formGroup]="formGroup"></app-errors>
+  </mat-error>
+
+</mat-form-field>

@@ -1,0 +1,19 @@
+<div fxFlex="100">
+
+  <label>{{ label }}</label>
+
+  <mat-radio-group [fxLayout]="layout" fxLayoutGap="20px" [disabled]="disabled"
+    [(ngModel)]="formGroup?.get(formcontrolname).value" (change)="setValue($event)"> 
+
+    <mat-radio-button *ngFor="let radio of data" [value]="valueField ? radio[valueField] : radio">
+      <span>{{ radio[displayField] }}</span>
+    </mat-radio-button>
+
+  </mat-radio-group>
+
+  <mat-error
+    *ngIf="!formGroup?.get(formcontrolname).value && formGroup?.get(formcontrolname).touched && formGroup.touched">
+    <app-errors [formcontrolname]="formcontrolname" [formGroup]="formGroup"></app-errors>
+  </mat-error>
+
+</div>

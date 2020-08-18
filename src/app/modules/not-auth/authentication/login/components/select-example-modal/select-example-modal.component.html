@@ -1,0 +1,22 @@
+<div fxFlex="100" fxLayout="column">
+
+    <div fxFlex fxLayout="row">
+      <div fxLayout="column" fxFlex="95">
+        <h2 style="margin-top: 0;" mat-dialog-title>SELECIONE</h2>
+      </div>
+      <div (click)="close()" fxLayout="column" flexLayoutAlign="flex-end">
+        <mat-icon class="closeIcon">close</mat-icon >
+      </div>
+    </div>
+
+  <mat-divider></mat-divider>
+
+  <mat-nav-list style="overflow-y: auto; max-height: 250px;">
+    <a class="list" mat-list-item (click)="selectExample(example)" *ngFor="let example of examples">
+        {{example}}
+    </a>
+  </mat-nav-list>
+
+  <mat-divider></mat-divider>
+
+</div>

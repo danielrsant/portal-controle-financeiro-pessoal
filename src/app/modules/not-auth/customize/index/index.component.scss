@@ -1,0 +1,24 @@
+.themes {
+    margin-right: 10px;
+    height: 35px;
+    width: 35px;
+}
+
+#purple-light {
+    background-image: linear-gradient(180deg, #673AB7 50%, white 50%);
+}
+#blue-light {
+    background-image: linear-gradient(180deg, #2196F3 50%, white 50%);
+}
+#green-light {
+    background-image: linear-gradient(180deg, #009688 50%, white 50%);
+}
+#purple-dark {
+    background-image: linear-gradient(180deg, #673AB7 50%, #424242 50%);
+}
+#blue-dark {
+    background-image: linear-gradient(180deg, #2196F3 50%, #424242 50%);
+}
+#green-dark {
+    background-image: linear-gradient(180deg, #009688 50%, #424242 50%);
+}

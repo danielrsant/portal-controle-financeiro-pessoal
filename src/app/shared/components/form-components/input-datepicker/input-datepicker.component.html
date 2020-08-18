@@ -1,0 +1,23 @@
+<mat-form-field [formGroup]="formGroup" fxFlex="100" [appearance]="appearance">
+
+  <mat-label>{{ label }}</mat-label>
+
+  <div fxLayout="row" fxLayoutAlign="space-between start">
+
+    <input [required]="checkRequired(formcontrolname)" matInput [matDatepicker]="picker"
+      [placeholder]="placeholder" [formControlName]="formcontrolname" autocomplete="off" [min]="minDate" [max]="maxDate"
+      (dateChange)="verifyDate()">
+      
+    <mat-icon *ngIf="formGroup.get(formcontrolname).value && clearOption" matTooltip="Limpar" matTooltipPosition="above"
+      (click)="resetField()" class="icon">close</mat-icon>
+
+  </div>
+
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+
+  <mat-error>
+    <app-errors [formcontrolname]="formcontrolname" [formGroup]="formGroup" [isDate]="true"></app-errors>
+  </mat-error>
+
+</mat-form-field>

@@ -1,0 +1,12 @@
+<div [formGroup]="formGroup" class="wrapper" fxFlex="100">
+
+    <mat-slide-toggle [formControlName]="formcontrolname" (change)="setValue($event)">{{ label }}
+        {{ checkRequired() ? ' *' : '' }}
+    </mat-slide-toggle>
+
+    <mat-error
+        *ngIf="!formGroup?.get(formcontrolname).value && formGroup?.get(formcontrolname).touched && formGroup.touched">
+        <app-errors [formcontrolname]="formcontrolname" [formGroup]="formGroup"></app-errors>
+    </mat-error>
+
+</div>

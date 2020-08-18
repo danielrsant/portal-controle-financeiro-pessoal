@@ -1,0 +1,24 @@
+<mat-form-field [formGroup]="formGroup" [appearance]="appearance" fxFlex="100">
+
+    <mat-label>{{ label }}</mat-label>
+
+    <mat-select [formControlName]="formcontrolname" [required]="checkRequired()" (selectionChange)="onSelectChange($event)"> 
+        <mat-option *ngIf="searchField">
+            <ngx-mat-select-search (keyup)="onSearch($event.target.value)" placeholderLabel="Pesquisar" [noEntriesFoundLabel]="noEntriesFoundLabel" [formControl]="selectSearch"></ngx-mat-select-search>
+        </mat-option>
+
+        <mat-option *ngIf="formGroup.get(formcontrolname).value && optionClear" value="">
+            Limpar seleção
+        </mat-option>
+
+        <mat-option *ngFor="let item of filteredData | async" [value]="item[valueField]">
+            {{ item[displayField] }} <span *ngIf="secondDisplayField">- {{ item[secondDisplayField] }}</span>
+        </mat-option>
+    </mat-select>
+
+    <mat-icon *ngIf="iconName" matSuffix class="secondary-text">{{iconName}}</mat-icon>
+
+    <mat-error>
+        <app-errors [formcontrolname]="formcontrolname" [formGroup]="formGroup"></app-errors>
+    </mat-error>
+</mat-form-field>

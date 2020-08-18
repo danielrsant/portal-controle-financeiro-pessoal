@@ -1,0 +1,27 @@
+<div fxFlex fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex class="portaCartao">
+    <div class="cartao">
+      <div fxFlex fxLayout="column" fxLayoutAlign="center" class="lado frente">
+        <h1 fxLayout="row" class="info">{{ data?.name }}</h1>
+        <p fxLayout="row" class="info">{{ type }}</p>
+      </div>
+      <div class="lado verso">
+        <p class="image">
+          <img src="/assets/images/calendario.png">
+        </p>
+        <p style="width: 300px;">
+          <span>{{ data?.name }}</span><br />
+          <span>{{ data?.physicalPersons[0]?.cpf | mask: cpfMask }}</span><br />
+          <span>
+            <span>{{ data?.telephone | mask: telephoneMask }}</span>
+            <span *ngIf="data?.localities[0]?.telphone">/
+              {{ data?.localities[0]?.telphone | mask: telphoneMask }}</span><br />
+          </span>
+          <span>{{ data?.email }}</span><br />
+          <span>{{ data?.juridicPersons[0]?.fantasyName }} {{ data?.juridicPersons[0]?.cnpj | mask: cnpjMask }}
+          </span><br />
+        </p> 
+      </div>
+    </div>
+  </div>
+</div>

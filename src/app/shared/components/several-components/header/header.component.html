@@ -1,0 +1,34 @@
+<header class="header" [ngClass]="{
+    'purple': (!(theme$ | async) || (theme$ | async) === 'light' || (theme$ | async) === 'dark'), 
+    'blue': ((theme$ | async) === 'light-blue' || (theme$ | async) === 'dark-blue'), 
+    'green': ((theme$ | async) === 'light-teal' || (theme$ | async) === 'dark-teal') }"  [ngClass]="{'bg-color': bgImage}" [ngStyle]="{ height: height }">
+
+    <div fxFlex [ngClass]="{'bg': bgImage}" class="bg"></div>
+
+    <div fxFlex fxLayout="column" class="wrapper">
+        <div fxFlex fxLayout="row" class="content">
+            <ng-container>
+                <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <button *ngIf="backPage" mat-icon-button>
+                        <mat-icon class="icon">arrow_back</mat-icon>
+                    </button>
+                </div>
+
+                <div fxFlex fxFlex.xs="80" fxLayout="row" fxLayoutAlign="center center">
+                    <mat-icon *ngIf="icon" class="icon icon-title" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">{{ icon }}</mat-icon>
+                    <div class="title" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">{{ title }}</div>
+                </div>
+
+                <div fxFlex fxLayout="row" fxLayoutAlign="end center">
+                    <button *ngIf="btn" class="btn" [disabled]="disabled" mat-raised-button (click)="onClickBtn()">
+                        <span>{{ btn }}</span>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="center start" class="wrapper">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</header>

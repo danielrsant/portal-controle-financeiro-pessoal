@@ -1,0 +1,82 @@
+@import "src/app/modules/auth/calendar/calendar.theme";
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+
+// ######################## TEMA ESCURO PADRAO ###############################
+$dark-primary: mat-palette($mat-deep-purple);
+$dark-accent:  mat-palette($mat-amber, A200, A100, A400);
+$dark-warn:    mat-palette($mat-deep-orange);
+$dark-theme:   mat-dark-theme((
+  color: (
+    primary: $dark-primary,
+    accent: $dark-accent,
+    warn: $dark-warn,
+  )
+));
+
+.dark {
+    @include angular-material-color($dark-theme);
+    @include calendar-theme($dark-theme);
+}
+
+// ######################## TEMA CLARO AZUL ###############################
+$blue-primary: mat-palette($mat-blue);
+$blue-accent: mat-palette($mat-amber, A200, A100, A400);
+$blue-theme: mat-light-theme($blue-primary, $blue-accent);
+
+.light-blue {
+  @include angular-material-theme($blue-theme);
+  @include calendar-theme($blue-theme);
+}
+
+// ######################## TEMA ESCURO AZUL ###############################
+$dark-blue-primary: mat-palette($mat-blue);
+$dark-blue-accent:  mat-palette($mat-amber, A200, A100, A400);
+$dark-blue-warn:    mat-palette($mat-deep-orange);
+$dark-blue-theme:   mat-dark-theme((
+  color: (
+    primary: $dark-blue-primary,
+    accent: $dark-blue-accent,
+    warn: $dark-blue-warn,
+  )
+));
+
+.dark-blue {
+    @include angular-material-color($dark-blue-theme);
+    @include calendar-theme($dark-blue-theme);
+}
+
+// ####################### TEMA CLARO VERDE ################################
+$teal-primary: mat-palette($mat-teal);
+$teal-accent: mat-palette($mat-pink, A200, A100, A400);
+$teal-theme: mat-light-theme($teal-primary, $teal-accent);
+
+.light-teal {
+  @include angular-material-theme($teal-theme);
+  @include calendar-theme($teal-theme);
+}
+
+// ###################### TEMA ESCURO VERDE #################################
+$dark-teal-primary: mat-palette($mat-teal);
+$dark-teal-accent:  mat-palette($mat-pink, A200, A100, A400);
+$dark-teal-warn:    mat-palette($mat-deep-orange);
+$dark-teal-theme:   mat-dark-theme((
+  color: (
+    primary: $dark-teal-primary,
+    accent: $dark-teal-accent,
+    warn: $dark-teal-warn,
+  )
+));
+
+.dark-teal {
+    @include angular-material-color($dark-teal-theme);
+    @include calendar-theme($dark-teal-theme);
+}
+
+
+
+
+
+
