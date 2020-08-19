@@ -91,7 +91,6 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private _changesDetector: ChangeDetectorRef,
-    public translate: TranslateService,
     private _utilsService: UtilsService
   ) {
     this._utilsService.paginatorWasChanged.subscribe(() => {

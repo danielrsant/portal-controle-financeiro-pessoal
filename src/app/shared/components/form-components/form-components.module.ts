@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
@@ -57,8 +58,8 @@ import { TextAreaComponent } from './text-area/text-area.component';
     NgxMatSelectSearchModule,
     FormsModule,
     MaterialFileInputModule,
+    NgxCurrencyModule,
     NgxMaskModule.forRoot(),
-
   ],
   exports: [
     ErrorsComponent,

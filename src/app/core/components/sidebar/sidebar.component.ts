@@ -1,26 +1,22 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { CustomizeService } from 'src/app/shared/services/customize.service';
 
-declare interface RouteInfo {
-    type: 'item' | 'collapsable';
-    icon?: string;
-    title: string;
-    path: string;
-    class: string;
-} 
+import { trackByRoute } from '../../../shared/utils/track-by';
 
-export const ROUTES: RouteInfo[] = [
-    { path: '/auth/dashboard', title: 'Dashboard', icon: 'dashboard', class: '', type: 'item' },
-    { path: '/auth/funcionarios', title: 'Funcionários', icon: 'person', class: '', type: 'item' },
-    { path: '/table-list', title: 'A fazer', icon: 'content_paste', class: '', type: 'item' },
-    { path: '/auth/agendamento', title: 'Agendamentos', icon: 'schedule', class: '', type: 'item' },
-    { path: '/typography', title: 'Documentos', icon: 'library_books', class: '', type: 'item' },
-    { path: '/customizar', title: 'Configurações', icon: 'bubble_chart', class: '', type: 'item' },
-    { path: '/notifications', title: 'Notificações', icon: 'notifications', class: '', type: 'item' },
+
+export const ROUTES: any[] = [
+    { route: '/auth/admin', label: 'Administrador', icon: 'user', type: 'dropdown', children: [{ route: '/auth/dashboard', label: 'Dashboard', icon: 'dashboard', type: 'link' }] },
+    { route: '/auth/funcionarios', label: 'Funcionários', icon: 'person', type: 'link' },
+    { route: '/table-list', label: 'A fazer', icon: 'content_paste', type: 'link' },
+    { route: '/auth/agendamento', label: 'Agendamentos', icon: 'schedule', type: 'link' },
+    { route: '/typography', label: 'Documentos', icon: 'library_books', type: 'link' },
+    { route: '/customizar', label: 'Configurações', icon: 'bubble_chart', type: 'link' },
+    { route: '/notifications', label: 'Notificações', icon: 'notifications', type: 'link' },
 ];
 
 @Component({
@@ -28,10 +24,13 @@ export const ROUTES: RouteInfo[] = [
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
 
-    menus = ROUTES;
+    // items = this.navigationService.items;
+    items = ROUTES;
     selectedItem;
+
+    trackByRoute = trackByRoute;
 
     mobileQuery: MediaQueryList;
     private _mobileQueryListener: () => void;
@@ -41,7 +40,8 @@ export class SidebarComponent implements OnInit {
 
     constructor(
         private _customizeService: CustomizeService,
-        private _changeDetectorRef: ChangeDetectorRef, 
+        private _changeDetectorRef: ChangeDetectorRef,
+        private navigationService: NavigationService,
         private _media: MediaMatcher,
         private _router: Router
         ) {

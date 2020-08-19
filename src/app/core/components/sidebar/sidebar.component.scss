@@ -20,6 +20,7 @@
         position: relative;
         width: 100%;
         height: 100px;
+        color: white;
     
         text-align: center;
         line-height: 110px;
@@ -65,10 +66,11 @@
     left: 0;
     right: 0;
     
-    background: url('/assets/images/sidenav.jpg') no-repeat;
+    // background: url('/assets/images/sidenav.jpg') no-repeat;
+    background-color: #2D323E;
     background-size: cover;
     background-position: right;
-    opacity: .2;
+    // opacity: .2;
   }
 }
 
@@ -83,6 +85,10 @@
 .user {
   flex: 1 1 auto;
   text-align: end;
+}
+
+.menu {
+  padding: 20px 10px 10px 10px;
 }
 
 /* Certifica que a toolbar fique no topo do conteúdo à medida que ela rola. */
