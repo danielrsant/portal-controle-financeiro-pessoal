@@ -1,8 +1,14 @@
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "themes";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Variaveis global
+:root {
+  --color-primary: 92, 119, 255;
+  --color-primary-contrast: 255, 255, 255;
+}
 
 .content-page {
     padding: 20px !important;
@@ -16,18 +22,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .btn-color {
     background-color: #2D323E;
 }
-
-.purple {
-    background-color: #673AB7 !important;
-    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(103, 58, 183, 0.4);
-  }
-  
-  .blue {
-    background-color: #2196F3 !important;
-    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(33, 150, 243, 0.4);
-  }
-  
-  .green {
-    background-color: #009688 !important;
-    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 150, 136, 0.4);
-  }

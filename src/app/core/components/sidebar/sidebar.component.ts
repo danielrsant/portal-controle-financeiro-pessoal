@@ -1,10 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { NavigationService } from 'src/app/services/navigation.service';
-import { CustomizeService } from 'src/app/shared/services/customize.service';
 
 import { trackByRoute } from '../../../shared/utils/track-by';
 
@@ -35,11 +32,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     mobileQuery: MediaQueryList;
     private _mobileQueryListener: () => void;
 
-    theme$: Observable<any>;
-    onDestroy$ = new Subject<any>();
-
     constructor(
-        private _customizeService: CustomizeService,
         private _changeDetectorRef: ChangeDetectorRef,
         private navigationService: NavigationService,
         private _media: MediaMatcher,
@@ -48,13 +41,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.mobileQuery = _media.matchMedia('(max-width: 600px)');
         this._mobileQueryListener = () => _changeDetectorRef.detectChanges();
         this.mobileQuery.addListener(this._mobileQueryListener);
-
-        this.listenTheme();
-    }
-
-    listenTheme(): void {
-        this.theme$ = this._customizeService.theme;
-        this.theme$.pipe(takeUntil(this.onDestroy$)).subscribe();
     }
 
     ngOnInit(): void { }
@@ -63,15 +49,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
         menu.openMenu();
     }
 
-    logout() {
+    logout(): void {
         localStorage.clear();
         this._router.navigate(['/login']);
     }
 
     ngOnDestroy(): void {
         this.mobileQuery.removeListener(this._mobileQueryListener);
-        this.onDestroy$.next();
-        this.onDestroy$.complete();
     }
 
 }

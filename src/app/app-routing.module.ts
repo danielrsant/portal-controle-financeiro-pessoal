@@ -15,6 +15,7 @@ const routes: Routes = [
       },
       {
         path: '',
+        component: LayoutComponent,
         loadChildren: () => import('./modules/not-auth/not-auth.module').then(m => m.NotAuthModule)
       },
       {

@@ -1,10 +1,21 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnChanges, OnInit, SimpleChanges, OnDestroy } from '@angular/core';
-import { NavigationDropdown, NavigationItem, NavigationLink } from '../../../../shared/interfaces/navigation-item.interface';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, takeUntil } from 'rxjs/operators';
-import { NavigationService } from '../../../../services/navigation.service';
-import { dropdownAnimation } from 'src/app/shared/animations';
 import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
+import { dropdownAnimation } from 'src/app/shared/animations';
+
+import { NavigationService } from '../../../../services/navigation.service';
+import { NavigationDropdown, NavigationItem, NavigationLink } from '../../../../shared/interfaces/navigation-item.interface';
 
 
 @Component({
@@ -27,9 +38,10 @@ export class SidenavItemComponent implements OnInit, OnChanges, OnDestroy {
 
   destroy$ = new Subject();
 
-  constructor(private router: Router,
-              private cd: ChangeDetectorRef,
-              private navigationService: NavigationService) { }
+  constructor(
+    private router: Router,
+    private cd: ChangeDetectorRef,
+    private navigationService: NavigationService) { }
 
   @HostBinding('class')
   get levelClass() {
