@@ -10,7 +10,7 @@ import { trackByRoute } from '../../../shared/utils/track-by';
 
 
 export const ROUTES: any[] = [
-    { route: '/auth/admin', label: 'Administrador', icon: 'user', type: 'dropdown', children: [{ route: '/auth/dashboard', label: 'Dashboard', icon: 'dashboard', type: 'link' }] },
+    { route: '/auth/admin', label: 'Administrador', icon: 'person', type: 'dropdown', children: [{ route: '/auth/dashboard', label: 'Dashboard', icon: 'dashboard', type: 'link' }] },
     { route: '/auth/funcionarios', label: 'Funcionários', icon: 'person', type: 'link' },
     { route: '/table-list', label: 'A fazer', icon: 'content_paste', type: 'link' },
     { route: '/auth/agendamento', label: 'Agendamentos', icon: 'schedule', type: 'link' },

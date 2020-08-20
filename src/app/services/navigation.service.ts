@@ -5,7 +5,6 @@ import {
   NavigationDropdown,
   NavigationItem,
   NavigationLink,
-  NavigationSubheading,
 } from '../shared/interfaces/navigation-item.interface';
 
 @Injectable({
@@ -32,7 +31,4 @@ export class NavigationService {
     return item.type === 'dropdown';
   }
 
-  isSubheading(item: NavigationItem): item is NavigationSubheading {
-    return item.type === 'subheading';
-  }
 }

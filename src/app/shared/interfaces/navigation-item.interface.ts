@@ -1,4 +1,4 @@
-export type NavigationItem = NavigationLink | NavigationDropdown | NavigationSubheading;
+export type NavigationItem = NavigationLink | NavigationDropdown;
 
 export interface NavigationLink {
   type: 'link';
@@ -24,10 +24,4 @@ export interface NavigationDropdown {
     bgClass: string;
     textClass: string;
   };
-}
-
-export interface NavigationSubheading {
-  type: 'subheading';
-  label: string;
-  children: Array<NavigationLink | NavigationDropdown>;
 }

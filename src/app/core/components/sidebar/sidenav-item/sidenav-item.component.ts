@@ -24,7 +24,6 @@ export class SidenavItemComponent implements OnInit, OnChanges, OnDestroy {
 
   isLink = this.navigationService.isLink;
   isDropdown = this.navigationService.isDropdown;
-  isSubheading = this.navigationService.isSubheading;
 
   destroy$ = new Subject();
 
