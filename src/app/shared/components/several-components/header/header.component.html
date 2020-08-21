@@ -1,9 +1,4 @@
-<header class="header" [ngClass]="{
-    'purple': (!(theme$ | async) || (theme$ | async) === 'light' || (theme$ | async) === 'dark'), 
-    'blue': ((theme$ | async) === 'light-blue' || (theme$ | async) === 'dark-blue'), 
-    'green': ((theme$ | async) === 'light-teal' || (theme$ | async) === 'dark-teal') }"  [ngClass]="{'bg-color': bgImage}" [ngStyle]="{ height: height }">
-
-    <div fxFlex [ngClass]="{'bg': bgImage}" class="bg"></div>
+<header class="header" [ngStyle]="{ height: height }">
 
     <div fxFlex fxLayout="column" class="wrapper">
         <div fxFlex fxLayout="row" class="content">

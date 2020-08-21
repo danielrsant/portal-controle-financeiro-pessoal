@@ -1,8 +1,8 @@
 <div>
 
-  <div class="card overflow-auto -mt-16">
-    <div class="bg-app-bar px-6 h-16 border-b sticky left-0" fxLayout="row" fxLayoutAlign="start center">
-      <h2 class="title my-0 ltr:pr-4 rtl:pl-4 ltr:mr-4 rtl:ml-4 ltr:border-r rtl:border-l" fxFlex="none" fxHide.xs>
+  <div class="card overflow-auto -mt-16 mat-elevation-z3">
+    <div class="bg-app-bar sticky" fxLayout="row" fxLayoutAlign="start center">
+      <h2 class="title" fxFlex="none" fxHide.xs>
         <span *ngIf="selection.isEmpty()">{{ title }}</span>
         <span *ngIf="selection.hasValue()">{{ selection.selected.length }}
           <span *ngIf="selection.selected.length <= 1">{{ 'COMMON.REGISTER' | lowercase }}</span>
@@ -11,38 +11,37 @@
         </span>
       </h2>
 
-      <div *ngIf="selection.hasValue()" class="mr-4 pr-4 border-r" fxFlex="none">
+      <div *ngIf="selection.hasValue()" fxFlex="none">
         <button *ngFor="let button of config.options?.selectionButtons" color="primary" mat-icon-button
           [matTooltip]=" button.title " type="button" (click)="button.function(selection.selected)">
           <mat-icon>{{ button.icon }}</mat-icon>
         </button>
       </div>
 
-      <div class="bg-card rounded-full border px-4" fxFlex="400px" fxFlex.lt-md="auto" fxHide.xs fxLayout="row"
+      <div class="input-card" fxFlex="400px" fxFlex.lt-md="auto" fxHide.xs fxLayout="row"
         fxLayoutAlign="start center">
-        <mat-icon size="20px">{{ icSearch }}</mat-icon>
-        <input [formControl]="searchCtrl" class="px-4 py-3 border-0 outline-none w-full bg-transparent"
-          [placeholder]="('COMMON.SEARCH') + '...'" type="search">
+        <mat-icon size="20px">search</mat-icon>
+        <input class="input-search" [formControl]="searchCtrl" [placeholder]="'Pesquisar...'" type="search">
       </div>
 
       <span fxFlex></span>
 
-      <button class="ml-4" fxFlex="none" fxHide.gt-xs mat-icon-button type="button">
-        <mat-icon>{{ icSearch }}</mat-icon>
+      <button class="btn-table" fxFlex="none" fxHide.gt-xs mat-icon-button type="button">
+        <mat-icon>search</mat-icon>
       </button>
 
-      <button [matMenuTriggerFor]="columnFilterMenu" class="ml-4" fxFlex="none" mat-icon-button
-        [matTooltip]="'BUTTON.FILTER_COLUMNS'" type="button">
-        <mat-icon>{{ icFilterList }}</mat-icon>
+      <button [matMenuTriggerFor]="columnFilterMenu" class="btn-table" fxFlex="none" mat-icon-button [matTooltip]="'Colunas'"
+        type="button">
+        <mat-icon>filter_list</mat-icon>
       </button>
 
-      <button (click)="onCreate()" class="ml-4" color="primary" fxFlex="none" mat-mini-fab
-        [matTooltip]="'BUTTON.ADD'" type="button">
-        <mat-icon>{{ icAdd }}</mat-icon>
+      <button (click)="onCreate()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab [matTooltip]="'Adicionar'"
+        type="button">
+        <mat-icon>add</mat-icon>
       </button>
-      <button (click)="onRefresh()" class="ml-4" color="primary" fxFlex="none" mat-mini-fab
-        [matTooltip]="'BUTTON.REFRESH'" type="button">
-        <mat-icon>{{ icRefresh }}</mat-icon>
+      <button (click)="onRefresh()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab [matTooltip]="'Atualizar'"
+        type="button">
+        <mat-icon>refresh</mat-icon>
       </button>
     </div>
 
@@ -82,7 +81,7 @@
           <ng-container *ngIf="column.type === 'color'" [matColumnDef]="column.property">
             <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label }}</th>
             <td *matCellDef="let row" class="w-8 min-w-8 pr-0" mat-cell>
-              <mat-icon [color]="row[column.property]">{{ icColor }}</mat-icon>
+              <mat-icon [color]="row[column.property]">colorize</mat-icon>
             </td>
           </ng-container>
 
@@ -92,24 +91,33 @@
             <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property] }}</td>
           </ng-container>
 
-        </ng-container>
-
-        <!-- Action Column -->
-        <ng-container matColumnDef="actions">
-          <th *matHeaderCellDef></th>
-          <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
-            <button (click)="$event.stopPropagation()" *ngIf="row.actions && row.actions.length > 0"
-              [matMenuTriggerFor]="actionsMenu" mat-icon-button type="button">
-              <mat-icon>{{ icMoreHoriz}} </mat-icon>
-            </button>
-
-            <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
-              <button mat-menu-item *ngFor="let button of row.actions || []" (click)="button.function(row)">
-                <mat-icon>{{ button.icon }}</mat-icon>
-                <span>{{ button.title }}</span>
+          <!-- Actions Column -->
+          <ng-container *ngIf="column.type === 'actions'" [matColumnDef]="column.property">
+            <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label }}</th>
+            <td mat-cell *matCellDef="let element" class="right-align">
+              <button mat-icon-button [matMenuTriggerFor]="moreMenu" (click)="$event.stopPropagation();">
+                <mat-icon>more_vert</mat-icon>
               </button>
-            </mat-menu>
-          </td>
+
+              <mat-menu #moreMenu="matMenu">
+                <button mat-menu-item (click)="onActions(element)" *ngIf="isViewed">
+                  <mat-icon class="fs-20">remove_red_eye</mat-icon>
+                  <span class="fs-12">Detalhar</span>
+                </button>
+
+                <button mat-menu-item (click)="onActions(element)" *ngIf="isViewed">
+                  <mat-icon class="fs-20">edit</mat-icon>
+                  <span class="fs-12">Alterar</span>
+                </button>
+
+                <button mat-menu-item (click)="onActions(element)" *ngIf="isDeleted">
+                  <mat-icon class="fs-20">delete</mat-icon>
+                  <span class="fs-12">Excluir</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+
         </ng-container>
 
         <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
@@ -118,12 +126,12 @@
 
       </table>
       <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex" [length]="length"
-        class="sticky left-0">
+        class="sticky footer-paginator">
       </mat-paginator>
 
     </div>
     <div *ngIf="dataSource.filteredData.length == 0" class="w-full empty-list">
-      <mat-icon size="26px" class="mr-5">{{ icEmptyList }}</mat-icon>
+      <mat-icon size="26px" class="mr-5">empty_list</mat-icon>
       {{ 'COMMON.NO_RECORD_FOUND' | uppercase }}
     </div>
   </div>

@@ -10,11 +10,15 @@ const routes: Routes = [
         path: 'test',
         // canActivate: [AuthGuard],
         loadChildren: () => import('./test/test.module').then(m => m.TestModule)
-      }, 
+      },
       // {
       //   path: 'agendamento',
       //   loadChildren: () => import('./schedule/schedule.module').then(m => m.ScheduleModule)
       // },
+      {
+        path: 'tabela',
+        loadChildren: () => import('./forum-categories/forum-categories.module').then(m => m.ForumCategoriesModule)
+      },
       {
         path: 'agendamento',
         loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarModule)
