@@ -1,8 +1,5 @@
 <mat-card class="content">
-    <div class="content-header" [ngClass]="{
-    'purple': (!(theme$ | async) || (theme$ | async) === 'light' || (theme$ | async) === 'dark'), 
-    'blue': ((theme$ | async) === 'light-blue' || (theme$ | async) === 'dark-blue'), 
-    'green': ((theme$ | async) === 'light-teal' || (theme$ | async) === 'dark-teal') }">
+    <div class="content-header">
         <h4 class="content-title">{{ title }}</h4>
         <p class="content-subtitle">{{ subtitle }}</p>
     </div>

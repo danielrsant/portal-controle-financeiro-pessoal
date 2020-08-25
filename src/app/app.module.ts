@@ -8,14 +8,14 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { LayoutsComponent } from './layouts/layouts.component';
+import { LayoutComponent } from './layout/layout.component';
 import { LoadingModule } from './shared/components/several-components/loading/loading.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutsComponent
+    LayoutComponent
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -28,15 +27,11 @@ import { HeaderComponent } from './header/header.component';
   imports: [
     CommonModule,
     RouterModule,
-
     ReactiveFormsModule,
     FormsModule,
-    
     MaterialModule,
     FlexLayoutModule,
-  
     NgxMatSelectSearchModule,
-    NgxDatatableModule,
     NgxMaskModule.forRoot(),
   ],
   exports: [

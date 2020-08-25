@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomizeService {
-  
+
   private dataSource = new BehaviorSubject<any>(localStorage.getItem('theme'));
   theme = this.dataSource.asObservable();
 

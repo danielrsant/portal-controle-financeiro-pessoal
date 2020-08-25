@@ -45,36 +45,18 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
   @Input() columns: TableColumn<any>[] = [];
   @Input() title: string;
 
+  @Input() isViewed = true;
+  @Input() isUpdated = true;
+  @Input() isDeleted = true;
+
   @Output() refresh = new EventEmitter();
   @Output() clickRow = new EventEmitter();
   @Output() search = new EventEmitter();
   @Output() create = new EventEmitter();
 
-  dataSource: MatTableDataSource<{
-    actions?: {
-      title: string,
-      icon: any,
-      function: (row: any) => {}
-    }
-  }>;
+  dataSource: MatTableDataSource<{}>;
   actualDirection: string;
   actualActive: string;
-
-  // Icons
-  icPhone = 'smartphone';
-  icMail = 'mail';
-  icMap = 'map';
-  icEdit = 'edit';
-  icSearch = 'search';
-  icDelete = 'delete';
-  icAdd = 'add';
-  icFilterList = 'filter_list';
-  icMoreHoriz = 'more_horiz';
-  icFolder = 'folder';
-  icEmptyList = 'empty_list';
-  icRefresh = 'refresh';
-  icColor = 'colorize';
-  //
 
   length = 0;
   pageSize = 10;
@@ -91,7 +73,6 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private _changesDetector: ChangeDetectorRef,
-    public translate: TranslateService,
     private _utilsService: UtilsService
   ) {
     this._utilsService.paginatorWasChanged.subscribe(() => {
@@ -233,6 +214,11 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
     } else {
       this.selection.clear()
     }
+  }
+
+  onActions(data) {
+    console.log(data);
+    
   }
 
 

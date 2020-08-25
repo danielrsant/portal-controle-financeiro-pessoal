@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidenavItemComponent } from './sidebar/sidenav-item/sidenav-item.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     SharedModule
   ],
   declarations: [
-    SidebarComponent
+    SidebarComponent,
+    SidenavItemComponent
   ],
   exports: [
     SidebarComponent

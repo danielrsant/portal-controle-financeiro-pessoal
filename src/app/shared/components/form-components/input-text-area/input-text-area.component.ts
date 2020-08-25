@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
-  selector: 'app-text-area',
-  templateUrl: './text-area.component.html',
-  styleUrls: ['./text-area.component.scss']
+  selector: 'app-input-text-area',
+  templateUrl: './input-text-area.component.html',
+  styleUrls: ['./input-text-area.component.scss']
 })
-export class TextAreaComponent implements OnInit {
+export class InputTextAreaComponent implements OnInit {
 
   @Input() formGroup: FormGroup;
   @Input() formcontrolname: string;

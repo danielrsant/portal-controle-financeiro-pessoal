@@ -6,3 +6,66 @@
   align-items: center;
   min-height: 300px;
 }
+
+.title {
+    margin-bottom: 0px;
+    margin-left: 10px;
+    font-size: 22px;
+}
+
+.input-search {
+  height: 40px;
+  width: 250px;
+  border-radius: 9999px;
+  border-width: 0px;
+  outline: 0;
+  margin-left: 10px;
+}
+
+.card {
+  border-radius: .25rem;
+  // box-shadow: var(--elevation-z8);
+  background-color: white;
+}
+
+.bg-app-bar {
+  background-color: #ebebee;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  height: 4rem;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.btn-table {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.input-card {
+  background-color: white !important;
+  padding-left: 1rem;
+  border-radius: 40px;
+  margin-left: 20px;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.footer-paginator {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

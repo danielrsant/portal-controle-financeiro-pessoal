@@ -5,21 +5,13 @@
         <mat-sidenav #nav class="sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'">
 
             <div class="navbar-wrapper">
-                <div class="navbar-brand">AGENDA10</div>
+                <div class="navbar-brand">SISTEMA FINANCEIRO</div>
             </div>
 
-            <mat-nav-list *ngFor="let route of menus; let i = index">
-                <a class="nav-link" class="nav-item"
-                    [ngClass]="{'item-activated': selectedItem == i, 
-                    'purple': (!(theme$ | async) || (theme$ | async) === 'dark') && selectedItem == i, 
-                    'blue': ((theme$ | async) === 'light-blue' || (theme$ | async) === 'dark-blue') && selectedItem == i, 
-                    'green': ((theme$ | async) === 'light-teal' || (theme$ | async) === 'dark-teal') && selectedItem == i }"
-                    (click)="selectedItem = i" [routerLink]="route.path" [routerLinkActive]="['active', 'accent']"
-                    [routerLinkActiveOptions]="{exact: true}">
-                    <mat-icon class="icon">{{ route?.icon }}</mat-icon>
-                    <span class="description">{{ route?.title }}</span>
-                </a>
-            </mat-nav-list>
+            <div class="menu">
+                <app-sidenav-item *ngFor="let item of items; trackBy: trackByRoute" [item]="item" [level]="0">
+                </app-sidenav-item>
+            </div>
         </mat-sidenav>
 
         <mat-sidenav-content>
@@ -27,7 +19,7 @@
                 <button mat-icon-button (click)="nav.toggle()">
                     <mat-icon>menu</mat-icon>
                 </button>
-                <h1>AGENDA 10</h1>
+                <h1>FINANÇAS</h1>
                 <span class="user">
                     <button #userTrigger="matMenuTrigger" mat-icon-button [matMenuTriggerFor]="menu">
                         <mat-icon (mouseover)="openUserOptions(userTrigger)">person</mat-icon>
@@ -48,8 +40,10 @@
                     </mat-menu>
                 </span>
             </mat-toolbar>
+
             <ng-content>
             </ng-content>
+            
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
