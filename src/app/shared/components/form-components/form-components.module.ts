@@ -25,7 +25,7 @@ import { InputTagComponent } from './input-tag/input-tag.component';
 import { InputTextCpfCnpjComponent } from './input-text-cpf-cnpj/input-text-cpf-cnpj.component';
 import { InputTextComponent } from './input-text/input-text.component';
 import { InputToggleComponent } from './input-toggle/input-toggle.component';
-import { TextAreaComponent } from './text-area/text-area.component';
+import { InputTextAreaComponent } from './input-text-area/input-text-area.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { TextAreaComponent } from './text-area/text-area.component';
     InputSelectMultipleComponent,
     InputToggleComponent,
     InputTagComponent,
-    TextAreaComponent,
+    InputTextAreaComponent,
     InputNumberComponent,
     InputDatepickerComponent,
     InputDatepickerRangeComponent,
@@ -71,7 +71,7 @@ import { TextAreaComponent } from './text-area/text-area.component';
     InputSelectMultipleComponent,
     InputToggleComponent,
     InputTagComponent,
-    TextAreaComponent,
+    InputTextAreaComponent,
     InputNumberComponent,
     InputDatepickerComponent,
     InputDatepickerRangeComponent,
