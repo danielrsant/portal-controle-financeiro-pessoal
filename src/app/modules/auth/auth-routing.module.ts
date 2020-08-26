@@ -6,18 +6,13 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {
-        path: 'test',
-        // canActivate: [AuthGuard],
-        loadChildren: () => import('./test/test.module').then(m => m.TestModule)
-      },
       // {
       //   path: 'agendamento',
       //   loadChildren: () => import('./schedule/schedule.module').then(m => m.ScheduleModule)
       // },
       {
-        path: 'tabela',
-        loadChildren: () => import('./forum-categories/forum-categories.module').then(m => m.ForumCategoriesModule)
+        path: 'exemplo',
+        loadChildren: () => import('./example-page/example-page.module').then(m => m.ExamplePageModule)
       },
       {
         path: 'agendamento',

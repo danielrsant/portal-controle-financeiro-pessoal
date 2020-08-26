@@ -1,7 +1,8 @@
 @import "@angular/material/_theming.scss";
 @import "./partials/_mixins.scss";
 
-$sidenav-background: #1a202e !default;
+$sidenav-background: #303030 !default;
+// $sidenav-background: #1a202e !default;
 
 $config: mat-typography-config(
   $display-4: mat-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
@@ -76,10 +77,18 @@ $theme: (
   background: map_merge($mat-light-theme-background, $theme-background),
 ) !default;
 
+// $dark-theme-background: (
+//   background: lighten($sidenav-background, 5),
+//   card: $sidenav-background,
+//   app-bar: darken($sidenav-background, 5),
+//   dialog: $sidenav-background,
+//   status-bar: darken($sidenav-background, 5)
+// ) !default;
+
 $dark-theme-background: (
-  background: lighten($sidenav-background, 5),
-  card: $sidenav-background,
-  app-bar: darken($sidenav-background, 5),
+  background: $sidenav-background,
+  card: lighten($sidenav-background, 5.5),
+  app-bar: $sidenav-background,
   dialog: $sidenav-background,
   status-bar: darken($sidenav-background, 5)
 ) !default;

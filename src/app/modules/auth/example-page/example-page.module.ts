@@ -12,7 +12,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ 
+  declarations: [
     ViewComponent,
   ],
   imports: [
@@ -21,4 +21,4 @@ const routes: Routes = [
     RouterModule.forChild(routes),
   ],
 })
-export class ForumCategoriesModule { }
+export class ExamplePageModule { }

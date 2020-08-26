@@ -9,13 +9,13 @@
   --padding-4: 0.25rem;
 
   --color-primary: 63, 81, 181;
-  --color-primary-contrast: 255, 255, 255; 
+  --color-primary-contrast: 0, 0, 0; 
 
   --color-accent: 255, 64, 129;
-  --color-accent-contrast: 255, 255, 255;
+  --color-accent-contrast: 0, 0, 0;
 
   --color-warn: 244, 67, 54;
-  --color-warn-contrast: 255, 255, 255;
+  --color-warn-contrast: 0, 0, 0;
 
   @screen lg {
     --padding-gutter: 1.5rem;

@@ -13,6 +13,7 @@ export const ROUTES: any[] = [
     { route: '/auth/agendamento', label: 'Agendamentos', icon: 'schedule', type: 'link' },
     { route: '/typography', label: 'Documentos', icon: 'library_books', type: 'link' },
     { route: '/customizar', label: 'Configurações', icon: 'bubble_chart', type: 'link' },
+    { route: '/auth/exemplo', label: 'Tela de Exemplo', icon: 'bubble_chart', type: 'link' },
     { route: '/notifications', label: 'Notificações', icon: 'notifications', type: 'link' },
 ];
 

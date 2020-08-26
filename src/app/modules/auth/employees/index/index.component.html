@@ -2,95 +2,98 @@
 
     <app-header [backPage]="true" title="Funcionários" [btn]="'SALVAR'"></app-header>
 
-    <mat-card class="content-page"></mat-card>
+    <mat-card fxFlex fxLayout="column" class="content-page">
+        <app-card title="Funcionários" subtitle="Administração de seus funcionários">
+        </app-card>
 
-    <app-card title="Funcionários" subtitle="Administração de seus funcionários">
-        <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
-            fxLayoutAlign="space-between">
-            <app-input-text fxFlex [formGroup]="form" formcontrolname="name" label="Nome" maxLength="40">
-            </app-input-text>
+            <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
+                fxLayoutAlign="space-between">
+                <app-input-text fxFlex [formGroup]="form" formcontrolname="name" label="Nome" maxLength="40">
+                </app-input-text>
+    
+                <app-input-text fxFlex [formGroup]="form" formcontrolname="lastName" label="Sobrenome" maxLength="40">
+                </app-input-text>
+            </div>
+    
+            <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
+                fxLayoutAlign="space-between">
+                <app-input-email fxFlex [formGroup]="form" formcontrolname="email" label="E-mail" maxLength="120">
+                </app-input-email>
+    
+                <app-input-password fxFlex [formGroup]="form" formcontrolname="lastName" label="Senha Padrão"
+                    maxLength="120">
+                </app-input-password>
+            </div>
+    
+            <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
+                fxLayoutAlign="space-between">
+                <app-input-text fxFlex [formGroup]="form" formcontrolname="cpf" label="CPF" mask="000.000.000-00"
+                    maxLength="14">
+                </app-input-text>
+    
+                <app-input-datepicker fxFlex [formGroup]="form" formcontrolname="dtBirthday" label="Data de Nascimento"
+                    [max]="dtToday" maxLength="10">
+                </app-input-datepicker>
+    
+                <app-input-text fxFlex [formGroup]="form" formcontrolname="cellPhone" label="Telefone (celular)"
+                    mask="(00) 00000-0000" maxLength="15">
+                </app-input-text>
+            </div>
+    
+            <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
+                fxLayoutAlign="space-between">
+                <app-input-text fxFlex="66" [formGroup]="formLocalities" formcontrolname="zipCode" label="CEP"
+                    placeholder="CEP" mask="00000-000" maxLength="9"
+                    (keyup)="$event.length === 8 ? getZiCodeData($event) : ''">
+                </app-input-text>
+    
+                <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="telephone" label="Telefone (Fixo)"
+                    mask="(00) 0000-0000" maxLength="14">
+                </app-input-text>
+            </div>
+    
+            <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
+                fxLayoutAlign="space-between">
+                <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="street" label="Rua" placeholder="Rua">
+                </app-input-text>
+    
+                <app-input-number fxFlex [formGroup]="formLocalities" formcontrolname="numAddress" label="Número"
+                    placeholder="Número" [min]="1">
+                </app-input-number>
+    
+                <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="complement" label="Complemento"
+                    placeholder="Complemento" maxLength="30">
+                </app-input-text>
+            </div>
+    
+            <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
+                fxLayoutAlign="space-between">
+                <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="city" label="Cidade"
+                    placeholder="Cidade">
+                </app-input-text>
+    
+                <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="uf" label="Estado"
+                    placeholder="Estado">
+                </app-input-text>
+    
+                <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="neighborhood" label="Bairro"
+                    placeholder="Bairro">
+                </app-input-text>
+            </div>
+    
+            <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
+                fxLayoutAlign="space-between">
+                <!-- <app-input-select fxFlex [data]="profiles" valueField="id" displayField="name" [formGroup]="formProfile"
+                    formcontrolname="id" label="Perfil de Acesso" placeholder="Perfil de Acesso"></app-input-select> -->
+            </div>
+    
+            <div fxFlex fxLayout="row" fxLayoutAlign="end center">
+                <button fxFlex.xs="100" mat-raised-button color="primary">
+                    <span>Salvar</span>
+                </button>
+            </div>
+    </mat-card>
 
-            <app-input-text fxFlex [formGroup]="form" formcontrolname="lastName" label="Sobrenome" maxLength="40">
-            </app-input-text>
-        </div>
-
-        <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
-            fxLayoutAlign="space-between">
-            <app-input-email fxFlex [formGroup]="form" formcontrolname="email" label="E-mail" maxLength="120">
-            </app-input-email>
-
-            <app-input-password fxFlex [formGroup]="form" formcontrolname="lastName" label="Senha Padrão"
-                maxLength="120">
-            </app-input-password>
-        </div>
-
-        <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
-            fxLayoutAlign="space-between">
-            <app-input-text fxFlex [formGroup]="form" formcontrolname="cpf" label="CPF" mask="000.000.000-00"
-                maxLength="14">
-            </app-input-text>
-
-            <app-input-datepicker fxFlex [formGroup]="form" formcontrolname="dtBirthday" label="Data de Nascimento"
-                [max]="dtToday" maxLength="10">
-            </app-input-datepicker>
-
-            <app-input-text fxFlex [formGroup]="form" formcontrolname="cellPhone" label="Telefone (celular)"
-                mask="(00) 00000-0000" maxLength="15">
-            </app-input-text>
-        </div>
-
-        <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
-            fxLayoutAlign="space-between">
-            <app-input-text fxFlex="66" [formGroup]="formLocalities" formcontrolname="zipCode" label="CEP"
-                placeholder="CEP" mask="00000-000" maxLength="9"
-                (keyup)="$event.length === 8 ? getZiCodeData($event) : ''">
-            </app-input-text>
-
-            <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="telephone" label="Telefone (Fixo)"
-                mask="(00) 0000-0000" maxLength="14">
-            </app-input-text>
-        </div>
-
-        <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
-            fxLayoutAlign="space-between">
-            <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="street" label="Rua" placeholder="Rua">
-            </app-input-text>
-
-            <app-input-number fxFlex [formGroup]="formLocalities" formcontrolname="numAddress" label="Número"
-                placeholder="Número" [min]="1">
-            </app-input-number>
-
-            <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="complement" label="Complemento"
-                placeholder="Complemento" maxLength="30">
-            </app-input-text>
-        </div>
-
-        <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
-            fxLayoutAlign="space-between">
-            <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="city" label="Cidade"
-                placeholder="Cidade">
-            </app-input-text>
-
-            <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="uf" label="Estado"
-                placeholder="Estado">
-            </app-input-text>
-
-            <app-input-text fxFlex [formGroup]="formLocalities" formcontrolname="neighborhood" label="Bairro"
-                placeholder="Bairro">
-            </app-input-text>
-        </div>
-
-        <div fxFlex fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="-20px"
-            fxLayoutAlign="space-between">
-            <!-- <app-input-select fxFlex [data]="profiles" valueField="id" displayField="name" [formGroup]="formProfile"
-                formcontrolname="id" label="Perfil de Acesso" placeholder="Perfil de Acesso"></app-input-select> -->
-        </div>
-
-        <div fxFlex fxLayout="row" fxLayoutAlign="end center">
-            <button fxFlex.xs="100" mat-raised-button color="primary">
-                <span>Salvar</span>
-            </button>
-        </div>
-    </app-card>
+    
 
 </div>
