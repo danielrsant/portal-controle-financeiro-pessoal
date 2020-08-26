@@ -1,14 +1,7 @@
-@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
-@import "themes";
+@import "./assets/styles/core";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-// Variaveis global
-:root {
-  --color-primary: 92, 119, 255;
-  --color-primary-contrast: 255, 255, 255;
-}
 
 .content-page {
     padding: 20px !important;

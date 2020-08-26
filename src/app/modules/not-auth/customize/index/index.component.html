@@ -2,9 +2,8 @@
     <app-card>
         <div fxFlex fxLayout="column">
 
-            <div *ngIf="selectedStyle$ | async as selectedStyle"
-                (click)="selectedStyle === Style.dark ? disableDarkMode() : enableDarkMode()">
-                <button mat-raised-button>
+            <div *ngIf="selectedStyle$ | async as selectedStyle">
+                <button mat-raised-button (click)="selectedStyle === Style.dark ? disableDarkMode() : enableDarkMode()">
                     TROCAR PARA O MODO {{ selectedStyle === Style.dark ? 'CLARO' : 'ESCURO' }}
                 </button>
             </div>

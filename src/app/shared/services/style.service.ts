@@ -7,6 +7,7 @@ import { ColorVariable } from '../utils/color-variables';
 
 export enum Style {
   light = 'style-light',
+  default = 'style-default',
   dark = 'style-dark'
 }
 
@@ -15,7 +16,7 @@ export enum Style {
 })
 export class StyleService implements OnDestroy {
 
-  defaultStyle = Style.light;
+  defaultStyle = Style.default;
 
   private _styleSubject = new BehaviorSubject<Style>(this.defaultStyle);
   style$ = this._styleSubject.asObservable();
@@ -28,12 +29,14 @@ export class StyleService implements OnDestroy {
 
   setColor(color: ColorVariable) {
     if (this.document) {
+      localStorage.setItem('theme-color', JSON.stringify(color));
       this.document.documentElement.style.setProperty('--color-primary', color.default.replace('rgb(', '').replace(')', ''));
       this.document.documentElement.style.setProperty('--color-primary-contrast', color.contrast.replace('rgb(', '').replace(')', ''));
     }
   }
 
   setStyle(style: Style) {
+    localStorage.setItem('theme-type', JSON.stringify(style));
     this._styleSubject.next(style);
   }
 
