@@ -8,7 +8,7 @@ import { sharedAnimations } from 'src/app/shared/animations';
 import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
 
 @Component({
-    selector: 'reset-password',
+    selector: 'app-reset-password',
     templateUrl: './reset-password.component.html',
     styleUrls: ['./reset-password.component.scss'],
     animations: sharedAnimations

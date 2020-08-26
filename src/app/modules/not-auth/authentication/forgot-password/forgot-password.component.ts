@@ -6,7 +6,7 @@ import { sharedAnimations } from 'src/app/shared/animations';
 import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
 
 @Component({
-    selector: 'forgot-password',
+    selector: 'app-forgot-password',
     templateUrl: './forgot-password.component.html',
     styleUrls: ['./forgot-password.component.scss'],
     animations: sharedAnimations
