@@ -8,7 +8,7 @@ import { sharedAnimations } from 'src/app/shared/animations';
 import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
 
 @Component({
-    selector: 'login',
+    selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
     animations: sharedAnimations
