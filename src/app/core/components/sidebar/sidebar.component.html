@@ -5,9 +5,20 @@
         <mat-sidenav #nav class="sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'">
 
             <div class="navbar-wrapper">
-                <div class="navbar-brand">SISTEMA FINANCEIRO</div>
+                <div class="navbar-brand">
+                    <mat-icon>monetization_on</mat-icon>
+                    <div class="title">Financys</div>
+                </div>
                 <div>
-                    <img class="logo" src="assets/images/profile.png">
+                    <img class="logo" src="assets/images/profile.jpg">
+                </div>
+                <div class="user-info"> 
+                    <div class="name">
+                        <h4>Daniel Rosa</h4>
+                    </div>
+                    <div class="email">
+                        <h5>danrsant14@gmail.com</h5>
+                    </div>
                 </div>
             </div>
 
@@ -25,10 +36,10 @@
                 </button>
                 <h1>FINANÇAS</h1>
                 <span class="user">
-                    <button #userTrigger="matMenuTrigger" mat-icon-button [matMenuTriggerFor]="menu">
-                        <mat-icon (mouseover)="openUserOptions(userTrigger)">person</mat-icon>
+                    <button #menuUser mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon (click)="openUserOptions(menuUser)">person</mat-icon>
                     </button>
-                    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+                    <mat-menu #menu="matMenu">
                         <button mat-menu-item>
                             <mat-icon>people_outline</mat-icon>
                             <span>Teste</span>
