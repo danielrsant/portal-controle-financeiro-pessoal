@@ -3,9 +3,7 @@
   flex-direction: row;
   box-sizing: border-box;
   height: 200px;
-
   position: relative;
-  z-index: -1;
 
   background-color: rgba(var(--color-primary));
 
@@ -36,7 +34,6 @@
   }
 
   .btn {
-    background-color: #2D323E;
     color: white;
   }
 
@@ -45,6 +42,10 @@
     height: 135px;
   }
  
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .header .bg {

@@ -1,4 +1,18 @@
+.label {
+    margin-right: 10px;
+    color: #666666;
+}
 .wrapper {
     align-self: center;
     height: 45px;
+}
+
+.mat-slide-toggle-label {
+    display: flex !important;
+    flex: 1 !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    height: inherit !important;
+    cursor: pointer !important;
+    justify-content: center !important;
 }

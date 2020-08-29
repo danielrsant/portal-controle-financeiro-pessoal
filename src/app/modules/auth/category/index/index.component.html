@@ -1,0 +1,16 @@
+<app-header [title]="'Usuários'">
+</app-header>
+
+<div class="content-page">
+    <app-data-table 
+        [title]="'Usuários'" 
+        [selection]="selection" 
+        [data]="dataSource" 
+        [columns]="columns"
+        [config]="configuration" 
+        (create)="onCreate()" 
+        (clickRow)="onView($event)" 
+        (refresh)="onRefresh($event)"
+        (search)="onSearch($event)">
+    </app-data-table>
+</div>

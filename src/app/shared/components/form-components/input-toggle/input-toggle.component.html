@@ -1,7 +1,8 @@
-<div [formGroup]="formGroup" class="wrapper" fxFlex="100">
+<div [formGroup]="formGroup" class="wrapper" fxFlex="100" fxLayout="column">
 
-    <mat-slide-toggle [formControlName]="formcontrolname" (change)="setValue($event)">{{ label }}
-        {{ checkRequired() ? ' *' : '' }}
+    <mat-label class="label">{{ label }} {{ checkRequired() ? ' *' : '' }}</mat-label>
+    <mat-slide-toggle [formControlName]="formcontrolname" (change)="setValue($event)">
+        {{ formGroup?.get(formcontrolname).value ? 'Ativo' : 'Inativo' }}
     </mat-slide-toggle>
 
     <mat-error

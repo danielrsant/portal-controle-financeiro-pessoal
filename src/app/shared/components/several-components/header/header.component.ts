@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { sharedAnimations } from 'src/app/shared/animations';
-import { CustomizeService } from 'src/app/shared/services/customize.service';
+import { Operation } from 'src/app/shared/enums/operation';
 
 @Component({
   selector: 'app-header',
@@ -10,42 +10,41 @@ import { CustomizeService } from 'src/app/shared/services/customize.service';
   styleUrls: ['./header.component.scss'],
   animations: sharedAnimations,
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   @Input() backPage = false;
 
   @Input() title = 'Título';
   @Input() icon: string;
+  @Input() operation: Operation;
 
   @Input() btn: string;
-  @Input() disabled: boolean = null;
+  @Input() btnDisabled = false;
 
   @Input() height = '200px';
   @Input() bgImage = false;
 
-  @Output() backBtn = new EventEmitter();
-  @Output() clickBtn = new EventEmitter();
+  @Output() btnClick = new EventEmitter();
 
-  theme$: Observable<any>;
   onDestroy$ = new Subject<any>();
 
-  constructor(private _customizeService: CustomizeService) { }
+  constructor(
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+  ) { }
 
-  ngOnInit(): void {
-    this.listenTheme();
-  }
-
-  listenTheme(): void {
-    this.theme$ = this._customizeService.theme;
-    this.theme$.pipe(takeUntil(this.onDestroy$)).subscribe();
-  }
-
-  onCancel(): void {
-    this.backBtn.emit();
-  }
+  ngOnInit(): void { }
 
   onClickBtn() {
-    this.clickBtn.emit();
+    this.btnClick.emit();
+  }
+
+  onBackPage(): void {
+    if (this.operation === Operation.NEW) {
+      this._router.navigate(['../'], { relativeTo: this._activatedRoute });
+    } else {
+      this._router.navigate(['../../'], { relativeTo: this._activatedRoute });
+    }
   }
 
   ngOnDestroy(): void {
