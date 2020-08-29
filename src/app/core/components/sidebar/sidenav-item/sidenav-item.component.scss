@@ -8,7 +8,7 @@
   cursor: pointer;
   align-items: center;
   box-sizing: border-box;
-  padding: 0px 20px 0px 0px;
+  padding: 0px 15px 0px 0px;
   user-select: none;
   text-decoration: none;
 
@@ -17,11 +17,11 @@
   }
   
   &:hover {
-    background: hsla(0,0%,87.8%,.2);
+    background: rgba(117, 117, 117, 0.1);
   }
-
+  
   &.active {
-    background: hsla(0,0%,87.8%,.1);
+    background-color: #212939;
 
     .row-item {
       background-color: rgba(var(--color-primary));
