@@ -24,6 +24,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _categoryService: CategoryService
   ) { }
 
+  title = 'Categorias';
+  icon = 'home';
   operation: Operation = Operation.INDEX;
 
   options = {};
