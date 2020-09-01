@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { sharedAnimations } from 'src/app/shared/animations';
 import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-login',
@@ -29,56 +30,30 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.form = new FormGroup({
             email: new FormControl('', [Validators.required, Validators.email, Validators.pattern('^([a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[@][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{2,4}){0,1}$')]),
-            password: new FormControl('', [Validators.required, Validators.minLength(8)])
+            senha: new FormControl('', [Validators.required, Validators.minLength(8)])
         });
     }
 
     onLogin() {
-        // this._loading.show();
-        // this._authenticationService.auth(this.form.value).pipe(takeUntil(this.onDestroy$)).subscribe(response => {
-        //     if (response) {
-        //         const user = response.data.person;
-        //         delete user.id;
-        //         localStorage.setItem('user', JSON.stringify(user));
-        //         localStorage.setItem('token', response.data.accessToken);
-        //         this.verifyPermissions(response.data.accessToken);
-        //     }
-        //     this._loading.hide();
-        // },
-        //     error => {
-        //         this._loading.hide();
-        //         if (error.error.status === 403) {
-        //             this._swalService.error('Dados inválidos!');
-        //         } else {
-        //             if (error.error.error) {
-        //                 this._swalService.error(error.error.error.message);
-        //             } else {
-        //                 this._swalService.error(error.error.message);
-        //             }
-        //         }
-        //     });
+        this._loading.show();
+        this._authenticationService.login(this.form.value.email, this.form.value.senha).pipe(takeUntil(this.onDestroy$)).subscribe(
+            response => {
+            if (response) {
+                console.log(response);
+                localStorage.setItem('user', JSON.stringify(response.data.pessoa));
+                localStorage.setItem('token', response.data.accessToken);
+                this.navigate();
+            }
+            this._loading.hide();
+        },
+            error => {
+                this._loading.hide();
+                console.log(error);
+            });
     }
 
-    verifyPermissions(token) {
-        // this._loading.show();
-        // this._menuService.verifyToken({token}).pipe(takeUntil(this.onDestroy$)).subscribe((response: any) => {
-        //     if (response.tokenStatus) {
-        //         this._menuService.loadByPerson().pipe(takeUntil(this.onDestroy$)).subscribe((response: any) => {
-        //             if (response) {
-        //                 const haveDashboard = response.data.find(element => element.title === 'Dashboard');
-        //                 if (haveDashboard) {
-        //                     this._router.navigate(['../auth/admin/dashboard/servicos']);
-        //                 } else {
-        //                     this._router.navigate(['../home']);
-        //                 }
-        //             }
-        //             this._loading.hide();
-        //         }, error => {
-        //             this._loading.hide();
-        //             this._swalService.error('Erro ao buscar permissões!');
-        //         });
-        //     }
-        // })
+    navigate(): void {
+
     }
 
     openDialog(examples) {

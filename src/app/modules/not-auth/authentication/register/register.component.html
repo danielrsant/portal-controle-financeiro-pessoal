@@ -1,10 +1,10 @@
-<div id="login" class="inner-scroll" fxLayout="row" fxLayoutAlign="start">
+<div id="login" class="inner-scroll" fxLayout="row" fxLayoutAlign="center center">
 
-    <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
+    <!-- <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
 
-        <!-- <div class="logo" [@animate]="{value:'*',params:{scale:'0.2'}}">
+        <div class="logo" [@animate]="{value:'*',params:{scale:'0.2'}}">
             <img width="160" src="assets/images/logo.png">
-        </div> -->
+        </div>
 
         <div class="title" [@animate]="{value:'*',params:{delay:'50ms',y:'25px'}}">
             Bem Vindo ao Sistema Financeiro!
@@ -14,22 +14,22 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper nisl erat,
             vel convallis elit fermentum pellentesque. Sed mollis velit facilisis facilisis viverra.
         </div>
-    </div>
+    </div> -->
 
     <div id="login-form-wrapper" [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}">
 
-        <div id="login-form">
+        <mat-card id="login-form">
 
             <div class="logo">
                 <img width="200" src="assets/images/logo.png">
             </div>
 
-            <div class="title">Crie sua conta aqui</div>
+            <div class="title">CRIE SUA CONTA AQUI</div>
 
             <form name="form" [formGroup]="form" novalidate>
                 <div fxLayout="row" fxLayoutGap="10px">
-                    <app-input-text fxFlex="48" [formGroup]="form" formcontrolname="nome" [label]="'Nome'"></app-input-text>
-                    <app-input-text fxFlex="48" [formGroup]="form" formcontrolname="sobrenome" [label]="'Sobrenome'"></app-input-text>
+                    <app-input-text fxFlex="48" [formGroup]="formPerson" formcontrolname="nome" [label]="'Nome'"></app-input-text>
+                    <app-input-text fxFlex="48" [formGroup]="formPerson" formcontrolname="sobrenome" [label]="'Sobrenome'"></app-input-text>
                 </div>
                 
                 <app-input-email [formGroup]="form" formcontrolname="email"></app-input-email>
@@ -37,9 +37,9 @@
                 <app-input-password [formGroup]="form" formcontrolname="confirmarSenha" 
                 placeholder="Senha (Confirmar)" label="Senha (Confirmar)"></app-input-password>
 
-                <app-input-datepicker [formGroup]="form" formcontrolname="dtNascimento" [label]="'Data de Nascimento'" [max]="dtToday"></app-input-datepicker>
+                <app-input-datepicker [formGroup]="formPerson" formcontrolname="dtNascimento" [label]="'Data de Nascimento'" [max]="dtToday"></app-input-datepicker>
 
-                <button mat-raised-button color="accent" class="submit-button" aria-label="ENTRAR"
+                <button mat-raised-button color="primary" class="submit-button" aria-label="ENTRAR"
                     [disabled]="form.invalid" (click)="onRegister()">
                     CADASTRAR
                 </button>
@@ -51,7 +51,7 @@
 
             </form>
 
-        </div>
+        </mat-card>
         
     </div>
 

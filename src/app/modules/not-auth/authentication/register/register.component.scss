@@ -56,11 +56,11 @@
             #login-form {
                 padding: 2px 48px 48px 48px;
                 background-color: var(--background-base);
-                height: 100%;
 
                 @include media-breakpoint('xs') {
                     text-align: center;
                     padding: 24px;
+                    height: auto;
                 }
 
                 .logo {
@@ -102,7 +102,7 @@
                         }
 
                         .login-text {
-                            font-weight: 500;
+                            font-weight: 600;
                             margin-bottom: 16px;
                             color: rgba(var(--color-primary));
                         }
@@ -121,7 +121,7 @@
 
                 .separator {
                     font-size: 15px;
-                    font-weight: 500;
+                    font-weight: 600;
                     margin: 24px auto;
                     position: relative;
                     overflow: hidden;
@@ -186,9 +186,9 @@
                 .register {
                     margin: 32px auto 24px auto;
                     width: 250px;
-                    font-weight: 500;
-
+                    
                     .text {
+                        font-weight: 600;
                         margin-right: 8px;
                     }
 

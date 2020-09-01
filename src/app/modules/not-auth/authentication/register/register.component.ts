@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { sharedAnimations } from 'src/app/shared/animations';
 import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-register',
@@ -15,6 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
     form: FormGroup;
+    formPerson: FormGroup;
     dtToday = new Date();
 
     onDestroy$ = new Subject<boolean>();
@@ -27,19 +28,23 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.form = new FormGroup({
-            nome: new FormControl(null),
-            sobrenome: new FormControl(null),
-            dtNascimento: new FormControl(null),
             email: new FormControl('', [Validators.required, Validators.email, Validators.pattern('^([a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[@][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{2,4}){0,1}$')]),
             senha: new FormControl('', [Validators.required, Validators.minLength(8)]),
             confirmarSenha: new FormControl('', [Validators.required, confirmPasswordValidator, Validators.minLength(8)]),
             status: new FormControl(1)
         });
+        this.formPerson = new FormGroup({
+            nome: new FormControl(null, Validators.required),
+            sobrenome: new FormControl(null, Validators.required),
+            dtNascimento: new FormControl(null, Validators.required),
+        });
     }
 
     onRegister(): void {
+        const payload = { ...this.form.value,  ...{ pessoa:  this.formPerson.value } };
+        console.log(payload);
         this._loading.show();
-        this._authenticationService.register(this.form.value).pipe(takeUntil(this.onDestroy$)).subscribe(response => {
+        this._authenticationService.register(payload).pipe(takeUntil(this.onDestroy$)).subscribe(response => {
             if (response) {
                 console.log(response);
             }
