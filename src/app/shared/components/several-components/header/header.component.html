@@ -1,10 +1,9 @@
-<header class="header" [ngStyle]="{ height: height }">
-
+<div class="header" [ngStyle]="{ height: height }">
     <div fxFlex fxLayout="column" class="wrapper">
         <div fxFlex fxLayout="row" class="content">
             <ng-container>
                 <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-                    <button *ngIf="backPage" mat-icon-button>
+                    <button *ngIf="backPage" mat-icon-button class="pointer" (click)="onBackPage()">
                         <mat-icon class="icon">arrow_back</mat-icon>
                     </button>
                 </div>
@@ -15,7 +14,7 @@
                 </div>
 
                 <div fxFlex fxLayout="row" fxLayoutAlign="end center">
-                    <button *ngIf="btn" class="btn" [disabled]="disabled" mat-raised-button (click)="onClickBtn()">
+                    <button color="accent" *ngIf="btn" class="btn pointer" [disabled]="btnDisabled" mat-raised-button (click)="onClickBtn()">
                         <span>{{ btn }}</span>
                     </button>
                 </div>
@@ -26,4 +25,4 @@
             <ng-content></ng-content>
         </div>
     </div>
-</header>
+</div>
