@@ -31,6 +31,10 @@ const routes: Routes = [
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
       {
+        path: 'categorias',
+        loadChildren: () => import('./category/category.module').then(m => m.CategoryModule)
+      },
+      {
         path: 'erro',
         loadChildren: () => import('../errors/404/error-404.module').then(m => m.Error404Module)
       },
