@@ -27,7 +27,7 @@ export class InputSelectComponent implements OnInit, OnDestroy {
 
   @Input() optionClear: boolean = true;
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   @Output() search = new EventEmitter();
   @Output() select = new EventEmitter();

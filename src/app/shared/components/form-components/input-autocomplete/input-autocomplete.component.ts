@@ -24,7 +24,7 @@ export class InputAutocompleteComponent implements OnInit, OnChanges, OnDestroy 
   @Input() displayField: string;
   @Input() imageField: string;
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   public filteredData: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   private _isListening: Observable<any>;

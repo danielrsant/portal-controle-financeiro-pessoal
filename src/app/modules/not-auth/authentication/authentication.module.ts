@@ -6,11 +6,16 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SelectExampleModalComponent } from './login/components/select-example-modal/select-example-modal.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 const routes = [
     { path: '', pathMatch: 'full', redirectTo: 'login' },
+    {
+        path: 'cadastrar',
+        component: RegisterComponent
+    },
     {
         path: 'login',
         component: LoginComponent
@@ -33,6 +38,7 @@ const routes = [
     declarations: [
         LoginComponent,
         ForgotPasswordComponent,
+        RegisterComponent,
         ResetPasswordComponent,
         SelectExampleModalComponent,
     ],

@@ -24,37 +24,31 @@
                 <img width="200" src="assets/images/logo.png">
             </div>
 
-            <div class="title">Entre na sua conta Financys</div>
+            <div class="title">Crie sua conta aqui</div>
 
             <form name="form" [formGroup]="form" novalidate>
-                <app-input-email [formGroup]="form" formcontrolname="email"></app-input-email>
-                <app-input-password [formGroup]="form" formcontrolname="password"></app-input-password>
-
-                <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
-                    <a class="forgot-password" [routerLink]="'/esqueceu-senha'">Esqueceu a Senha?</a>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <app-input-text fxFlex="48" [formGroup]="form" formcontrolname="nome" [label]="'Nome'"></app-input-text>
+                    <app-input-text fxFlex="48" [formGroup]="form" formcontrolname="sobrenome" [label]="'Sobrenome'"></app-input-text>
                 </div>
+                
+                <app-input-email [formGroup]="form" formcontrolname="email"></app-input-email>
+                <app-input-password [formGroup]="form" formcontrolname="senha"></app-input-password>
+                <app-input-password [formGroup]="form" formcontrolname="confirmarSenha" 
+                placeholder="Senha (Confirmar)" label="Senha (Confirmar)"></app-input-password>
+
+                <app-input-datepicker [formGroup]="form" formcontrolname="dtNascimento" [label]="'Data de Nascimento'" [max]="dtToday"></app-input-datepicker>
 
                 <button mat-raised-button color="accent" class="submit-button" aria-label="ENTRAR"
-                    [disabled]="form.invalid" (click)="onLogin()">
-                    ENTRAR
+                    [disabled]="form.invalid" (click)="onRegister()">
+                    CADASTRAR
                 </button>
 
-                <div class="separator">
-                    <span class="text">OU</span>
+                <div class="login" fxLayout="column">
+                    <div class="login-question">Já tem uma conta?</div>
+                    <a class="login-text" [routerLink]="'/login'">Acessar</a>
                 </div>
-    
-                <button mat-raised-button class="google">
-                    Log in with Google
-                </button>
-    
-                <button mat-raised-button class="facebook">
-                    Log in with Facebook
-                </button>
 
-                <div class="register" fxLayout="column">
-                    <div class="register-question">Não tem uma conta?</div>
-                    <a class="register-text" [routerLink]="'/cadastrar'">Crie a sua conta aqui</a>
-                </div>
             </form>
 
         </div>

@@ -22,7 +22,7 @@ export class InputRadioGroupComponent implements OnInit {
 
   @Input() layout: 'row' | 'column' = 'row';
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   constructor(
     private _utilsService: UtilsService

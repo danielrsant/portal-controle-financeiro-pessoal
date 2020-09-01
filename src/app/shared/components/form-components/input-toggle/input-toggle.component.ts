@@ -14,7 +14,7 @@ export class InputToggleComponent implements OnInit {
 
   @Input() label: string;
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   constructor(
     private _utilsService: UtilsService

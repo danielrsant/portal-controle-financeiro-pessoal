@@ -14,7 +14,7 @@ export class InputPasswordComponent implements OnInit {
   @Input() label: string = 'Senha';
   @Input() placeholder: string = 'Digite aqui';
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   hide = true;
 

@@ -25,7 +25,7 @@ export class InputSelectMultipleComponent implements OnInit, OnChanges, OnDestro
   @Input() displayField: string;
   @Input() secondDisplayField: string;
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   @Output() search = new EventEmitter();
   @Output() select = new EventEmitter();

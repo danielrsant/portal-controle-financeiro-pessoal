@@ -22,7 +22,7 @@ export class InputFileComponent implements OnInit {
 
   @Input() onlyImage = false;
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   @Output() insertedFile = new EventEmitter();
 

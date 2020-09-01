@@ -18,7 +18,7 @@ export class InputTagComponent implements OnInit {
   @Input() backgroundColor: string = 'lightblue';
   @Input() wordColor: string = 'black';
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
   
   value: string; // NG MODEL
   

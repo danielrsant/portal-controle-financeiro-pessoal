@@ -18,7 +18,7 @@ export class InputTextCpfCnpjComponent implements OnInit {
   @Input() iconName: string;
   @Input() maxLength: number;
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   mask: string = '';
   formated = false;

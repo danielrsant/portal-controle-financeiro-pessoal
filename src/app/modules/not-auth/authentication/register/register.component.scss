@@ -94,29 +94,14 @@
                         margin: 0;
                     }
 
-                    .remember-forgot-password {
-                        font-size: 13px;
-                        margin-top: 8px;
+                    .login {
+                        margin-top: 35px;
 
-                        .remember-me {
-                            margin-bottom: 16px
-                        }
-
-                        .forgot-password {
-                            font-size: 13px;
-                            font-weight: 500;
-                            margin-bottom: 16px;
-                            color: rgba(var(--color-primary));
-                        }
-                    }
-                    .register {
-                        font-size: 13px;
-
-                        .register-question {
+                        .login-question {
                             font-size: 15px;
                         }
 
-                        .register-text {
+                        .login-text {
                             font-weight: 500;
                             margin-bottom: 16px;
                             color: rgba(var(--color-primary));

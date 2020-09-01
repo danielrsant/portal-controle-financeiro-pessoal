@@ -22,7 +22,7 @@ export class InputDatepickerRangeComponent implements OnInit {
   @Input() min = null;
   @Input() max = null;
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   minDate = null;
   maxDate = null;
