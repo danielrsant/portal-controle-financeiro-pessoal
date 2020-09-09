@@ -1,0 +1,46 @@
+<div fxFlex fxLayout="column">
+    <app-header [title]="title" [icon]="icon" [backPage]="true" [btn]="'Salvar'"
+        [btnDisabled]="form.invalid ? true : false" (btnClick)="onSave()">
+    </app-header>
+
+    <mat-card fxFlex fxLayout="column">
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+            <app-input-text fxFlex="80" [formGroup]="form" formcontrolname="descricao" label="Descrição"
+                maxLength="150">
+            </app-input-text>
+
+            <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtLancamento"
+                label="Selecione a data de lançamento" appearance="outline">
+            </app-input-datepicker>
+
+        </div>
+
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+            <app-input-text fxFlex [formGroup]="form" formcontrolname="total" label="Total">
+            </app-input-text>
+
+            <app-input-select fxFlex [appearance]="'outline'" [formGroup]="form" formcontrolname="categoria"
+                label="Selecione uma categoria" [data]="categorias" valueField="id" displayField="description"
+                searchField="description"></app-input-select>
+        </div>
+
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+            <app-input-select fxFlex [appearance]="'outline'" [formGroup]="form" formcontrolname="tipoMovimentacao"
+                label="Tipo de movimentação" [data]="tipoMovimentacao" valueField="id" displayField="description"
+                searchField="description"></app-input-select>
+
+            <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtLembrete"
+                label="Selecione a data de lembrete" appearance="outline">
+            </app-input-datepicker>
+        </div>
+
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+            <app-input-toggle fxFlex [formGroup]="form" formcontrolname="pago" label="Pago"></app-input-toggle>
+
+            <app-input-toggle fxFlex [formGroup]="form" formcontrolname="contaFixa" label="Conta fixa">
+            </app-input-toggle>
+        </div>
+
+
+    </mat-card>
+</div>

@@ -9,6 +9,7 @@ import { trackByRoute } from '../../../shared/utils/track-by';
 export const ROUTES: any[] = [
     { route: '/auth/admin', label: 'Administrador', icon: 'person', type: 'dropdown', children: [{ route: '/auth/dashboard', label: 'Dashboard', icon: 'dashboard', type: 'link' }] },
     { route: '/auth/categorias', label: 'Categorias', icon: 'person', type: 'link' },
+    { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'person', type: 'link' },
     { route: '/table-list', label: 'A fazer', icon: 'content_paste', type: 'link' },
     { route: '/auth/agendamento', label: 'Agendamentos', icon: 'schedule', type: 'link' },
     { route: '/typography', label: 'Documentos', icon: 'library_books', type: 'link' },
@@ -38,7 +39,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         private navigationService: NavigationService,
         private _media: MediaMatcher,
         private _router: Router
-        ) {
+    ) {
         this.mobileQuery = _media.matchMedia('(max-width: 600px)');
         this._mobileQueryListener = () => _changeDetectorRef.detectChanges();
         this.mobileQuery.addListener(this._mobileQueryListener);
@@ -46,7 +47,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void { }
 
-    openUserOptions(menu): void{
+    openUserOptions(menu): void {
         menu.openMenu();
     }
 

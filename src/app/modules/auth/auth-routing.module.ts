@@ -35,13 +35,17 @@ const routes: Routes = [
         loadChildren: () => import('./category/category.module').then(m => m.CategoryModule)
       },
       {
+        path: 'movimentacoes',
+        loadChildren: () => import('./financial-movement/financial-movement.module').then(m => m.FinancialMovementModule)
+      },
+      {
         path: 'erro',
         loadChildren: () => import('../errors/404/error-404.module').then(m => m.Error404Module)
       },
       {
         path: '**',
         redirectTo: 'home'
-      }, 
+      },
     ],
   },
 ];
