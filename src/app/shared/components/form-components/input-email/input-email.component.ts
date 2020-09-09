@@ -17,7 +17,7 @@ export class InputEmailComponent implements OnInit {
 
   @Input() maxLength: number;
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   constructor(
     private _utilsService: UtilsService

@@ -28,12 +28,11 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.form = new FormGroup({
             email: new FormControl(null, [Validators.required, Validators.email, Validators.pattern('^([a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[@][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{2,4}){0,1}$')]),
-            recaptchaReactive: new FormControl(null, Validators.required)
         });
     }
 
 
-    verifyEmail() {
+    verifyEmail(): void {
         // this._loadingService.show();
         // this._loginService.forgot(this.form.value.email).pipe(takeUntil(this.onDestroy$)).subscribe(data => {
         //     this._loadingService.hide();

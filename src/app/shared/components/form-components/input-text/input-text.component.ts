@@ -18,7 +18,7 @@ export class InputTextComponent implements OnInit {
   @Input() iconName: string;
   @Input() maxLength: number = null;
   
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
   @Input() mask: string;
   @Input() dropSpecialCharacters: boolean = true;
 
