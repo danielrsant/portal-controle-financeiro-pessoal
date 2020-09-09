@@ -11,38 +11,49 @@ import { User } from '../models/user';
 })
 export class AuthenticationService {
   API_BASE_URL: string = environment.API;
+
   private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+  public currentUser: Observable<User>;
 
-    constructor(private http: HttpClient) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
-    }
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
-    public get currentUserValue(): User {
-        return this.currentUserSubject.value;
-    }
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
-    loadPerson(id?: any): Observable<any[]> {
-      const url = `${this.API_BASE_URL}/person/${id}`;
-  
-      return this.http.get(url, { params: id }).pipe(map((result: any) => result));
-    }
+  login(email: string, senha: string): Observable<any> {
+    const url = `${environment.API}/usuarios/login`;
 
-    login(username: string, password: string) {
-        return this.http.post<any>(`${environment.API}/users/authenticate`, { username, password })
-            .pipe(map(user => {
-                // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-                user.authdata = window.btoa(username + ':' + password);
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
-                return user;
-            }));
-    }
+    return this.http.post<any>(url, { email, senha }).pipe(map(user => {
+        localStorage.setItem('currentUser', JSON.stringify(user.data.pessoa));
+        this.currentUserSubject.next(user.data.pessoa);
+        return user;
+      }));
+  }
 
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
-    }
+  register(payload: any): Observable<any> {
+    const url = `${environment.API}/usuarios/cadastro`;
+
+    return this.http.post<any>(url, payload);
+  }
+
+  forgot(email: string): Observable<any> {
+    const url = `${environment.API}/usuarios/recuperar-senha`;
+
+    return this.http.post<any>(url, { email });
+  }
+
+  reset(payload: any): Observable<any> {
+    const url = `${environment.API}/usuarios/resetar-senha`;
+
+    return this.http.post<any>(url, payload);
+  }
+
+  logout(): void {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+  }
 }

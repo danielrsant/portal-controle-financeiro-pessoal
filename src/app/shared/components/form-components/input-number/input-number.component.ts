@@ -18,7 +18,7 @@ export class InputNumberComponent implements OnInit {
   @Input() min: number;
   @Input() max: number;
 
-  @Input() appearance: string = 'standard';
+  @Input() appearance: string = 'fill';
 
   constructor(
     private _utilsService: UtilsService

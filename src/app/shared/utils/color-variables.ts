@@ -6,8 +6,8 @@ export interface ColorVariable {
 
 export const colorVariables: Record<string, ColorVariable> = {
   '#3F51B5': { // Light Blue
-    light: 'rgba(63, 81, 181, 0.1)',
-    default: 'rgb(63, 81, 181)',
+    light: 'rgba(41, 80, 164, 0.1)',
+    default: 'rgb(41, 80, 164)',
     contrast: 'rgb(0, 0, 0)'
   },
   '#F44336': { // Red

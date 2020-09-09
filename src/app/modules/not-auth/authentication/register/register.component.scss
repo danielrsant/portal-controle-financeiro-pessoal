@@ -51,16 +51,16 @@
             // @include mat-elevation(16);
 
             @include media-breakpoint('xs') {
+                height: 100%;
                 width: 100%;
                 min-width: 100%;
                 max-width: 100%;
-                height: 100%;
             }
 
             #login-form {
                 padding: 2px 48px 48px 48px;
                 background-color: var(--background-base);
-                
+
                 @include media-breakpoint('xs') {
                     height: auto;
                     text-align: center;
@@ -98,27 +98,14 @@
                         margin: 0;
                     }
 
-                    .remember-forgot-password {
-                        margin-top: 8px;
+                    .login {
+                        margin-top: 35px;
 
-                        .remember-me {
-                            margin-bottom: 16px
-                        }
-
-                        .forgot-password {
-                            font-size: 13px;
-                            font-weight: 600;
-                            margin-bottom: 16px;
-                            color: rgba(var(--color-primary));
-                        }
-                    }
-                    .register {
-
-                        .register-question {
+                        .login-question {
                             font-size: 15px;
                         }
 
-                        .register-text {
+                        .login-text {
                             font-weight: 600;
                             margin-bottom: 16px;
                             color: rgba(var(--color-primary));
@@ -168,6 +155,35 @@
                         &:after {
                             left: 100%;
                         }
+                    }
+                }
+
+                button {
+
+                    &.google,
+                    &.facebook {
+                        width: 70%;
+                        text-transform: none;
+                        color: #FFFFFF;
+                        font-size: 13px;
+
+                        @include media-breakpoint('xs') {
+                            width: 60%;
+                        }
+
+                        mat-icon {
+                            color: #FFFFFF;
+                            margin: 0 8px 0 0;
+                        }
+                    }
+
+                    &.google {
+                        background-color: #D73D32;
+                        margin-bottom: 8px;
+                    }
+
+                    &.facebook {
+                        background-color: rgb(63, 92, 154);
                     }
                 }
 
