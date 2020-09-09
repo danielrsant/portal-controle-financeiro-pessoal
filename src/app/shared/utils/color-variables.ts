@@ -8,7 +8,7 @@ export const colorVariables: Record<string, ColorVariable> = {
   '#3F51B5': { // Light Blue
     light: 'rgba(41, 80, 164, 0.1)',
     default: 'rgb(41, 80, 164)',
-    contrast: 'rgb(0, 0, 0)'
+    contrast: 'rgb(255, 255, 255)'
   },
   '#F44336': { // Red
     light: 'rgba(244, 67, 54, 0.1)',
@@ -18,7 +18,7 @@ export const colorVariables: Record<string, ColorVariable> = {
   '#FF9800': { // Amber
     light: 'rgba(255, 152, 0, 0.1)',
     default: 'rgb(255, 152, 0)',
-    contrast: 'rgb(0, 0, 0)',
+    contrast: 'rgb(255, 255, 255)',
   },
   '#009688': { // Teal
     light: 'rgba(0, 150, 136, 0.1)',

@@ -13,6 +13,8 @@ import { BusinessCardComponent } from './business-card/business-card.component';
 import { CardComponent } from './card/card.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { HeaderComponent } from './header/header.component';
+import { CustomizeComponent } from './customize/customize.component';
+import { FormComponentsModule } from '../form-components/form-components.module';
 
 
 @NgModule({
@@ -22,13 +24,15 @@ import { HeaderComponent } from './header/header.component';
     AccordionComponent,
     BusinessCardComponent,
     CardComponent,
-    DataTableComponent
+    DataTableComponent,
+    CustomizeComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
+    FormComponentsModule,
     MaterialModule,
     FlexLayoutModule,
     NgxMatSelectSearchModule,
@@ -40,7 +44,8 @@ import { HeaderComponent } from './header/header.component';
     AccordionComponent,
     BusinessCardComponent,
     CardComponent,
-    DataTableComponent
+    DataTableComponent,
+    CustomizeComponent
   ],
 })
 export class SeveralComponentsModule { }

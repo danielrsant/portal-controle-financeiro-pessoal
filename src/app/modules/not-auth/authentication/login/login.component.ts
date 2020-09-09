@@ -1,12 +1,16 @@
+import { AUTO_STYLE } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { sharedAnimations } from 'src/app/shared/animations';
 import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
-import { takeUntil } from 'rxjs/operators';
+
+import { ModalComponent } from './components/select-example-modal/modal.component';
 
 @Component({
     selector: 'app-login',
@@ -25,6 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         private _loading: LoadingService,
         private _router: Router,
         private _activatedRoute: ActivatedRoute,
+        private _toastrService: ToastrService,
         public dialog: MatDialog
     ) { }
 
@@ -33,23 +38,25 @@ export class LoginComponent implements OnInit, OnDestroy {
             email: new FormControl('', [Validators.required, Validators.email, Validators.pattern('^([a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[@][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{2,4}){0,1}$')]),
             senha: new FormControl('', [Validators.required, Validators.minLength(8)])
         });
+        this.openDialog();
     }
 
     onLogin() {
         this._loading.show();
         this._authenticationService.login(this.form.value.email, this.form.value.senha).pipe(takeUntil(this.onDestroy$)).subscribe(
             response => {
-            if (response) {
-                console.log(response);
-                localStorage.setItem('user', JSON.stringify(response.data.pessoa));
-                localStorage.setItem('token', response.data.accessToken);
-                this.navigate();
-            }
-            this._loading.hide();
-        },
+                if (response) {
+                    localStorage.setItem('user', JSON.stringify(response.data.pessoa));
+                    localStorage.setItem('token', response.data.accessToken);
+                    this.navigate();
+                } else {
+                    this._toastrService.error('E-mail inexistente!');
+                }
+                this._loading.hide();
+            },
             error => {
                 this._loading.hide();
-                console.log(error);
+                this._toastrService.error(error.error.message);
             });
     }
 
@@ -57,15 +64,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         this._router.navigate([`../auth/home`], { relativeTo: this._activatedRoute });
     }
 
-    openDialog(examples) {
-        // const dialogRef = this.dialog.open(SelectExampleModalComponent, {
-        //     maxHeight: '80vh',
-        //     height: AUTO_STYLE,
-        //     width: '50%',
-        //     data: { examples }
-        // }).afterClosed().pipe(takeUntil(this.onDestroy$)).subscribe(data => {
-        //     console.log(data)
-        // })
+    openDialog() {
+        const dialogRef = this.dialog.open(ModalComponent, {
+            maxHeight: '80vh',
+            height: AUTO_STYLE,
+            width: '60%',
+            data: null
+        }).afterClosed().pipe(takeUntil(this.onDestroy$)).subscribe(data => {
+            console.log(data);
+        });
     }
 
     ngOnDestroy() {
