@@ -20,14 +20,14 @@
             </app-input-text>
 
             <app-input-select fxFlex [appearance]="'outline'" [formGroup]="form" formcontrolname="categoria"
-                label="Selecione uma categoria" [data]="categorias" valueField="id" displayField="description"
-                searchField="description"></app-input-select>
+                label="Selecione uma categoria" [data]="(categories$ | async)?.data" valueField="id"
+                displayField="descricao" searchField="descricao"></app-input-select>
         </div>
 
         <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
             <app-input-select fxFlex [appearance]="'outline'" [formGroup]="form" formcontrolname="tipoMovimentacao"
-                label="Tipo de movimentação" [data]="tipoMovimentacao" valueField="id" displayField="description"
-                searchField="description"></app-input-select>
+                label="Tipo de movimentação" [data]="(movementTypes$ | async)?.data" valueField="id"
+                displayField="descricao" searchField="descricao"></app-input-select>
 
             <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtLembrete"
                 label="Selecione a data de lembrete" appearance="outline">
