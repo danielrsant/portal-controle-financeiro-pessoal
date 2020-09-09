@@ -46,10 +46,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void { }
 
-    openUserOptions(menu): void{
-        menu.openMenu();
-    }
-
     logout(): void {
         localStorage.clear();
         this._router.navigate(['/login']);

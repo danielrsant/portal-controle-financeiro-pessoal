@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { sharedAnimations } from 'src/app/shared/animations';
@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         private _authenticationService: AuthenticationService,
         private _loading: LoadingService,
         private _router: Router,
+        private _activatedRoute: ActivatedRoute,
         public dialog: MatDialog
     ) { }
 
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     navigate(): void {
-
+        this._router.navigate([`../auth/home`], { relativeTo: this._activatedRoute });
     }
 
     openDialog(examples) {
