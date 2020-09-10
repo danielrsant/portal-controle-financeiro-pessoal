@@ -19,6 +19,10 @@ const routes: Routes = [
         loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarModule)
       },
       {
+        path: 'customizar',
+        loadChildren: () => import('./customize/customize.module').then(m => m.CustomizeModule)
+      },
+      {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },

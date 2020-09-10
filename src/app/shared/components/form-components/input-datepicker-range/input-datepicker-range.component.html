@@ -2,15 +2,17 @@
 
   <mat-label>{{ label }}</mat-label>
 
-  <mat-date-range-input [rangePicker]="picker" [required]="checkRequired(formcontrolnameStart, formcontrolnameEnd)">
-    <input matStartDate [formControlName]="formcontrolnameStart" [placeholder]="placeholderStart" [min]="minDate"
-      autocomplete="off">
-    <input matEndDate [formControlName]="formcontrolnameEnd" [placeholder]="placeholderEnd" [max]="maxDate"
-      autocomplete="off">
-  </mat-date-range-input>
-
-  <mat-icon *ngIf="formGroup.get(formcontrolnameStart).value && clearOption" matTooltip="Limpar"
-    matTooltipPosition="above" (click)="resetField()" class="icon">close</mat-icon>
+  <div fxLayout="row"> 
+    <mat-date-range-input [rangePicker]="picker" [required]="checkRequired(formcontrolnameStart, formcontrolnameEnd)">
+      <input matStartDate [formControlName]="formcontrolnameStart" [placeholder]="placeholderStart" [min]="minDate"
+        autocomplete="off">
+      <input matEndDate [formControlName]="formcontrolnameEnd" [placeholder]="placeholderEnd" [max]="maxDate"
+        autocomplete="off">
+    </mat-date-range-input>
+  
+    <mat-icon *ngIf="formGroup.get(formcontrolnameStart).value && clearOption" matTooltip="Limpar"
+      matTooltipPosition="above" (click)="resetField()" class="icon">close</mat-icon>
+  </div>
 
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-date-range-picker #picker></mat-date-range-picker>

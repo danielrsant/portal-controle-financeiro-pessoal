@@ -15,3 +15,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .btn-color {
     background-color: #2D323E;
 }
+
+.custom-dialog-container .mat-dialog-container {
+    padding: 0px !important;
+}

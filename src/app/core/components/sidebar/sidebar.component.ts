@@ -1,6 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NavigationService } from 'src/app/services/navigation.service';
 
 import { trackByRoute } from '../../../shared/utils/track-by';
@@ -12,7 +12,7 @@ export const ROUTES: any[] = [
     { route: '/table-list', label: 'A fazer', icon: 'content_paste', type: 'link' },
     { route: '/auth/agendamento', label: 'Agendamentos', icon: 'schedule', type: 'link' },
     { route: '/typography', label: 'Documentos', icon: 'library_books', type: 'link' },
-    { route: '/customizar', label: 'Configurações', icon: 'bubble_chart', type: 'link' },
+    { route: '/auth/customizar', label: 'Configurações', icon: 'bubble_chart', type: 'link' },
     { route: '/auth/exemplo', label: 'Tela de Exemplo', icon: 'bubble_chart', type: 'link' },
     { route: '/notifications', label: 'Notificações', icon: 'notifications', type: 'link' },
 ];
@@ -37,7 +37,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private navigationService: NavigationService,
         private _media: MediaMatcher,
-        private _router: Router
+        private _router: Router,
+        private _activatedRoute: ActivatedRoute
         ) {
         this.mobileQuery = _media.matchMedia('(max-width: 600px)');
         this._mobileQueryListener = () => _changeDetectorRef.detectChanges();
@@ -45,6 +46,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void { }
+
+    onConfig(): void {
+        this._router.navigate([`../auth/customizar`], { relativeTo: this._activatedRoute });
+    }
 
     logout(): void {
         localStorage.clear();

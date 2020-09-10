@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit, OnDestroy {
             email: new FormControl('', [Validators.required, Validators.email, Validators.pattern('^([a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[@][a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{2,4}){0,1}$')]),
             senha: new FormControl('', [Validators.required, Validators.minLength(8)])
         });
-        this.openDialog();
     }
 
     onLogin() {
@@ -49,6 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     localStorage.setItem('user', JSON.stringify(response.data.pessoa));
                     localStorage.setItem('token', response.data.accessToken);
                     this.navigate();
+                    this.openDialog();
                 } else {
                     this._toastrService.error('E-mail inexistente!');
                 }
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     navigate(): void {
-        this._router.navigate([`../auth/home`], { relativeTo: this._activatedRoute });
+        this._router.navigate([`../auth/dashboard`], { relativeTo: this._activatedRoute });
     }
 
     openDialog() {
@@ -69,7 +69,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             maxHeight: '80vh',
             height: AUTO_STYLE,
             width: '60%',
-            data: null
+            data: null,
+            panelClass: 'custom-dialog-container'
         }).afterClosed().pipe(takeUntil(this.onDestroy$)).subscribe(data => {
             console.log(data);
         });

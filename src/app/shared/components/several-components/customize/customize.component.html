@@ -1,129 +1,51 @@
-<div fxFlex fxLayout="column">
+<div fxFlex="100" fxLayout="column" fxLayoutGap="10px" class="content">
 
-    <div *ngIf="selectedStyle$ | async as selectedStyle">
-        <button mat-raised-button color="primary" (click)="selectedStyle === Style.dark ? disableDarkMode() : enableDarkMode()">
-            TROCAR PARA O MODO {{ selectedStyle === Style.dark ? 'CLARO' : 'ESCURO' }}
-        </button>
-    </div>
+    <h4 *ngIf="showMessages">Esta é a primeira vez que está utilizando nosso sistema, e queremos deixar a sua cara.</h4>
 
-    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center">
-        <div *ngFor="let color of colorVariables | keyvalue" (click)="selectColor(color.value)" matRipple>
-            <button mat-fab [ngStyle]="{ 'background-color': color.key }"></button>
-        </div>
-    </div>
-
-    <div fxLayout="column" fxLayoutGap="10px">
-        <div fxFlex fxLayout="row" fxLayoutGap="10px">
-            <app-input-select fxFlex [appearance]="'outline'" [formGroup]="form" formcontrolname="select"
-                label="Selecione uma Opção" [data]="formTypes" valueField="id" displayField="description"
-                searchField="description"></app-input-select>
-        </div>
-    </div>
-
-    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
-        <app-input-datepicker-range fxFlex [appearance]="form.get('select').value" [formGroup]="form"
-            formcontrolnameStart="dtInitial" formcontrolnameEnd="dtFinal" label="Data Range">
-        </app-input-datepicker-range>
-
-        <app-input-datepicker fxFlex [appearance]="form.get('select').value" [formGroup]="form" formcontrolname="date"
-            label="Data"></app-input-datepicker>
-    </div>
-
-    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
-        <app-input-text fxFlex [appearance]="form.get('select').value" [formGroup]="form" formcontrolname="text"
-            label="Texto"></app-input-text>
-
-        <app-input-number fxFlex [appearance]="form.get('select').value" [formGroup]="form" formcontrolname="number"
-            label="Número"></app-input-number>
-
-        <app-input-autocomplete fxFlex [appearance]="form.get('select').value" [formGroup]="form"
-            formcontrolname="autocomplete" label="Autocomplete"></app-input-autocomplete>
-    </div>
-
-    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
-        <app-input-email fxFlex [appearance]="form.get('select').value" [formGroup]="form" formcontrolname="email"
-            label="E-mail"></app-input-email>
-
-        <app-input-password fxFlex [appearance]="form.get('select').value" [formGroup]="form" formcontrolname="password"
-            label="Senha"></app-input-password>
-    </div>
-
-    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
-        <app-input-select fxFlex [appearance]="form.get('select').value" [formGroup]="form" formcontrolname="select"
-            label="Selecione uma Opção" [data]="dataRadio" valueField="id" displayField="description"
-            searchField="description"></app-input-select>
-
-        <app-input-select-multiple fxFlex [appearance]="form.get('select').value" [formGroup]="form"
-            formcontrolname="selectMultiple" label="Selecione mais de uma Opção" [data]="dataRadio" valueField="id"
-            displayField="description" searchField="description"></app-input-select-multiple>
-    </div>
-
-    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
-        <app-input-file fxFlex [appearance]="form.get('select').value" [formGroup]="form" formcontrolname="file"
-            label="Envie um Arquivo"></app-input-file>
-
-        <app-input-radio-group fxFlex [appearance]="form.get('select').value" [formGroup]="form" formcontrolname="radio"
-            label="Selecione uma Opção" [data]="dataRadio" valueField="id" displayField="description">
-        </app-input-radio-group>
-
-        <app-input-tag fxFlex [appearance]="form.get('select').value" [formGroup]="form" formcontrolname="tag"
-            label="Adicione TAGs"></app-input-tag>
-    </div>
-
-</div>
-
-<mat-card fxLayout="column" fxLayoutGap="20px" style="margin: 30px 20px 20px 20px;">
-    <div fxLayout="row" fxLayoutGap="10px">
-        <button mat-raised-button>Basic</button>
-        <button mat-raised-button color="primary">Primary</button>
-        <button mat-raised-button color="accent">Accent</button>
-        <button mat-raised-button color="warn">Warn</button>
-        <button mat-raised-button disabled>Disabled</button>
-        <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
-    </div>
-
-    <div fxLayout="row" fxLayoutGap="10px">
-        <button mat-icon-button>
-            <mat-icon>more_vert</mat-icon>
-        </button>
-        <button mat-icon-button color="primary">
-            <mat-icon>home</mat-icon>
-        </button>
-        <button mat-icon-button color="accent">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <button mat-icon-button color="warn">
-            <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button disabled>
-            <mat-icon>open_in_new</mat-icon>
-        </button>
-    </div>
-
-    <div fxLayout="row" fxLayoutGap="10px">
-        <button mat-mini-fab color="primary">
-            <mat-icon>menu</mat-icon>
-        </button>
-
-        <button mat-mini-fab color="accent">
-            <mat-icon>plus_one</mat-icon>
-        </button>
-
-        <button mat-mini-fab color="warn">
-            <mat-icon>filter_list</mat-icon>
-        </button>
-
-        <button mat-mini-fab disabled>
-            <mat-icon>home</mat-icon>
-        </button>
-    </div>
-
-    <div>
+    <div fxLayoutAlign="center" *ngIf="selectedStyle$ | async as selectedStyle">
         <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onChangeBtnToggle($event)">
-            <mat-button-toggle checked value="bold">Bold</mat-button-toggle>
-            <mat-button-toggle disabled value="italic">Italic</mat-button-toggle>
-            <mat-button-toggle value="underline">Underline</mat-button-toggle>
+            <mat-button-toggle color="primary" [checked]="!darkTheme" value="light">Modo Claro</mat-button-toggle>
+            <mat-button-toggle value="dark" [checked]="darkTheme">Modo Escuro</mat-button-toggle>
         </mat-button-toggle-group>
     </div>
 
-</mat-card>
+    <h4 *ngIf="showMessages">Selecione uma cor primária para seu sistema</h4>
+
+    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center">
+        <div *ngFor="let color of colorVariables | keyvalue" (click)="selectColor(color.value)" matRipple>
+            <button mat-mini-fab [ngStyle]="{ 'background-color': color.key }"></button>
+        </div>
+    </div>
+
+    <h4 *ngIf="showMessages">Escolha um tipo de formulário</h4>
+
+    <mat-card fxFlex fxLayout="column">
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+            <app-input-select fxFlex="50" [appearance]="'outline'" [formGroup]="form" formcontrolname="appearance"
+                label="Escolha um tipo" [data]="formTypes" valueField="id" displayField="description"
+                searchField="description"></app-input-select>
+        </div>
+
+        <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
+            <app-input-datepicker-range fxFlex [appearance]="form.get('appearance').value" [formGroup]="form"
+                formcontrolnameStart="dtInitial" formcontrolnameEnd="dtFinal" label="Data">
+            </app-input-datepicker-range>
+
+            <app-input-text fxFlex [appearance]="form.get('appearance').value" [formGroup]="form" formcontrolname="text"
+                label="Entrada de Texto"></app-input-text>
+        </div>
+
+        <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
+            <app-input-select fxFlex [appearance]="form.get('appearance').value" [formGroup]="form"
+                formcontrolname="select" label="Selecione uma Opção" [data]="dataRadio" valueField="id"
+                displayField="description" searchField="description"></app-input-select>
+
+            <app-input-autocomplete fxFlex [appearance]="form.get('appearance').value" [formGroup]="form"
+                formcontrolname="autocomplete" label="Autocomplete"></app-input-autocomplete>
+        </div>
+
+    </mat-card>
+
+
+</div>

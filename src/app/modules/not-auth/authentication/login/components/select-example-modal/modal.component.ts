@@ -10,22 +10,12 @@ import { Subscription } from 'rxjs';
 })
 export class ModalComponent implements OnInit, OnDestroy {
 
-  susbcription: Subscription;
-
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() { }
 
-
-  close(): void {
-    this.dialogRef.close();
-  }
-
-  ngOnDestroy() {
-    if (this.susbcription) {
-      this.susbcription.unsubscribe();
-    }
-  }
+  ngOnDestroy() { }
+  
 }
