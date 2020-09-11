@@ -40,7 +40,7 @@
                 <app-input-datepicker [formGroup]="formPerson" formcontrolname="dtNascimento" [label]="'Data de Nascimento'" [max]="dtToday"></app-input-datepicker>
 
                 <button mat-raised-button color="primary" class="submit-button" aria-label="ENTRAR"
-                    [disabled]="form.invalid" (click)="onRegister()">
+                    [disabled]="form.invalid || formPerson.invalid" (click)="onRegister()">
                     CADASTRAR
                 </button>
 

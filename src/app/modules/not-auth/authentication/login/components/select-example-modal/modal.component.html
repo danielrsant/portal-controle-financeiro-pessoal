@@ -1,0 +1,13 @@
+<div fxFlex fxLayout="column">
+    <mat-toolbar color="primary">
+        <span>BEM VINDO</span>
+        <mat-icon fxFlex fxLayoutAlign="flex-end" class="icon" (click)="dialogRef.close()">close</mat-icon>
+    </mat-toolbar>
+
+    <div fxFlex fxLayout="column" class="content">
+        <app-customize fxFlex [showMessages]="true">
+        </app-customize>
+
+        <h5>Obs: Você pode alterar mais tarde em "Perfil" -> "Configurações"</h5>
+    </div>
+</div>

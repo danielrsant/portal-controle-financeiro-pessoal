@@ -27,11 +27,7 @@ export class AuthenticationService {
   login(email: string, senha: string): Observable<any> {
     const url = `${environment.API}/usuarios/login`;
 
-    return this.http.post<any>(url, { email, senha }).pipe(map(user => {
-        localStorage.setItem('currentUser', JSON.stringify(user.data.pessoa));
-        this.currentUserSubject.next(user.data.pessoa);
-        return user;
-      }));
+    return this.http.post<any>(url, { email, senha }).pipe(map((result: any) => result));
   }
 
   register(payload: any): Observable<any> {
