@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectExampleModalComponent } from './select-example-modal.component';
+import { CustomizeComponent } from './customize.component';
 
-describe('SelectExampleModalComponent', () => {
-  let component: SelectExampleModalComponent;
-  let fixture: ComponentFixture<SelectExampleModalComponent>;
+describe('CustomizeComponent', () => {
+  let component: CustomizeComponent;
+  let fixture: ComponentFixture<CustomizeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectExampleModalComponent ]
+      declarations: [ CustomizeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelectExampleModalComponent);
+    fixture = TestBed.createComponent(CustomizeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

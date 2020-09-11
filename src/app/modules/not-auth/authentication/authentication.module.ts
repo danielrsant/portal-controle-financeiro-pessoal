@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { SelectExampleModalComponent } from './login/components/select-example-modal/select-example-modal.component';
+import { ModalComponent } from './login/components/select-example-modal/modal.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -40,7 +40,7 @@ const routes = [
         ForgotPasswordComponent,
         RegisterComponent,
         ResetPasswordComponent,
-        SelectExampleModalComponent,
+        ModalComponent,
     ],
     imports: [
         CommonModule,
@@ -48,7 +48,7 @@ const routes = [
         RouterModule.forChild(routes),
     ],
     entryComponents: [
-        SelectExampleModalComponent
+        ModalComponent
     ]
 })
 export class AuthenticationModule {

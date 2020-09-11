@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -12,10 +12,6 @@ const routes: Routes = [
       {
         path: 'erro',
         loadChildren: () => import('../errors/404/error-404.module').then(m => m.Error404Module)
-      },
-      {
-        path: 'customizar',
-        loadChildren: () => import('./customize/customize.module').then(m => m.CustomizeModule)
       },
       {
         path: '**',
