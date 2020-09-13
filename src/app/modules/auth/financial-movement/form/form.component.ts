@@ -88,12 +88,13 @@ export class FormComponent implements OnInit, OnDestroy {
     } else {
       this.onUpdate();
     }
+
+    this._router.navigate(['..'], { relativeTo: this._activatedRoute });
   }
 
   onCreate(): void {
     this._financialMovementService.create(this.form.value).subscribe((response: any) => {
       if (response) {
-        console.log('resposta =>', response);
         this._loadingService.hide();
       }
     },

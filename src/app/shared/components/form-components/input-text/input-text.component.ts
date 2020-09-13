@@ -14,13 +14,15 @@ export class InputTextComponent implements OnInit {
 
   @Input() label: string;
   @Input() placeholder: string = 'Digite aqui';
-  
+
   @Input() iconName: string;
   @Input() maxLength: number = null;
-  
+
   @Input() appearance: string = 'fill';
   @Input() mask: string;
   @Input() dropSpecialCharacters: boolean = true;
+
+  @Input() autocomplete = 'off';
 
   constructor(
     private _utilsService: UtilsService

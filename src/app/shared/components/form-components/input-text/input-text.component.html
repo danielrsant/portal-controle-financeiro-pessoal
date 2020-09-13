@@ -5,7 +5,7 @@
   <input #input matInput (keydown)="$event.key === '%' ? $event.preventDefault() : ''"
     (keydown.space)="input.value?.length === 0 ? $event.preventDefault() : $event;" [mask]="mask"
     [dropSpecialCharacters]="dropSpecialCharacters" [formControlName]="formcontrolname" [required]="checkRequired()"
-    [placeholder]="placeholder">
+    [placeholder]="placeholder" [autocomplete]="autocomplete">
 
   <mat-icon *ngIf="iconName" matSuffix class="secondary-text">{{ iconName }}</mat-icon>
 
