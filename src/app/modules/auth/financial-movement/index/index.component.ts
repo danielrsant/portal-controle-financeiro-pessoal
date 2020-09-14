@@ -22,7 +22,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _utilsService: UtilsService,
     private _loadingService: LoadingService,
     private _financialMovementService: FinancialMovementService
-  ) {}
+  ) { }
 
   title = 'Movimentações';
   icon = 'home';
@@ -33,10 +33,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   dataSource: any[] = [];
   columns: TableColumn<any>[] = [
-    { label: 'Ações', property: 'aaa', type: 'actions', visible: true },
     { label: 'Id', property: 'id', type: 'text', visible: true },
     { label: 'Descrição', property: 'descricao', type: 'text', visible: true },
-    { label: 'Conta fixa', property: 'contaFixa', type: 'text', visible: true },
+    { label: 'Conta fixa', property: 'contaFixa', type: 'checkbox', visible: true },
     {
       label: 'Data de conclusão',
       property: 'dtConclusao',
@@ -64,10 +63,10 @@ export class IndexComponent implements OnInit, OnDestroy {
     {
       label: 'Lembrete enviado',
       property: 'lembreteEnviado',
-      type: 'text',
+      type: 'checkbox',
       visible: true,
     },
-    { label: 'Pago', property: 'pago', type: 'text', visible: true },
+    { label: 'Pago', property: 'pago', type: 'checkbox', visible: true },
     {
       label: 'Tipo de movimentação',
       property: 'tipoMovimentacao',
@@ -76,6 +75,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     },
     { label: 'Categoria', property: 'categoria', type: 'text', visible: true },
     { label: 'Total', property: 'total', type: 'text', visible: true },
+    { label: 'Ações', property: 'actions', type: 'actions', visible: true },
+
   ];
 
   selection = new SelectionModel<any>(true, []);
@@ -85,7 +86,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.onRefresh(this.paginationInitial);
-    this.onRefresh();
   }
 
   onRefresh(params?: { page?: number; limit?: number; s?: any }): void {
@@ -95,12 +95,13 @@ export class IndexComponent implements OnInit, OnDestroy {
         if (response) {
           const data: any[] = response.data.map((item) => {
             const obj = {
+              id: item.id,
               descricao: item.descricao,
               contaFixa: item.contaFixa,
-              dtConclusao: item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY') : '',
+              dtConclusao: item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY') : '-',
               dtLancamento: moment.utc(item.dtLancamento).format('DD/MM/YYYY'),
-              dtLembrete: item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY') : '',
-              dtVencimento: item.dtVencimento ? moment.utc(item.dtVencimento).format('DD/MM/YYYY'): '',
+              dtLembrete: item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY') : '-',
+              dtVencimento: item.dtVencimento ? moment.utc(item.dtVencimento).format('DD/MM/YYYY') : '-',
               lembreteEnviado: item.lembreteEnviado,
               pago: item.pago,
               tipoMovimentacao: item.tipoMovimentacao.descricao,
@@ -113,7 +114,7 @@ export class IndexComponent implements OnInit, OnDestroy {
           this.dataSource = data;
         }
       },
-      (error) => {}
+      (error) => { }
     );
     this.filterOptions();
   }
@@ -142,7 +143,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDelete(item: any): void {}
+  onDelete(item: any): void { }
 
   onSearch(search: string) {
     this._utilsService.paginatorWasChanged.emit();
@@ -157,5 +158,5 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.onRefresh({ ...this.paginationInitial, ...params });
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 }

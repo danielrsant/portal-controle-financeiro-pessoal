@@ -18,8 +18,7 @@
         </button>
       </div>
 
-      <div class="input-card" fxFlex="400px" fxFlex.lt-md="auto" fxHide.xs fxLayout="row"
-        fxLayoutAlign="start center">
+      <div class="input-card" fxFlex="400px" fxFlex.lt-md="auto" fxHide.xs fxLayout="row" fxLayoutAlign="start center">
         <mat-icon size="20px">search</mat-icon>
         <input class="input-search" [formControl]="searchCtrl" [placeholder]="'Pesquisar...'" type="search">
       </div>
@@ -30,17 +29,17 @@
         <mat-icon>search</mat-icon>
       </button>
 
-      <button [matMenuTriggerFor]="columnFilterMenu" class="btn-table" fxFlex="none" mat-icon-button [matTooltip]="'Colunas'"
-        type="button">
+      <button [matMenuTriggerFor]="columnFilterMenu" class="btn-table" fxFlex="none" mat-icon-button
+        [matTooltip]="'Colunas'" type="button">
         <mat-icon>filter_list</mat-icon>
       </button>
 
-      <button (click)="onCreate()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab [matTooltip]="'Adicionar'"
-        type="button">
+      <button (click)="onCreate()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab
+        [matTooltip]="'Adicionar'" type="button">
         <mat-icon>add</mat-icon>
       </button>
-      <button (click)="onRefresh()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab [matTooltip]="'Atualizar'"
-        type="button">
+      <button (click)="onRefresh()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab
+        [matTooltip]="'Atualizar'" type="button">
         <mat-icon>refresh</mat-icon>
       </button>
     </div>
@@ -74,6 +73,14 @@
             <th *matHeaderCellDef mat-header-cell></th>
             <td *matCellDef="let row" class="w-8 min-w-8 pr-0" mat-cell>
               <img [src]="row[column.property] || DEFAULT_AVATAR" class="avatar h-8 w-8 align-middle">
+            </td>
+          </ng-container>
+
+          <!-- Checkbox Column -->
+          <ng-container *ngIf="column.type === 'checkbox'" [matColumnDef]="column.property">
+            <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label }}</th>
+            <td *matCellDef="let row" class="w-8 min-w-8 pr-0" mat-cell>
+             <mat-checkbox [checked]="row[column.property]" color="primary"></mat-checkbox>
             </td>
           </ng-container>
 
