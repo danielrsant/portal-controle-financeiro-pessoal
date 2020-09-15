@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxEchartsModule } from 'ngx-echarts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { EchartsPieComponent } from './echarts/echarts-pie.component';
-import * as echarts from 'echarts';
 import { IndexComponent } from './index/index.component';
 
 const routes: Routes = [
@@ -15,15 +15,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    EchartsPieComponent,
     IndexComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    NgxEchartsModule.forRoot({
-      echarts,
-    }),
+    NgxChartsModule,
     RouterModule.forChild(routes),
   ]
 })

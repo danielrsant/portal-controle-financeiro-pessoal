@@ -17,4 +17,20 @@
   --sidenav-item-icon-color: #494B74;
   --sidenav-item-icon-color-active: rgb(var(--color-primary));
   --sidenav-toolbar-background: #{$sidenav-background};
+
+  // NGX Charts
+  [ngx-charts-axis-label] text,
+  .tick text {
+      fill: rgba(black, 0.5);
+  }
+  .gridline-path {
+      &.gridline-path-horizontal,
+      &.gridline-path-vertical {
+          stroke: rgba(black, 0.06);
+      }
+  }
+  .legend-title-text {
+      color: rgba(black, 0.5);
+  }
+
 }
