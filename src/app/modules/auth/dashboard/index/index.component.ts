@@ -47,7 +47,7 @@ export class IndexComponent implements OnInit {
   times = times;
   multi = multi;
 
-  view = window.innerWidth < 600 ? [window.innerWidth / 4, window.innerWidth / 2.5] : [window.innerWidth / 2.5, window.innerWidth / 6];
+  view = window.innerWidth < 600 ? [window.innerWidth / 4, window.innerWidth / 2.5] : [window.innerWidth / 2.2, window.innerWidth / 6];
   viewGauge = [300, 100];
 
   constructor() { }
@@ -57,7 +57,7 @@ export class IndexComponent implements OnInit {
    }
 
   onResize = () => window.addEventListener('resize', () =>
-  this.view = window.innerWidth < 600 ? [window.innerWidth / 3, window.innerWidth / 3] : [window.innerWidth / 2.5, window.innerWidth / 6]
+  this.view = window.innerWidth < 600 ? [window.innerWidth / 3, window.innerWidth / 3] : [window.innerWidth / 2.2, window.innerWidth / 6]
   )
 
   axisDate(val: string): string {
