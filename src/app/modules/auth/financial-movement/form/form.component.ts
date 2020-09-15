@@ -65,20 +65,21 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   createForm(): void {
-    this.form = new FormGroup({
-      id: new FormControl(null),
-      descricao: new FormControl(null, [Validators.required, Validators.maxLength(150)]),
-      total: new FormControl(0, Validators.required),
-      dtLancamento: new FormControl(new Date(), Validators.required),
-      dtConclusao: new FormControl(null),
-      dtLembrete: new FormControl(null),
-      dtVencimento: new FormControl(null),
-      pago: new FormControl(0),
-      contaFixa: new FormControl(0),
-      categoria: new FormControl(null, Validators.required),
-      tipoMovimentacao: new FormControl(null, Validators.required),
-      pessoa: new FormControl({ id: 1 }),
-    });
+    const pessoa = JSON.parse(localStorage.getItem('user'));
+      this.form = new FormGroup({
+        id: new FormControl(null),
+        descricao: new FormControl(null, [Validators.required, Validators.maxLength(150)]),
+        total: new FormControl(0, Validators.required),
+        dtLancamento: new FormControl(new Date(), Validators.required),
+        dtConclusao: new FormControl(null),
+        dtLembrete: new FormControl(null),
+        dtVencimento: new FormControl(null),
+        pago: new FormControl(0),
+        contaFixa: new FormControl(0),
+        categoria: new FormControl(null, Validators.required),
+        tipoMovimentacao: new FormControl(null, Validators.required),
+        pessoa: new FormControl({ id: pessoa.id }),
+      });
   }
 
   onSave(): void {
