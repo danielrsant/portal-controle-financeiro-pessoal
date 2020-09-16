@@ -27,8 +27,9 @@ export class IndexComponent implements OnInit, OnDestroy {
   title = 'Movimentações';
   icon = 'home';
   operation: Operation = Operation.INDEX;
+  personId: number = JSON.parse(localStorage.getItem('user')).id;
 
-  options = {};
+  options: any = {};
   paginationInitial = { page: 0, limit: 10 };
 
   dataSource: any[] = [];
@@ -90,7 +91,21 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   onRefresh(params?: { page?: number; limit?: number; s?: any }): void {
     this.options = { ...this.options, ...params };
-    this._financialMovementService.loadAll(this.options).subscribe(
+
+    const { s } = this.options;
+    if (!s) {
+      delete this.options.s;
+    }
+
+    const { sort } = this.options;
+    if (sort && this.options.sort.indexOf('tipoMovimentacao') > -1) {
+      this.options.sort = this.options.sort.replace('tipoMovimentacao', 'tipoMovimentacao.id');
+    } else if (sort && this.options.sort.indexOf('categoria') > -1) {
+      this.options.sort = this.options.sort.replace('categoria', 'categoria.id');
+    }
+
+    this._loadingService.show();
+    this._financialMovementService.loadAll(this.personId, this.options).subscribe(
       (response: any) => {
         if (response) {
           const data: any[] = response.data.map((item) => {
@@ -112,9 +127,13 @@ export class IndexComponent implements OnInit, OnDestroy {
             return obj;
           });
           this.dataSource = data;
+          this._loadingService.hide();
         }
       },
-      (error) => { }
+      (error) => {
+        this._loadingService.hide();
+        console.log(error);
+      }
     );
     this.filterOptions();
   }
@@ -143,18 +162,25 @@ export class IndexComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDelete(item: any): void { }
+  onDelete(item: any): void {
+    this._loadingService.show();
+    this._financialMovementService.destroy(item.id).subscribe(response => {
+      this.onRefresh();
+    });
+  }
 
   onSearch(search: string) {
     this._utilsService.paginatorWasChanged.emit();
     const params = { s: null };
-    if (search) {
+
+    if (search.length) {
       params.s = JSON.stringify({
-        description: {
+        descricao: {
           $contL: search,
         },
       });
     }
+
     this.onRefresh({ ...this.paginationInitial, ...params });
   }
 
