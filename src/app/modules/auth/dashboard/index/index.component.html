@@ -21,9 +21,9 @@
     </div>
 
 
-    <div fxFlex fxLayout="row wrap" fxLayoutAlign="flex-start" class="content">
-        <mat-card fxFlex class="card">
-            <mat-card-title>
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="flex-start" class="content">
+        <mat-card fxFlex fxLayout="column" class="card">
+            <mat-card-title fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
                     <span fxFlex>Exemplo 1</span>
                     <span fxFlex="5">
@@ -38,8 +38,8 @@
                     </span>
                 </div>
             </mat-card-title>
-            <mat-divider></mat-divider>
             <div class="chart" [style.height.px]="280" class="push-top-sm">
+                <mat-divider></mat-divider>
                 <ngx-charts-line-chart fxFlex 
                     [view]="view"
                     [scheme]="{ domain: [ '#4DD0E1', '#BA68C8', '#FF7043' ] }" 
@@ -49,6 +49,7 @@
                     [xAxis]="true" 
                     [yAxis]="true" 
                     [legend]="true"
+                    [legendPosition]="legendPosition"
                     [showXAxisLabel]="true" 
                     [showYAxisLabel]="true" 
                     [xAxisLabel]="'Período'" 
@@ -58,8 +59,8 @@
             </div>
         </mat-card>
 
-        <mat-card fxFlex class="card">
-            <mat-card-title>
+        <mat-card fxFlex fxLayout="column" class="card">
+            <mat-card-title fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
                     <span fxFlex>Exemplo 2</span>
                     <span fxFlex="5">
@@ -74,8 +75,8 @@
                     </span>
                 </div>
             </mat-card-title>
-            <mat-divider></mat-divider>
             <div class="chart" [style.height.px]="280">
+                <mat-divider></mat-divider>
                 <ngx-charts-area-chart-stacked
                     [view]="view"
                     [scheme]="{ domain: [ '#4DD0E1', '#BA68C8', '#FF7043' ] }"
@@ -83,7 +84,8 @@
                     [gradient]="true"
                     [xAxis]="true"
                     [yAxis]="true"
-                    [legend]="false"
+                    [legend]="true"
+                    [legendPosition]="legendPosition"
                     [showXAxisLabel]="true"
                     [showYAxisLabel]="true"
                     [xAxisLabel]="'Período'" 
@@ -95,9 +97,9 @@
     </div>
 
 
-    <div fxFlex fxLayout="row wrap" fxLayoutAlign="flex-start" class="content">
-        <mat-card fxFlex class="card">
-            <mat-card-title>
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="flex-start" class="content">
+        <mat-card fxFlex fxLayout="column" class="card">
+            <mat-card-title fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
                     <span fxFlex>Exemplo 3</span>
                     <span fxFlex="5">
@@ -112,8 +114,8 @@
                     </span>
                 </div>
             </mat-card-title>
-            <mat-divider></mat-divider>
             <div class="chart" [style.height.px]="280" class="pad">
+                <mat-divider></mat-divider>
                 <ngx-charts-bar-vertical-2d
                     [view]="view"
                     [scheme]="{ domain: [ '#4DD0E1', '#BA68C8', '#FF7043' ] }"
@@ -123,15 +125,16 @@
                     [gradient]="true"
                     [xAxis]="true"
                     [yAxis]="true"
-                    [legend]="false"
+                    [legend]="true"
+                    [legendPosition]="legendPosition"
                     [showXAxisLabel]="false"
                     [showYAxisLabel]="false">
                 </ngx-charts-bar-vertical-2d>
             </div>
         </mat-card>
 
-        <mat-card fxFlex class="card">
-            <mat-card-title>
+        <mat-card fxFlex fxLayout="column" class="card">
+            <mat-card-title fxLayout="column" fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
                     <span fxFlex>Exemplo 4</span>
                     <span fxFlex="5">
@@ -146,75 +149,77 @@
                     </span>
                 </div>
             </mat-card-title>
-            <mat-divider></mat-divider>
-            <mat-nav-list>
-            <a mat-list-item>
-                <mat-icon matListAvatar color="primary">mood</mat-icon>
-                <h3 mat-line>Candy</h3>
-                <p mat-line>exceeding goal!</p>
-                <div class="chart" fxFlex>
-                <ngx-charts-linear-gauge
-                    [view]="viewGauge"
-                    [scheme]="{ domain: [ '#4DD0E1' ] }"
-                    [value]="90"
-                    [previousValue]="80"
-                    [min]="0"
-                    [max]="100"
-                    [units]="''">
-                </ngx-charts-linear-gauge>
-                </div>
-            </a>
-            <mat-divider mat-inset></mat-divider>
-            <a mat-list-item>
-                <mat-icon matListAvatar color="accent">sentiment_satisfied</mat-icon>
-                <h3 mat-line>Ice Cream</h3>
-                <p mat-line>goal almost achieved!</p>
-                <div class="chart" fxFlex>
-                <ngx-charts-linear-gauge
-                    [view]="viewGauge"
-                    [scheme]="{ domain: [ '#BA68C8' ] }"
-                    [value]="60"
-                    [previousValue]="70"
-                    [min]="0"
-                    [max]="100"
-                    [units]="''">
-                </ngx-charts-linear-gauge>
-                </div>
-            </a>
-            <mat-divider mat-inset></mat-divider>
-            <a mat-list-item>
-                <mat-icon matListAvatar color="warn">sentiment_very_dissatisfied</mat-icon>
-                <h3 mat-line>Pastry</h3>
-                <p mat-line>falling short of goal!</p>
-                <div class="chart" fxFlex>
-                <ngx-charts-linear-gauge
-                    [view]="viewGauge"
-                    [scheme]="{ domain: [ '#FF7043' ] }"
-                    [value]="40"
-                    [previousValue]="60"
-                    [min]="0"
-                    [max]="100"
-                    [units]="''">
-                </ngx-charts-linear-gauge>
-                </div>
-            </a>
-            </mat-nav-list>
+            <div class="chart" [style.height.px]="280">
+                <mat-nav-list>
+                    <mat-divider></mat-divider>
+                <a mat-list-item>
+                    <mat-icon matListAvatar color="primary">mood</mat-icon>
+                    <h3 mat-line>Candy</h3>
+                    <p mat-line>exceeding goal!</p>
+                    <div class="chart" fxFlex>
+                    <ngx-charts-linear-gauge
+                        [view]="viewGauge"
+                        [scheme]="{ domain: [ '#4DD0E1' ] }"
+                        [value]="90"
+                        [previousValue]="80"
+                        [min]="0"
+                        [max]="100"
+                        [units]="''">
+                    </ngx-charts-linear-gauge>
+                    </div>
+                </a>
+                <mat-divider mat-inset></mat-divider>
+                <a mat-list-item>
+                    <mat-icon matListAvatar color="accent">sentiment_satisfied</mat-icon>
+                    <h3 mat-line>Ice Cream</h3>
+                    <p mat-line>goal almost achieved!</p>
+                    <div class="chart" fxFlex>
+                    <ngx-charts-linear-gauge
+                        [view]="viewGauge"
+                        [scheme]="{ domain: [ '#BA68C8' ] }"
+                        [value]="60"
+                        [previousValue]="70"
+                        [min]="0"
+                        [max]="100"
+                        [units]="''">
+                    </ngx-charts-linear-gauge>
+                    </div>
+                </a>
+                <mat-divider mat-inset></mat-divider>
+                <a mat-list-item>
+                    <mat-icon matListAvatar color="warn">sentiment_very_dissatisfied</mat-icon>
+                    <h3 mat-line>Pastry</h3>
+                    <p mat-line>falling short of goal!</p>
+                    <div class="chart" fxFlex>
+                    <ngx-charts-linear-gauge
+                        [view]="viewGauge"
+                        [scheme]="{ domain: [ '#FF7043' ] }"
+                        [value]="40"
+                        [previousValue]="60"
+                        [min]="0"
+                        [max]="100"
+                        [units]="''">
+                    </ngx-charts-linear-gauge>
+                    </div>
+                </a>
+                </mat-nav-list>
+            </div>
+
+            <ngx-charts-pie-chart
+                [view]="view"
+                [scheme]="{ domain: ['#4DD0E1', '#BA68C8', '#FF7043', '#5AA454'] }"
+                [results]="single"
+                [gradient]="true"
+                [legend]="true"
+                [legendPosition]="legendPosition"
+                [labels]="true"
+                [doughnut]="false"
+                (select)="onSelect($event)"
+                (activate)="onActivate($event)"
+                (deactivate)="onDeactivate($event)">
+            </ngx-charts-pie-chart>
+        
         </mat-card>
     </div>
 
 </div>
-
-
-
-
-
-
-<!-- <div fxFlex fxLayout="row">
-    <ngx-echarts-pie></ngx-echarts-pie>
-    <ngx-echarts-bar></ngx-echarts-bar>
-    <ngx-echarts-line></ngx-echarts-line>
-    <ngx-echarts-multiple-xaxis></ngx-echarts-multiple-xaxis>
-    <ngx-echarts-area-stack></ngx-echarts-area-stack>
-    <ngx-echarts-bar-animation></ngx-echarts-bar-animation>
-    <ngx-echarts-radar></ngx-echarts-radar>
-</div>  -->
