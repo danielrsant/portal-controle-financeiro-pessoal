@@ -20,20 +20,17 @@
         </div>
     </div>
 
-
-    <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="flex-start" class="content">
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
                     <span fxFlex>Movimentações</span>
-                    <span fxFlex="5">
+                    <span fxFlex="5" fxFlex.xs="10">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu xPosition="before" #settings1="matMenu">
-                            <button mat-menu-item> Ir para Tela </button>
-                            <mat-divider></mat-divider>
-                            <button mat-menu-item> Remove </button>
+                            <button mat-menu-item>Informações</button>
                         </mat-menu>
                     </span>
                 </div>
@@ -63,14 +60,12 @@
             <mat-card-title fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
                     <span fxFlex>Movimentações 2</span>
-                    <span fxFlex="5">
+                    <span fxFlex="5" fxFlex.xs="10">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu xPosition="before" #settings1="matMenu">
-                            <button mat-menu-item> Ir para Tela </button>
-                            <mat-divider></mat-divider>
-                            <button mat-menu-item> Remove </button>
+                            <button mat-menu-item>Informações</button>
                         </mat-menu>
                     </span>
                 </div>
@@ -96,20 +91,17 @@
         </mat-card>
     </div>
 
-
-    <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="flex-start" class="content">
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title>
                 <div layout="row" fxLayoutAlign="space-between">
-                    <span fxFlex>Exemplo 3</span>
-                    <span fxFlex="5">
+                    <span fxFlex>Economia Anual</span>
+                    <span fxFlex="5" fxFlex.xs="10">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu xPosition="before" #settings1="matMenu">
-                            <button mat-menu-item> Ir para Tela </button>
-                            <mat-divider></mat-divider>
-                            <button mat-menu-item> Remove </button>
+                            <button mat-menu-item>Informações</button>
                         </mat-menu>
                     </span>
                 </div>
@@ -137,19 +129,18 @@
             <mat-card-title fxLayout="column" fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
                     <span fxFlex>Categorias X Gastos</span>
-                    <span fxFlex="5">
+                    <span fxFlex="5" fxFlex.xs="10">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu xPosition="before" #settings1="matMenu">
-                            <button mat-menu-item> Ir para Tela </button>
-                            <mat-divider></mat-divider>
-                            <button mat-menu-item> Remove </button>
+                            <button mat-menu-item>Informações</button>
                         </mat-menu>
                     </span>
                 </div>
             </mat-card-title>
             <div class="chart" class="pad">
+                <mat-divider></mat-divider>
                 <ngx-charts-pie-chart
                     [view]="view"
                     [scheme]="{ domain: ['#4DD0E1', '#BA68C8', '#FF7043', '#5AA454'] }"
@@ -158,91 +149,131 @@
                     [legend]="true"
                     [legendPosition]="legendPosition"
                     [labels]="true"
-                    [doughnut]="false"
-                    (select)="onSelect($event)"
-                    (activate)="onActivate($event)"
-                    (deactivate)="onDeactivate($event)">
+                    [doughnut]="false">
                 </ngx-charts-pie-chart>
             </div>
-
-        
         </mat-card>
     </div>
 
-    <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="flex-start" class="content">
+    <!-- <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxLayout="column" fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
                     <span fxFlex>Limite de Gastos</span>
-                    <span fxFlex="5">
+                    <span fxFlex="3" fxFlex.xs="10">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu xPosition="before" #settings1="matMenu">
-                            <button mat-menu-item> Ir para Tela </button>
-                            <mat-divider></mat-divider>
-                            <button mat-menu-item> Remove </button>
+                            <button mat-menu-item>Informações</button>
                         </mat-menu>
                     </span>
                 </div>
             </mat-card-title>
             <div class="chart" class="pad">
+                <mat-divider></mat-divider>
+                
                 <mat-nav-list>
-                    <mat-divider></mat-divider>
-                <a mat-list-item>
-                    <mat-icon matListAvatar color="primary">sentiment_very_dissatisfied</mat-icon>
-                    <p mat-line>Gastos com Lazer</p>
-                    <p mat-line>exceeding goal!</p>
-                    <div class="chart" fxFlex>
-                    <ngx-charts-linear-gauge
-                        [view]="viewGauge"
-                        [scheme]="{ domain: [ '#4DD0E1' ] }"
-                        [value]="90"
-                        [previousValue]="80"
-                        [min]="0"
-                        [max]="100"
-                        [units]="''">
-                    </ngx-charts-linear-gauge>
-                    </div>
-                </a>
-                <mat-divider mat-inset></mat-divider>
-                <a mat-list-item>
-                    <mat-icon matListAvatar color="accent">sentiment_satisfied</mat-icon>
-                    <p mat-line>Gastos com Alimentação</p>
-                    <p mat-line>goal almost achieved!</p>
-                    <div class="chart" fxFlex>
-                    <ngx-charts-linear-gauge 
-                        [view]="viewGauge"
-                        [scheme]="{ domain: [ '#BA68C8' ] }"
-                        [value]="60"
-                        [previousValue]="70"
-                        [min]="0"
-                        [max]="100"
-                        [units]="''">
-                    </ngx-charts-linear-gauge>
-                    </div>
-                </a>
-                <mat-divider mat-inset></mat-divider>
-                <a mat-list-item>
-                    <mat-icon matListAvatar color="warn">mood</mat-icon>
-                    <p mat-line>Gastos com Educação</p>
-                    <p mat-line>falling short of goal!</p>
-                    <div class="chart" fxFlex>
-                    <ngx-charts-linear-gauge
-                        [view]="viewGauge"
-                        [scheme]="{ domain: [ '#FF7043' ] }"
-                        [value]="40"
-                        [previousValue]="60"
-                        [min]="0"
-                        [max]="100"
-                        [units]="''">
-                    </ngx-charts-linear-gauge>
-                    </div>
-                </a>
+                    <mat-list-item-content fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between">
+                        <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon matListAvatar color="primary">sentiment_very_dissatisfied</mat-icon>
+                            <div fxLayout="column" fxLayoutAlign="center start">
+                                <p mat-line>Gastos com Lazer</p>
+                                <p mat-line>exceeding goal!</p>
+                            </div>
+                        </div>
+                        <div class="chart" fxFlex>
+                        <ngx-charts-linear-gauge
+                            [view]="viewGauge"
+                            [scheme]="{ domain: [ '#4DD0E1' ] }"
+                            [value]="90"
+                            [previousValue]="80"
+                            [min]="0"
+                            [max]="100"
+                            [units]="''">
+                        </ngx-charts-linear-gauge>
+                        </div>
+                    </mat-list-item-content>
                 </mat-nav-list>
+
             </div>
         </mat-card>
-    </div>
+    </div> -->
     
 
 </div>
+
+
+
+<!-- <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
+    <mat-card fxFlex fxLayout="column" class="card">
+        <mat-card-title fxLayout="column" fxFlex>
+            <div layout="row" fxLayoutAlign="space-between">
+                <span fxFlex>Limite de Gastos</span>
+                <span fxFlex="3">
+                    <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu xPosition="before" #settings1="matMenu">
+                        <button mat-menu-item>Informações</button>
+                    </mat-menu>
+                </span>
+            </div>
+        </mat-card-title>
+        <div class="chart" class="pad">
+            <mat-nav-list>
+                <mat-divider></mat-divider>
+            <a mat-list-item>
+                <mat-icon matListAvatar color="primary">sentiment_very_dissatisfied</mat-icon>
+                <p mat-line>Gastos com Lazer</p>
+                <p mat-line>exceeding goal!</p>
+                <div class="chart" fxFlex>
+                <ngx-charts-linear-gauge
+                    [view]="viewGauge"
+                    [scheme]="{ domain: [ '#4DD0E1' ] }"
+                    [value]="90"
+                    [previousValue]="80"
+                    [min]="0"
+                    [max]="100"
+                    [units]="''">
+                </ngx-charts-linear-gauge>
+                </div>
+            </a>
+            <mat-divider mat-inset></mat-divider>
+            <a mat-list-item>
+                <mat-icon matListAvatar color="accent">sentiment_satisfied</mat-icon>
+                <p mat-line>Gastos com Alimentação</p>
+                <p mat-line>goal almost achieved!</p>
+                <div class="chart" fxFlex>
+                <ngx-charts-linear-gauge 
+                    [view]="viewGauge"
+                    [scheme]="{ domain: [ '#BA68C8' ] }"
+                    [value]="60"
+                    [previousValue]="70"
+                    [min]="0"
+                    [max]="100"
+                    [units]="''">
+                </ngx-charts-linear-gauge>
+                </div>
+            </a>
+            <mat-divider mat-inset></mat-divider>
+            <a mat-list-item>
+                <mat-icon matListAvatar color="warn">mood</mat-icon>
+                <p mat-line>Gastos com Educação</p>
+                <p mat-line>falling short of goal!</p>
+                <div class="chart" fxFlex>
+                <ngx-charts-linear-gauge
+                    [view]="viewGauge"
+                    [scheme]="{ domain: [ '#FF7043' ] }"
+                    [value]="40"
+                    [previousValue]="60"
+                    [min]="0"
+                    [max]="100"
+                    [units]="''">
+                </ngx-charts-linear-gauge>
+                </div>
+            </a>
+            </mat-nav-list>
+        </div>
+    </mat-card>
+</div> -->

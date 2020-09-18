@@ -12,35 +12,35 @@ export class IndexComponent implements OnInit {
   cards = [
     {
       title: 'Receitas',
-      subTitle: 'R$ 100,00',
-      footerIcon: 'warning',
-      footerTitle: 'Teste de descrição',
+      subTitle: 'R$ 4.200,00',
       icon: 'call_received',
-      color: 'card-color-green'
+      color: 'card-color-green',
+      footerIcon: 'call_received',
+      footerTitle: 'Receita é todo recurso proveniente da venda de mercadorias ou de uma prestação de serviços',
     },
     {
       title: 'Despesas',
-      subTitle: 'R$ 100,00',
-      footerIcon: 'date_range',
-      footerTitle: 'Teste de descrição',
       icon: 'call_made',
-      color: 'card-color-red'
+      color: 'card-color-red',
+      subTitle: 'R$ 3.200,00',
+      footerIcon: 'call_made',
+      footerTitle: 'Despesa é todo o gasto de caráter geral, relacionado com a administração e vendas',
     },
     {
       title: 'Salário',
       subTitle: 'R$ 3.500,00',
-      footerIcon: 'update',
-      footerTitle: 'Teste de descrição',
       icon: 'attach_money',
-      color: 'card-color-yellow'
+      color: 'card-color-yellow',
+      footerIcon: 'attach_money',
+      footerTitle: 'Remuneração recebida por serviço(s) prestado(s)',
     },
     {
       title: 'Cofre',
       subTitle: 'R$ 10.000,00',
-      footerIcon: 'date_range',
-      footerTitle: 'Teste de descrição',
       icon: 'account_balance',
-      color: 'card-color-blue'
+      color: 'card-color-blue',
+      footerIcon: 'date_range',
+      footerTitle: 'Cofre é onde está todo o dinheiro guardado ou investido',
     }
   ];
   
@@ -82,17 +82,5 @@ export class IndexComponent implements OnInit {
 
   axisDate(val: string): string {
     return new DatePipe('en').transform(val, 'dd MMMM');
-  }
-
-  onSelect(data): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 }

@@ -1,64 +1,50 @@
 export let single = [
     {
-      name: 'Germany',
-      value: 8940000
+      name: 'Alimentação',
+      value: 500
     },
     {
-      name: 'USA',
-      value: 5000000
+      name: 'Educação',
+      value: 1000
     },
     {
-      name: 'France',
-      value: 7200000
+      name: 'Transporte',
+      value: 120
     },
     {
-      name: 'UK',
-      value: 6200000
+      name: 'Lazer',
+      value: 800
     }
   ];
 
 export let multi: any = [
     {
-        name: 'Candy',
+        name: '1º Semestre',
         series: [
             {
-                name: '2016',
-                value: 7300000
+                name: '2019',
+                value: 53000
             },
             {
-                name: '2017',
-                value: 8940000
+                name: '2020',
+                value: 60500
             }
         ]
     },
 
     {
-        name: 'Ice Cream',
+        name: '2º Semestre',
         series: [
             {
-                name: '2016',
-                value: 7870000
+                name: '2019',
+                value: 43000
             },
             {
-                name: '2017',
-                value: 8270000
+                name: '2020',
+                value: 67000
             }
         ]
     },
-
-    {
-        name: 'Pastry',
-        series: [
-            {
-                name: '2016',
-                value: 5000002
-            },
-            {
-                name: '2017',
-                value: 5800000
-            }
-        ]
-    }
 ];
 
 export let times: any = [
