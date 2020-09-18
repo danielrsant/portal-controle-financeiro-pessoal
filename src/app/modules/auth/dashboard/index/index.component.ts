@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { single, multi, times } from './data';
+import { single, multi, times, limit } from './data';
 
 @Component({ 
   selector: 'app-index',
@@ -47,6 +47,7 @@ export class IndexComponent implements OnInit {
   times = times;
   multi = multi;
   single = single;
+  limits = limit;
 
   view: any[];
   viewGauge = [300, 100];

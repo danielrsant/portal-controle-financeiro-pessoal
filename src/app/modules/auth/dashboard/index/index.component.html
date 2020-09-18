@@ -155,7 +155,7 @@
         </mat-card>
     </div>
 
-    <!-- <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxLayout="column" fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
@@ -173,24 +173,26 @@
             <div class="chart" class="pad">
                 <mat-divider></mat-divider>
                 
-                <mat-nav-list>
+                <mat-nav-list *ngFor="let limit of limits">
                     <mat-list-item-content fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between">
                         <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-                            <mat-icon matListAvatar color="primary">sentiment_very_dissatisfied</mat-icon>
+                            <div fxFlex="15">
+                                <mat-icon matListAvatar color="primary">{{ limit?.icon }}</mat-icon>
+                            </div>
                             <div fxLayout="column" fxLayoutAlign="center start">
-                                <p mat-line>Gastos com Lazer</p>
-                                <p mat-line>exceeding goal!</p>
+                                <span mat-line style="margin: 0; font-weight: 600; font-size: 18px;">{{ limit?.category}}</span>
+                                <p mat-line>{{ limit?.status}}</p>
                             </div>
                         </div>
                         <div class="chart" fxFlex>
                         <ngx-charts-linear-gauge
                             [view]="viewGauge"
                             [scheme]="{ domain: [ '#4DD0E1' ] }"
-                            [value]="90"
-                            [previousValue]="80"
+                            [value]="limit?.value"
+                            [previousValue]="limit?.limit"
                             [min]="0"
-                            [max]="100"
-                            [units]="''">
+                            [max]="limit?.max"
+                            [units]="'Reais'">
                         </ngx-charts-linear-gauge>
                         </div>
                     </mat-list-item-content>
@@ -198,7 +200,7 @@
 
             </div>
         </mat-card>
-    </div> -->
+    </div>
     
 
 </div>

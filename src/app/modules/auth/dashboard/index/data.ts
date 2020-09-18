@@ -112,3 +112,30 @@ export let times: any = [
         ]
     },
 ];
+
+export let limit = [
+    {
+        category: 'Gastos com Lazer',
+        status: 'Ultrapassando o limite!',
+        icon: 'sentiment_very_dissatisfied',
+        max: 100,
+        limit: 80,
+        value: 90
+    },
+    {
+        category: 'Gastos com Lazer',
+        status: 'Ultrapassando o limite!',
+        icon: 'sentiment_very_dissatisfied',
+        max: 100,
+        limit: 80,
+        value: 90
+    },
+    {
+        category: 'Gastos com Lazer',
+        status: 'Ultrapassando o limite!',
+        icon: 'sentiment_very_dissatisfied',
+        max: 100,
+        limit: 80,
+        value: 90
+    },
+]
