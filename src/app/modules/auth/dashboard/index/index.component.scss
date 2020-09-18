@@ -1,7 +1,7 @@
 @import "src/app/@decorators/scss/breakpoints";
 
 .content {
-    margin: 10px;
+    margin: 5px 10px 0 10px;
 
     .card {
         margin: 10px;
@@ -102,9 +102,32 @@
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
 
+mat-card-title {
+    margin: 0 !important;
+}
+
 .chart {
     display: grid;
+
+    .chart-align {
+        justify-self: center !important
+    }
 }
+
+::ng-deep .chart-legend .legend-labels {
+    background: rgba(0,0,0,.05) !important;
+    border-radius: 3px !important;
+    float: left !important;
+    line-height: 85% !important;
+    list-style: none !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    min-width: 95px !important;
+}
+
 
 .mat-nav-list .mat-list-item {
     cursor: pointer !important;

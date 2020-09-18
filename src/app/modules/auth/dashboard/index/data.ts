@@ -95,7 +95,7 @@ export let times: any = [
                 name: '01/14/2020',
             },
             {
-                value: 12,
+                value: 100,
                 name: '01/21/2020',
             },
             {

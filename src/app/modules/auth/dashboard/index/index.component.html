@@ -21,11 +21,11 @@
     </div>
 
 
-    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="flex-start" class="content">
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="flex-start" class="content">
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
-                    <span fxFlex>Exemplo 1</span>
+                    <span fxFlex>Movimentações</span>
                     <span fxFlex="5">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
                             <mat-icon>more_vert</mat-icon>
@@ -38,9 +38,9 @@
                     </span>
                 </div>
             </mat-card-title>
-            <div class="chart" [style.height.px]="280" class="push-top-sm">
+            <div class="chart" class="push-top-sm">
                 <mat-divider></mat-divider>
-                <ngx-charts-line-chart fxFlex 
+                <ngx-charts-line-chart fxFlex class="chart-align"
                     [view]="view"
                     [scheme]="{ domain: [ '#4DD0E1', '#BA68C8', '#FF7043' ] }" 
                     [results]="times"
@@ -62,7 +62,7 @@
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
-                    <span fxFlex>Exemplo 2</span>
+                    <span fxFlex>Movimentações 2</span>
                     <span fxFlex="5">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
                             <mat-icon>more_vert</mat-icon>
@@ -75,9 +75,9 @@
                     </span>
                 </div>
             </mat-card-title>
-            <div class="chart" [style.height.px]="280">
+            <div class="chart">
                 <mat-divider></mat-divider>
-                <ngx-charts-area-chart-stacked
+                <ngx-charts-area-chart-stacked class="chart-align"
                     [view]="view"
                     [scheme]="{ domain: [ '#4DD0E1', '#BA68C8', '#FF7043' ] }"
                     [results]="times"
@@ -97,9 +97,9 @@
     </div>
 
 
-    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="flex-start" class="content">
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="flex-start" class="content">
         <mat-card fxFlex fxLayout="column" class="card">
-            <mat-card-title fxFlex>
+            <mat-card-title>
                 <div layout="row" fxLayoutAlign="space-between">
                     <span fxFlex>Exemplo 3</span>
                     <span fxFlex="5">
@@ -114,9 +114,9 @@
                     </span>
                 </div>
             </mat-card-title>
-            <div class="chart" [style.height.px]="280" class="pad">
+            <div class="chart" class="pad">
                 <mat-divider></mat-divider>
-                <ngx-charts-bar-vertical-2d
+                <ngx-charts-bar-vertical-2d class="chart-align"
                     [view]="view"
                     [scheme]="{ domain: [ '#4DD0E1', '#BA68C8', '#FF7043' ] }"
                     [results]="multi"
@@ -136,7 +136,7 @@
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxLayout="column" fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
-                    <span fxFlex>Exemplo 4</span>
+                    <span fxFlex>Categorias X Gastos</span>
                     <span fxFlex="5">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
                             <mat-icon>more_vert</mat-icon>
@@ -149,12 +149,49 @@
                     </span>
                 </div>
             </mat-card-title>
-            <div class="chart" [style.height.px]="280">
+            <div class="chart" class="pad">
+                <ngx-charts-pie-chart
+                    [view]="view"
+                    [scheme]="{ domain: ['#4DD0E1', '#BA68C8', '#FF7043', '#5AA454'] }"
+                    [results]="single"
+                    [gradient]="true"
+                    [legend]="true"
+                    [legendPosition]="legendPosition"
+                    [labels]="true"
+                    [doughnut]="false"
+                    (select)="onSelect($event)"
+                    (activate)="onActivate($event)"
+                    (deactivate)="onDeactivate($event)">
+                </ngx-charts-pie-chart>
+            </div>
+
+        
+        </mat-card>
+    </div>
+
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="flex-start" class="content">
+        <mat-card fxFlex fxLayout="column" class="card">
+            <mat-card-title fxLayout="column" fxFlex>
+                <div layout="row" fxLayoutAlign="space-between">
+                    <span fxFlex>Limite de Gastos</span>
+                    <span fxFlex="5">
+                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu xPosition="before" #settings1="matMenu">
+                            <button mat-menu-item> Ir para Tela </button>
+                            <mat-divider></mat-divider>
+                            <button mat-menu-item> Remove </button>
+                        </mat-menu>
+                    </span>
+                </div>
+            </mat-card-title>
+            <div class="chart" class="pad">
                 <mat-nav-list>
                     <mat-divider></mat-divider>
                 <a mat-list-item>
-                    <mat-icon matListAvatar color="primary">mood</mat-icon>
-                    <h3 mat-line>Candy</h3>
+                    <mat-icon matListAvatar color="primary">sentiment_very_dissatisfied</mat-icon>
+                    <p mat-line>Gastos com Lazer</p>
                     <p mat-line>exceeding goal!</p>
                     <div class="chart" fxFlex>
                     <ngx-charts-linear-gauge
@@ -171,10 +208,10 @@
                 <mat-divider mat-inset></mat-divider>
                 <a mat-list-item>
                     <mat-icon matListAvatar color="accent">sentiment_satisfied</mat-icon>
-                    <h3 mat-line>Ice Cream</h3>
+                    <p mat-line>Gastos com Alimentação</p>
                     <p mat-line>goal almost achieved!</p>
                     <div class="chart" fxFlex>
-                    <ngx-charts-linear-gauge
+                    <ngx-charts-linear-gauge 
                         [view]="viewGauge"
                         [scheme]="{ domain: [ '#BA68C8' ] }"
                         [value]="60"
@@ -187,8 +224,8 @@
                 </a>
                 <mat-divider mat-inset></mat-divider>
                 <a mat-list-item>
-                    <mat-icon matListAvatar color="warn">sentiment_very_dissatisfied</mat-icon>
-                    <h3 mat-line>Pastry</h3>
+                    <mat-icon matListAvatar color="warn">mood</mat-icon>
+                    <p mat-line>Gastos com Educação</p>
                     <p mat-line>falling short of goal!</p>
                     <div class="chart" fxFlex>
                     <ngx-charts-linear-gauge
@@ -204,22 +241,8 @@
                 </a>
                 </mat-nav-list>
             </div>
-
-            <ngx-charts-pie-chart
-                [view]="view"
-                [scheme]="{ domain: ['#4DD0E1', '#BA68C8', '#FF7043', '#5AA454'] }"
-                [results]="single"
-                [gradient]="true"
-                [legend]="true"
-                [legendPosition]="legendPosition"
-                [labels]="true"
-                [doughnut]="false"
-                (select)="onSelect($event)"
-                (activate)="onActivate($event)"
-                (deactivate)="onDeactivate($event)">
-            </ngx-charts-pie-chart>
-        
         </mat-card>
     </div>
+    
 
 </div>
