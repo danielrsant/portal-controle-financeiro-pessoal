@@ -26,11 +26,6 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   form: FormGroup;
 
-  tipoMovimentacao = [
-    { id: 1, description: 'Receita' },
-    { id: 2, description: 'Despesa' },
-  ];
-
   categories$: Observable<any[]>;
   movementTypes$: Observable<any[]>;
 
@@ -90,7 +85,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   setForm(): void {
     if (this.operation === Operation.EDIT || this.operation === Operation.VIEW) {
       this._loadingService.show();
-      this._financialMovementService.loadOne(this.id, JSON.parse(localStorage.getItem('user')).id)
+      this._financialMovementService.loadOne(this.id)
         .subscribe((response: any) => {
           this.form.patchValue(response);
           const { categoria, tipoMovimentacao, pessoa } = response;

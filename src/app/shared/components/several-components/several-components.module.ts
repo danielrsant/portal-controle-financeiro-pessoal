@@ -15,6 +15,7 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { HeaderComponent } from './header/header.component';
 import { CustomizeComponent } from './customize/customize.component';
 import { FormComponentsModule } from '../form-components/form-components.module';
+import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { FormComponentsModule } from '../form-components/form-components.module'
     BusinessCardComponent,
     CardComponent,
     DataTableComponent,
-    CustomizeComponent
+    CustomizeComponent,
+    FilterDialogComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { FormComponentsModule } from '../form-components/form-components.module'
     BusinessCardComponent,
     CardComponent,
     DataTableComponent,
-    CustomizeComponent
+    CustomizeComponent,
+    FilterDialogComponent
   ],
 })
 export class SeveralComponentsModule { }
