@@ -25,14 +25,14 @@ export class FilterDialogComponent implements OnInit {
   ngOnInit() { }
 
   generateFormFilter(): void {
-    let teste = {};
+    let newObj = {};
     this.fields.forEach(field => {
-      teste = Object.assign(teste, {
+      newObj = Object.assign(newObj, {
         [field.formcontrolname]: '',
       });
     });
 
-    this.form = this.mapToAbstractControl(teste);
+    this.form = this.mapToAbstractControl(newObj);
   }
 
   mapToAbstractControl(data: any): any {
