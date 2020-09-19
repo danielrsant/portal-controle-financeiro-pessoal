@@ -1,6 +1,8 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
 
 @Component({
   selector: 'app-input-file',
@@ -22,7 +24,7 @@ export class InputFileComponent implements OnInit {
 
   @Input() onlyImage = false;
 
-  @Input() appearance: string = 'fill';
+  @Input() appearance: string = '';
 
   @Output() insertedFile = new EventEmitter();
 
@@ -30,13 +32,18 @@ export class InputFileComponent implements OnInit {
   image: string | ArrayBuffer;
   imgURL: string;
 
-  position = "start end";
+  position = 'start end';
+
+  appearance$: Observable<string>;
 
   constructor(
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _customizeInputsService: CustomizeInputsService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.appearance$ = this._customizeInputsService.appearance;
+  }
 
   @HostListener('change', ['$event.target.files']) emitFiles(event: FileList): void {
     const file = event && event.item(0);
@@ -47,7 +54,7 @@ export class InputFileComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = e => this.image = reader.result;
       reader.readAsDataURL(file);
-      this.position = "start center";
+      this.position = 'start center';
     } else {
       if (this.onlyImage) {
         this.formGroup.get(this.formcontrolname).setValue(null);

@@ -1,5 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
@@ -18,19 +20,22 @@ export class InputTagComponent implements OnInit {
   @Input() backgroundColor: string = 'lightblue';
   @Input() wordColor: string = 'black';
 
-  @Input() appearance: string = 'fill';
+  @Input() appearance: string = '';
   
   value: string; // NG MODEL
-  
   data: Array<any>;
   
   @ViewChild('tagInput', { static: false }) tagInputRef: ElementRef;
 
+  appearance$: Observable<string>;
+
   constructor(
-    private _utilsService: UtilsService
+    private _utilsService: UtilsService,
+    private _customizeInputsService: CustomizeInputsService
   ) { }
 
   ngOnInit() {
+    this.appearance$ = this._customizeInputsService.appearance;
     this.data = this.formGroup.get(this.formcontrolname).value ? [this.formGroup.get(this.formcontrolname).value] : [];
     this.formGroup.get(this.formcontrolname).setValue('');
   }

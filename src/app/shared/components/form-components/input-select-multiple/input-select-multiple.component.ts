@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UtilsService } from 'src/app/shared/services/utils.service';
-import { ReplaySubject, Subject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { takeUntil, debounceTime } from 'rxjs/operators';
+import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
 
 @Component({
   selector: 'app-input-select-multiple',
@@ -25,7 +26,7 @@ export class InputSelectMultipleComponent implements OnInit, OnChanges, OnDestro
   @Input() displayField: string;
   @Input() secondDisplayField: string;
 
-  @Input() appearance: string = 'fill';
+  @Input() appearance: string = '';
 
   @Output() search = new EventEmitter();
   @Output() select = new EventEmitter();
@@ -33,14 +34,18 @@ export class InputSelectMultipleComponent implements OnInit, OnChanges, OnDestro
   public dataFilterCtrl: FormControl = new FormControl();
   public filteredData: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 
+  appearance$: Observable<string>;
+
   onDestroy$ = new Subject<void>();
 
   constructor(
     private _cdr: ChangeDetectorRef,
-    private _utilsService: UtilsService
+    private _utilsService: UtilsService,
+    private _customizeInputsService: CustomizeInputsService
   ) { }
 
   ngOnInit() {
+    this.appearance$ = this._customizeInputsService.appearance;
     this.listenSearch();
   }
 

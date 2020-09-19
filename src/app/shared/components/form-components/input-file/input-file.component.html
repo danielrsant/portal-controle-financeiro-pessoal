@@ -1,4 +1,4 @@
-<mat-form-field fxFlex="100" class="pointer" [formGroup]="formGroup" [appearance]="appearance">
+<mat-form-field fxFlex="100" class="pointer" [formGroup]="formGroup" [appearance]="appearance ? appearance : appearance$ | async">
 
   <mat-label>{{ label }}</mat-label>
 

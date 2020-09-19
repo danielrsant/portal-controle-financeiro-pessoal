@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { isEqual } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
-import { CustomizeService } from 'src/app/shared/services/customize.service';
+import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
 import { Style, StyleService } from 'src/app/shared/services/style.service';
 import { ColorVariable, colorVariables } from 'src/app/shared/utils/color-variables';
 
@@ -39,7 +39,7 @@ export class CustomizeComponent implements OnInit {
   darkTheme = false;
 
   constructor(
-    private _customizeService: CustomizeService,
+    private _customizeInputsService: CustomizeInputsService,
     private _styleService: StyleService,
     ) { }
 
@@ -67,7 +67,7 @@ export class CustomizeComponent implements OnInit {
   }
 
   changeTheme(theme?): void {
-      this._customizeService.setTheme(theme);
+      this._customizeInputsService.setTheme(theme);
       localStorage.setItem('theme', theme);
   }
 

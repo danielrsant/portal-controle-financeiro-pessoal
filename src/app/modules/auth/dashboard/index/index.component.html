@@ -1,9 +1,206 @@
-<div class="row">
-    <ngx-echarts-pie></ngx-echarts-pie>
-    <!-- <ngx-echarts-bar></ngx-echarts-bar>
-    <ngx-echarts-line></ngx-echarts-line>
-    <ngx-echarts-multiple-xaxis></ngx-echarts-multiple-xaxis>
-    <ngx-echarts-area-stack></ngx-echarts-area-stack>
-    <ngx-echarts-bar-animation></ngx-echarts-bar-animation>
-    <ngx-echarts-radar></ngx-echarts-radar> -->
-</div> 
+<div fxFlex fxLayout="column">
+    <div fxFlex fxLayout="row wrap" fxLayoutAlign="flex-start" class="content">
+        <div fxFlex fxLayout="row" *ngFor="let card of cards">
+            <mat-card fxFlex="1 1 calc(25% - 32px)" class="card card-top">
+                <div class="card-header {{card?.color}} card-header-icon">
+                    <mat-icon class="card-icon">{{ card?.icon }}</mat-icon>
+                </div>
+                <div class="card-category">
+                    <h2 class="card-title">{{ card?.title }}</h2>
+                    <h3 class="card-subtitle">{{ card?.subTitle }}
+                    </h3>
+                </div>
+                <div class="card-footer">
+                    <div fxLayout="row" fxLayoutGap="10px" class="stats">
+                        <mat-icon class="footer-icon">{{ card?.footerIcon }}</mat-icon>
+                        <div>{{ card?.footerTitle }}</div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
+        <mat-card fxFlex fxLayout="column" class="card">
+            <mat-card-title fxFlex>
+                <div layout="row" fxLayoutAlign="space-between">
+                    <span fxFlex>Movimentações</span>
+                    <span fxFlex="5" fxFlex.xs="10">
+                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu xPosition="before" #settings1="matMenu">
+                            <button mat-menu-item>Informações</button>
+                        </mat-menu>
+                    </span>
+                </div>
+            </mat-card-title>
+            <div class="chart" class="push-top-sm">
+                <mat-divider></mat-divider>
+                <ngx-charts-line-chart fxFlex class="chart-align"
+                    [view]="view"
+                    [scheme]="{ domain: [ '#4DD0E1', '#BA68C8', '#FF7043' ] }" 
+                    [results]="times"
+                    [gradient]="true" 
+                    [autoScale]="false" 
+                    [xAxis]="true" 
+                    [yAxis]="true" 
+                    [legend]="true"
+                    [legendPosition]="legendPosition"
+                    [showXAxisLabel]="true" 
+                    [showYAxisLabel]="true" 
+                    [xAxisLabel]="'Período'" 
+                    [yAxisLabel]="'Quantidade'"
+                    [xAxisTickFormatting]="axisDate">
+                </ngx-charts-line-chart>
+            </div>
+        </mat-card>
+
+        <mat-card fxFlex fxLayout="column" class="card">
+            <mat-card-title fxFlex>
+                <div layout="row" fxLayoutAlign="space-between">
+                    <span fxFlex>Movimentações 2</span>
+                    <span fxFlex="5" fxFlex.xs="10">
+                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu xPosition="before" #settings1="matMenu">
+                            <button mat-menu-item>Informações</button>
+                        </mat-menu>
+                    </span>
+                </div>
+            </mat-card-title>
+            <div class="chart">
+                <mat-divider></mat-divider>
+                <ngx-charts-area-chart-stacked class="chart-align"
+                    [view]="view"
+                    [scheme]="{ domain: [ '#4DD0E1', '#BA68C8', '#FF7043' ] }"
+                    [results]="times"
+                    [gradient]="true"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [legend]="true"
+                    [legendPosition]="legendPosition"
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [xAxisLabel]="'Período'" 
+                    [yAxisLabel]="'Quantidade'"
+                    [xAxisTickFormatting]="axisDate">
+                </ngx-charts-area-chart-stacked>
+            </div>
+        </mat-card>
+    </div>
+
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
+        <mat-card fxFlex fxLayout="column" class="card">
+            <mat-card-title>
+                <div layout="row" fxLayoutAlign="space-between">
+                    <span fxFlex>Economia Anual</span>
+                    <span fxFlex="5" fxFlex.xs="10">
+                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu xPosition="before" #settings1="matMenu">
+                            <button mat-menu-item>Informações</button>
+                        </mat-menu>
+                    </span>
+                </div>
+            </mat-card-title>
+            <div class="chart" class="pad">
+                <mat-divider></mat-divider>
+                <ngx-charts-bar-vertical-2d class="chart-align"
+                    [view]="view"
+                    [scheme]="{ domain: [ '#4DD0E1', '#BA68C8', '#FF7043' ] }"
+                    [results]="multi"
+                    [barPadding]="18"
+                    [groupPadding]="28"
+                    [gradient]="true"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [legend]="true"
+                    [legendPosition]="legendPosition"
+                    [showXAxisLabel]="false"
+                    [showYAxisLabel]="false">
+                </ngx-charts-bar-vertical-2d>
+            </div>
+        </mat-card>
+
+        <mat-card fxFlex fxLayout="column" class="card">
+            <mat-card-title fxLayout="column" fxFlex>
+                <div layout="row" fxLayoutAlign="space-between">
+                    <span fxFlex>Categorias X Gastos</span>
+                    <span fxFlex="5" fxFlex.xs="10">
+                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu xPosition="before" #settings1="matMenu">
+                            <button mat-menu-item>Informações</button>
+                        </mat-menu>
+                    </span>
+                </div>
+            </mat-card-title>
+            <div class="chart" class="pad">
+                <mat-divider></mat-divider>
+                <ngx-charts-pie-chart class="chart-align"
+                    [view]="view"
+                    [scheme]="{ domain: ['#4DD0E1', '#BA68C8', '#FF7043', '#5AA454'] }"
+                    [results]="single"
+                    [gradient]="true"
+                    [legend]="true"
+                    [legendPosition]="legendPosition"
+                    [labels]="true"
+                    [doughnut]="false">
+                </ngx-charts-pie-chart>
+            </div>
+        </mat-card>
+    </div>
+
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
+        <mat-card fxFlex fxLayout="column" class="card">
+            <mat-card-title fxLayout="column" fxFlex>
+                <div layout="row" fxLayoutAlign="space-between">
+                    <span fxFlex>Limite de Gastos</span>
+                    <span fxFlex="3" fxFlex.xs="10">
+                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu xPosition="before" #settings1="matMenu">
+                            <button mat-menu-item>Informações</button>
+                        </mat-menu>
+                    </span>
+                </div>
+            </mat-card-title>
+            <div class="chart" class="pad">
+                <mat-divider></mat-divider>
+                
+                <mat-nav-list *ngFor="let limit of limits">
+                    <mat-list-item-content fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between">
+                        <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                            <div fxFlex="15">
+                                <mat-icon matListAvatar color="primary">{{ limit?.icon }}</mat-icon>
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="center start">
+                                <span mat-line style="margin: 0; font-weight: 600; font-size: 18px;">{{ limit?.category}}</span>
+                                <p mat-line>{{ limit?.status}}</p>
+                            </div>
+                        </div>
+                        <div class="chart" fxFlex>
+                        <ngx-charts-linear-gauge class="chart-align"
+                            [view]="viewGauge"
+                            [scheme]="{ domain: [ limit?.color ] }"
+                            [value]="limit?.value"
+                            [previousValue]="limit?.limit"
+                            [min]="0" 
+                            [max]="limit?.max"
+                            [units]="'Reais'">
+                        </ngx-charts-linear-gauge>
+                        </div>
+                    </mat-list-item-content>
+                </mat-nav-list>
+
+            </div>
+        </mat-card>
+    </div>
+    
+
+</div>

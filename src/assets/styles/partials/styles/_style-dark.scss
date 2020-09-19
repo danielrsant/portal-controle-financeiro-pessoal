@@ -32,4 +32,20 @@
   // Footer
   --text-secondary-light: #{$dark-secondary-text};
   --secondary-toolbar-background: var(--background-card);
+  
+  // NGX Charts
+  [ngx-charts-axis-label] text,
+  .tick text {
+      fill: rgba(white, 0.5);
+  }
+  .gridline-path {
+      &.gridline-path-horizontal,
+      &.gridline-path-vertical {
+          stroke: rgba(white, 0.06);
+      }
+  }
+  .legend-title-text {
+      color: rgba(white, 0.5);
+  }
+
 }
