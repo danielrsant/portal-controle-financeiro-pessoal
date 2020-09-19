@@ -141,7 +141,7 @@
             </mat-card-title>
             <div class="chart" class="pad">
                 <mat-divider></mat-divider>
-                <ngx-charts-pie-chart
+                <ngx-charts-pie-chart class="chart-align"
                     [view]="view"
                     [scheme]="{ domain: ['#4DD0E1', '#BA68C8', '#FF7043', '#5AA454'] }"
                     [results]="single"
@@ -185,12 +185,12 @@
                             </div>
                         </div>
                         <div class="chart" fxFlex>
-                        <ngx-charts-linear-gauge
+                        <ngx-charts-linear-gauge class="chart-align"
                             [view]="viewGauge"
-                            [scheme]="{ domain: [ '#4DD0E1' ] }"
+                            [scheme]="{ domain: [ limit?.color ] }"
                             [value]="limit?.value"
                             [previousValue]="limit?.limit"
-                            [min]="0"
+                            [min]="0" 
                             [max]="limit?.max"
                             [units]="'Reais'">
                         </ngx-charts-linear-gauge>
@@ -204,78 +204,3 @@
     
 
 </div>
-
-
-
-<!-- <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
-    <mat-card fxFlex fxLayout="column" class="card">
-        <mat-card-title fxLayout="column" fxFlex>
-            <div layout="row" fxLayoutAlign="space-between">
-                <span fxFlex>Limite de Gastos</span>
-                <span fxFlex="3">
-                    <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
-                        <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu xPosition="before" #settings1="matMenu">
-                        <button mat-menu-item>Informações</button>
-                    </mat-menu>
-                </span>
-            </div>
-        </mat-card-title>
-        <div class="chart" class="pad">
-            <mat-nav-list>
-                <mat-divider></mat-divider>
-            <a mat-list-item>
-                <mat-icon matListAvatar color="primary">sentiment_very_dissatisfied</mat-icon>
-                <p mat-line>Gastos com Lazer</p>
-                <p mat-line>exceeding goal!</p>
-                <div class="chart" fxFlex>
-                <ngx-charts-linear-gauge
-                    [view]="viewGauge"
-                    [scheme]="{ domain: [ '#4DD0E1' ] }"
-                    [value]="90"
-                    [previousValue]="80"
-                    [min]="0"
-                    [max]="100"
-                    [units]="''">
-                </ngx-charts-linear-gauge>
-                </div>
-            </a>
-            <mat-divider mat-inset></mat-divider>
-            <a mat-list-item>
-                <mat-icon matListAvatar color="accent">sentiment_satisfied</mat-icon>
-                <p mat-line>Gastos com Alimentação</p>
-                <p mat-line>goal almost achieved!</p>
-                <div class="chart" fxFlex>
-                <ngx-charts-linear-gauge 
-                    [view]="viewGauge"
-                    [scheme]="{ domain: [ '#BA68C8' ] }"
-                    [value]="60"
-                    [previousValue]="70"
-                    [min]="0"
-                    [max]="100"
-                    [units]="''">
-                </ngx-charts-linear-gauge>
-                </div>
-            </a>
-            <mat-divider mat-inset></mat-divider>
-            <a mat-list-item>
-                <mat-icon matListAvatar color="warn">mood</mat-icon>
-                <p mat-line>Gastos com Educação</p>
-                <p mat-line>falling short of goal!</p>
-                <div class="chart" fxFlex>
-                <ngx-charts-linear-gauge
-                    [view]="viewGauge"
-                    [scheme]="{ domain: [ '#FF7043' ] }"
-                    [value]="40"
-                    [previousValue]="60"
-                    [min]="0"
-                    [max]="100"
-                    [units]="''">
-                </ngx-charts-linear-gauge>
-                </div>
-            </a>
-            </mat-nav-list>
-        </div>
-    </mat-card>
-</div> -->

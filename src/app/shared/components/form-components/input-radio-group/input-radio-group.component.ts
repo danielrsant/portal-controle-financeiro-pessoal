@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { UtilsService } from 'src/app/shared/services/utils.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
   selector: 'app-input-radio-group',
@@ -22,13 +24,17 @@ export class InputRadioGroupComponent implements OnInit {
 
   @Input() layout: 'row' | 'column' = 'row';
 
-  @Input() appearance: string = 'fill';
+  @Input() appearance: string = '';
+
+  appearance$: Observable<string>;
 
   constructor(
-    private _utilsService: UtilsService
+    private _utilsService: UtilsService,
+    private _customizeInputsService: CustomizeInputsService
   ) { }
 
   ngOnInit(): void {
+    this.appearance$ = this._customizeInputsService.appearance;
   }
 
   setValue(event): void {

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
@@ -18,13 +20,18 @@ export class InputNumberComponent implements OnInit {
   @Input() min: number;
   @Input() max: number;
 
-  @Input() appearance: string = 'fill';
+  @Input() appearance: string = '';
+
+  appearance$: Observable<string>;
 
   constructor(
-    private _utilsService: UtilsService
+    private _utilsService: UtilsService,
+    private _customizeInputsService: CustomizeInputsService
   ) { }
 
   ngOnInit(): void {
+    this.appearance$ = this._customizeInputsService.appearance;
+
     if (this.min || this.max) {
       this.onChange();
     }

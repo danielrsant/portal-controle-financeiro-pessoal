@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
 
 @Component({
   selector: 'app-input-password',
@@ -14,12 +16,18 @@ export class InputPasswordComponent implements OnInit {
   @Input() label: string = 'Senha';
   @Input() placeholder: string = 'Digite aqui';
 
-  @Input() appearance: string = 'fill';
+  @Input() appearance: string = '';
 
   hide = true;
 
-  constructor() { }
+  appearance$: Observable<string>;
 
-  ngOnInit(): void { }
+  constructor(
+    private _customizeInputsService: CustomizeInputsService
+  ) { }
+
+  ngOnInit(): void {
+    this.appearance$ = this._customizeInputsService.appearance;
+  }
 
 }

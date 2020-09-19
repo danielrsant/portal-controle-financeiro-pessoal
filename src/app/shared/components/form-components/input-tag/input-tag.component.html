@@ -1,4 +1,4 @@
-<mat-form-field [appearance]="appearance" fxFlex="100">
+<mat-form-field [appearance]="appearance ? appearance : appearance$ | async" fxFlex="100">
 
     <mat-label>{{ label }}</mat-label>
 

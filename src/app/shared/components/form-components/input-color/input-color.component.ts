@@ -11,9 +11,11 @@ export class InputColorComponent implements OnInit {
 
   @Input() formGroup: FormGroup;
   @Input() formcontrolname: string;
-  @Input() disabled: boolean;
-  @Input() placeholder: string;
+
   @Input() label: string;
+  @Input() placeholder: string;
+  
+  @Input() disabled: boolean;
 
   constructor(
     private _utilsService: UtilsService

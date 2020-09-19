@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
@@ -22,16 +24,21 @@ export class InputDatepickerRangeComponent implements OnInit {
   @Input() min = null;
   @Input() max = null;
 
-  @Input() appearance: string = 'fill';
+  @Input() appearance: string = '';
 
   minDate = null;
   maxDate = null;
 
+  appearance$: Observable<string>;
+
   constructor(
-    private _utilsService: UtilsService
+    private _utilsService: UtilsService,
+    private _customizeInputsService: CustomizeInputsService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.appearance$ = this._customizeInputsService.appearance;
+   }
 
   checkRequired(formcontrolnameStart, formcontrolNameEnd): boolean {
     return this._utilsService.hasRequiredField(this.formGroup.get(formcontrolnameStart)) || this._utilsService.hasRequiredField(this.formGroup.get(formcontrolNameEnd));

@@ -115,27 +115,30 @@ export let times: any = [
 
 export let limit = [
     {
-        category: 'Gastos com Lazer',
+        category: 'Lazer',
         status: 'Ultrapassando o limite!',
         icon: 'sentiment_very_dissatisfied',
+        color: '#4DD0E1',
         max: 100,
         limit: 80,
         value: 90
     },
     {
-        category: 'Gastos com Lazer',
-        status: 'Ultrapassando o limite!',
-        icon: 'sentiment_very_dissatisfied',
+        category: 'Educação',
+        status: 'Quase lá!',
+        icon: 'sentiment_satisfied',
+        color: '#BA68C8',
         max: 100,
         limit: 80,
-        value: 90
+        value: 70
     },
     {
-        category: 'Gastos com Lazer',
-        status: 'Ultrapassando o limite!',
-        icon: 'sentiment_very_dissatisfied',
+        category: 'Alimentação',
+        status: 'Longe do Limite!',
+        icon: 'mood',
+        color: '#FF7043',
         max: 100,
-        limit: 80,
-        value: 90
+        limit: 50,
+        value: 10
     },
-]
+];

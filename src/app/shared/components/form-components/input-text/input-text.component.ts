@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
@@ -14,19 +16,23 @@ export class InputTextComponent implements OnInit {
 
   @Input() label: string;
   @Input() placeholder: string = 'Digite aqui';
-  
+
   @Input() iconName: string;
   @Input() maxLength: number = null;
-  
-  @Input() appearance: string = 'fill';
+
+  @Input() appearance: string = '';
   @Input() mask: string;
   @Input() dropSpecialCharacters: boolean = true;
 
+  appearance$: Observable<string>;
+
   constructor(
-    private _utilsService: UtilsService
+    private _utilsService: UtilsService,
+    private _customizeInputsService: CustomizeInputsService
   ) { }
 
   ngOnInit(): void {
+    this.appearance$ = this._customizeInputsService.appearance;
   }
 
   checkRequired(): boolean {
