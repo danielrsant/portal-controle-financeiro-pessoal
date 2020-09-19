@@ -15,6 +15,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { IFormField } from 'src/app/shared/interfaces/form-filter.interface';
 import { CategoryService } from 'src/app/services/category.service';
 import { MovementTypeService } from 'src/app/services/movement-type.service';
+import { PageConfig } from './page-config';
 
 @Component({
   selector: 'app-index',
@@ -36,73 +37,15 @@ export class IndexComponent implements OnInit, OnDestroy {
   title = 'Movimentações';
   icon = 'home';
   operation: Operation = Operation.INDEX;
-  personId: number = JSON.parse(localStorage.getItem('user')).id;
 
   options: any = {};
   paginationInitial = { page: 0, limit: 10 };
 
   dataSource: any[] = [];
-  columns: TableColumn<any>[] = [
-    { label: 'Id', property: 'id', type: 'text', visible: true },
-    { label: 'Descrição', property: 'descricao', type: 'text', visible: true },
-    { label: 'Conta fixa', property: 'contaFixa', type: 'checkbox', visible: true },
-    {
-      label: 'Data de conclusão',
-      property: 'dtConclusao',
-      type: 'text',
-      visible: true,
-    },
-    {
-      label: 'Data de lançamento',
-      property: 'dtLancamento',
-      type: 'text',
-      visible: true,
-    },
-    {
-      label: 'Data de lembrete',
-      property: 'dtLembrete',
-      type: 'text',
-      visible: true,
-    },
-    {
-      label: 'Data de vencimento',
-      property: 'dtVencimento',
-      type: 'text',
-      visible: true,
-    },
-    {
-      label: 'Lembrete enviado',
-      property: 'lembreteEnviado',
-      type: 'checkbox',
-      visible: true,
-    },
-    { label: 'Pago', property: 'pago', type: 'checkbox', visible: true },
-    {
-      label: 'Tipo de movimentação',
-      property: 'tipoMovimentacao',
-      type: 'text',
-      visible: true,
-    },
-    { label: 'Categoria', property: 'categoria', type: 'text', visible: true },
-    { label: 'Total', property: 'total', type: 'text', visible: true },
-    { label: 'Ações', property: 'actions', type: 'actions', visible: true },
-
-  ];
+  columns = new PageConfig().columns;
 
   formFilter: FormGroup;
-  fields: IFormField[] = [
-    { formcontrolname: 'id', type: 'number', label: 'Id', min: 1 },
-    {
-      formcontrolname: 'tipoMovimentacao', type: 'select', label: 'Tipo de movimentação', select: { data: [], valueField: 'id', displayField: 'descricao', searchField: 'descricao' }
-    },
-    { formcontrolname: 'categoria', type: 'select', label: 'Categoria', select: { data: [], valueField: 'id', displayField: 'descricao', searchField: 'descricao' } },
-    { formcontrolname: 'dataLancamento', type: 'datepicker', label: 'Data de lançamento' },
-    { formcontrolname: 'dataVencimento', type: 'datepicker', label: 'Data de vencimento' },
-    { formcontrolname: 'dataConclusao', type: 'datepicker', label: 'Data de conclusão' },
-    { formcontrolname: 'pago', type: 'toggle', label: 'Pago?' },
-    { formcontrolname: 'possuiLembrete', type: 'toggle', label: 'Possui lembrete?' },
-    { formcontrolname: 'contaFixa', type: 'toggle', label: 'Conta fixa?' },
-  ];
+  filterFields = new PageConfig().filterFields;
 
   selection = new SelectionModel<any>(true, []);
   configuration = new Config({}, 0);
@@ -130,14 +73,14 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._categoryService.loadAll()
       .subscribe((response: any) => {
         if (!response) { return; }
-        const categoria = this.fields.find(field => field.formcontrolname === 'categoria');
+        const categoria = this.filterFields.find(field => field.formcontrolname === 'categoria');
         categoria.select.data = response.data;
       });
 
     this._movementTypeService.loadAll()
       .subscribe((response: any) => {
         if (!response) { return; }
-        const tipoMovimentacao = this.fields.find(field => field.formcontrolname === 'tipoMovimentacao');
+        const tipoMovimentacao = this.filterFields.find(field => field.formcontrolname === 'tipoMovimentacao');
         tipoMovimentacao.select.data = response.data;
       });
 
@@ -243,14 +186,14 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dialog.open(FilterDialogComponent, {
       data: {
         form: this.formFilter,
-        fields: this.fields
+        fields: this.filterFields
       }
     }).afterClosed().subscribe(() => {
       const obj = this.removeNullUndefinedProperties(this.formFilter.value);
       const filter = Object.keys(obj).map(item => {
         if (!obj[item]) {
           return null;
-        } else if (this.fields.find(field => field.type === 'select' && field.formcontrolname === item)) {
+        } else if (this.filterFields.find(field => field.type === 'select' && field.formcontrolname === item)) {
           return `${item}.id||$eq||${obj[item]}`;
         } else if (item === 'possuiLembrete') {
           return `dtLembrete||$notnull`;
