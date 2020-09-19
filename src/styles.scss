@@ -1,4 +1,5 @@
 @import "./assets/styles/core";
+@import "./app/shared/@decorators/scss/breakpoints.scss";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -10,6 +11,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin: -65px 25px 25px 25px;
     height: auto;
     z-index: 1;
+
+    @include media-breakpoint('xs') {
+        margin: -65px -10px 25px -10px;
+    }
+}
+
+.content-page-form {
+    border-radius: 4px;
+    max-width: -webkit-fill-available !important;
+    margin: -45px 45px 25px 45px;
+    height: auto;
+    z-index: 1;
+
+    @include media-breakpoint('xs') {
+        margin: -45px 10px 25px 10px;     
+    }
 }
 
 .btn-color {

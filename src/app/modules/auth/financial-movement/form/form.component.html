@@ -1,5 +1,6 @@
 <div fxFlex fxLayout="column">
   <app-header
+    [operation]="operation"
     [title]="title"
     [icon]="icon"
     [backPage]="true"
@@ -9,7 +10,7 @@
   >
   </app-header>
 
-  <mat-card fxFlex fxLayout="column">
+  <mat-card fxFlex fxLayout="column" class="content-page-form">
     <div
       fxFlex
       fxLayout="row"

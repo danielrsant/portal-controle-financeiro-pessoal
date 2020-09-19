@@ -1,3 +1,5 @@
+@import "src/app/shared/@decorators/scss/breakpoints";
+
 .empty-list {
   display: flex;
   justify-content: center;
@@ -8,14 +10,15 @@
 }
 
 .title {
-    margin-bottom: 0px;
-    margin-left: 10px;
-    font-size: 22px;
+    margin-bottom: 0px !important;
+    padding-right: 1.5rem !important;
+    font-size: 20px !important;
 }
 
 .input-search {
   height: 40px;
   width: 250px;
+  min-width: 110px;
   border-radius: 9999px;
   border-width: 0px;
   outline: 0;
@@ -34,6 +37,11 @@
   height: 4rem;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
+
+  @include media-breakpoint('xs') {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;  
+  }
 }
 
 .btn-table {
@@ -45,16 +53,23 @@
   background-color: white !important;
   padding-left: 1rem;
   border-radius: 40px;
-  margin-left: 20px;
 }
 
 .sticky {
   position: sticky;
 }
 
-.w-full {
-  width: 100%;
+.overflow {
+  display: block; 
+  overflow: auto;
+  
+  .table-responsiveness {
+    width: 100%;
+    overflow-x: auto;
+    display: table;
+  }
 }
+
 
 .border {
   border-width: 1px;
@@ -67,4 +82,16 @@
 .footer-paginator {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  left: 0 !important;
+}
+
+::ng-deep .mat-menu-panel {
+  min-width: 112px !important;
+  max-width: 280px !important;
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  border-radius: 4px !important;
+  outline: 0 !important;
+  min-height: 64px !important;
+  max-height: 250px !important;
 }
