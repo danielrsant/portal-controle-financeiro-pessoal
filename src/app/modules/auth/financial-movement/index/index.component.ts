@@ -58,18 +58,6 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   setFormFilter() {
-    this.formFilter = new FormGroup({
-      id: new FormControl(),
-      tipoMovimentacao: new FormControl(),
-      dataLancamento: new FormControl(),
-      dataVencimento: new FormControl(),
-      dataConclusao: new FormControl(),
-      pago: new FormControl(),
-      categoria: new FormControl(),
-      possuiLembrete: new FormControl(),
-      contaFixa: new FormControl(),
-    });
-
     this._categoryService.loadAll()
       .subscribe((response: any) => {
         if (!response) { return; }

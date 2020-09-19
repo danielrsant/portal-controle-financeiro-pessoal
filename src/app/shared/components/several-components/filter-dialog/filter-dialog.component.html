@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Install Angular</h2>
-<mat-dialog-content>
+<mat-dialog-content *ngIf="form && form.controls">
     <div *ngFor="let field of fields">
         <!-- DATEPICKER -->
         <div *ngIf="field.type === 'datepicker'">
