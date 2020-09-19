@@ -56,6 +56,7 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
   @Output() update = new EventEmitter();
   @Output() view = new EventEmitter();
   @Output() delete = new EventEmitter();
+  @Output() dialogFilter = new EventEmitter();
 
   dataSource: MatTableDataSource<{}>;
   actualDirection: string;
@@ -233,6 +234,10 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
         this.delete.emit(element);
         break;
     }
+  }
+
+  onClickFilterButton() {
+    this.dialogFilter.emit();
   }
 
 

@@ -10,30 +10,31 @@ import { map } from 'rxjs/operators';
 export class FinancialMovementService {
 
   API_BASE_URL: string = environment.API;
+  pessoaId = JSON.parse(localStorage.getItem('user')).id;
 
   constructor(private http: HttpClient) { }
 
-  loadAll(pessoaId: number, payload?: any): Observable<any[]> {
+  loadAll(payload?: any): Observable<any[]> {
     const url = `${this.API_BASE_URL}/movimentacoes`;
     if (!payload.filter) {
       payload.filter = [];
     }
 
-    payload.filter[0] = `pessoa.id||$eq||${pessoaId}`;
-    payload.filter[1] = `status||$eq||1`;
+    payload.filter.push(`pessoa.id||$eq||${this.pessoaId}`);
+    payload.filter.push(`status||$eq||1`);
 
 
     return this.http.get(url, { params: payload }).pipe(map((result: any) => result));
   }
 
-  loadOne(id: number, pessoaId: number): Observable<any> {
+  loadOne(id: number): Observable<any> {
     const url = `${this.API_BASE_URL}/movimentacoes/${id}`;
     const payload: any = {};
     if (!payload.filter) {
       payload.filter = [];
     }
 
-    payload.filter[0] = `pessoa.id||$eq||${pessoaId}`;
+    payload.filter.push(`pessoa.id||$eq||${this.pessoaId}`);
     payload.filter[1] = `status||$eq||1`;
 
     return this.http.get(url, { params: payload }).pipe(map((result: any) => result));

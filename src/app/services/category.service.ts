@@ -9,23 +9,24 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoryService {
   API_BASE_URL: string = environment.API;
+  pessoaId = JSON.parse(localStorage.getItem('user')).id;
 
   constructor(private http: HttpClient) { }
 
   loadAll(payload?: any): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/categorias`;
+    const url = `${this.API_BASE_URL}/categorias?filter=pessoa.id||$eq||${this.pessoaId}`;
 
     return this.http.get(url, { params: payload }).pipe(map((result: any) => result));
   }
 
   loadOne(id: number): Observable<any> {
-    const url = `${this.API_BASE_URL}/categorias/${id}`;
+    const url = `${ this.API_BASE_URL }/categorias/${ id } `;
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
   create(payload: any): Observable<any> {
-    const url = `${this.API_BASE_URL}/categorias`;
+    const url = `${ this.API_BASE_URL } /categorias`;
 
     return this.http.post(url, payload);
   }

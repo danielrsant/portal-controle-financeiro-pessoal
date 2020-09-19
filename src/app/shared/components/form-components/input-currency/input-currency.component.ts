@@ -23,7 +23,7 @@ export class InputCurrencyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const input = this.formGroup.get(this.formcontrolname);
+
   }
 
   checkRequired(): boolean {
@@ -37,7 +37,7 @@ export class InputCurrencyComponent implements OnInit {
   onBlur(): void {
     const input = this.formGroup.get(this.formcontrolname);
     if (input.value) {
-      input.setValue(input.value.trim());
+      input.setValue(input.value);
     }
   }
 
