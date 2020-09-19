@@ -9,6 +9,12 @@ import { UtilsService } from 'src/app/shared/services/utils.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FinancialMovementService } from 'src/app/services/financial-movement.service';
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material/dialog';
+import { FilterDialogComponent } from 'src/app/shared/components/several-components/filter-dialog/filter-dialog.component';
+import { FormControl, FormGroup } from '@angular/forms';
+import { IFormField } from 'src/app/shared/interfaces/form-filter.interface';
+import { CategoryService } from 'src/app/services/category.service';
+import { MovementTypeService } from 'src/app/services/movement-type.service';
 
 @Component({
   selector: 'app-index',
@@ -21,7 +27,10 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _utilsService: UtilsService,
     private _loadingService: LoadingService,
-    private _financialMovementService: FinancialMovementService
+    private _categoryService: CategoryService,
+    private _movementTypeService: MovementTypeService,
+    private _financialMovementService: FinancialMovementService,
+    private _dialog: MatDialog,
   ) { }
 
   title = 'Movimentações';
@@ -80,13 +89,59 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   ];
 
+  formFilter: FormGroup;
+  fields: IFormField[] = [
+    { formcontrolname: 'id', type: 'number', label: 'Id', min: 1 },
+    {
+      formcontrolname: 'tipoMovimentacao', type: 'select', label: 'Tipo de movimentação', select: { data: [], valueField: 'id', displayField: 'descricao', searchField: 'descricao' }
+    },
+    { formcontrolname: 'categoria', type: 'select', label: 'Categoria', select: { data: [], valueField: 'id', displayField: 'descricao', searchField: 'descricao' } },
+    { formcontrolname: 'dataLancamento', type: 'datepicker', label: 'Data de lançamento' },
+    { formcontrolname: 'dataVencimento', type: 'datepicker', label: 'Data de vencimento' },
+    { formcontrolname: 'dataConclusao', type: 'datepicker', label: 'Data de conclusão' },
+    { formcontrolname: 'pago', type: 'toggle', label: 'Pago?' },
+    { formcontrolname: 'possuiLembrete', type: 'toggle', label: 'Possui lembrete?' },
+    { formcontrolname: 'contaFixa', type: 'toggle', label: 'Conta fixa?' },
+  ];
+
   selection = new SelectionModel<any>(true, []);
   configuration = new Config({}, 0);
 
   subscription: Subscription;
 
   ngOnInit(): void {
+    this.setFormFilter();
     this.onRefresh(this.paginationInitial);
+  }
+
+  setFormFilter() {
+    this.formFilter = new FormGroup({
+      id: new FormControl(),
+      tipoMovimentacao: new FormControl(),
+      dataLancamento: new FormControl(),
+      dataVencimento: new FormControl(),
+      dataConclusao: new FormControl(),
+      pago: new FormControl(),
+      categoria: new FormControl(),
+      possuiLembrete: new FormControl(),
+      contaFixa: new FormControl(),
+    });
+
+    this._categoryService.loadAll()
+      .subscribe((response: any) => {
+        if (!response) { return; }
+        const categoria = this.fields.find(field => field.formcontrolname === 'categoria');
+        categoria.select.data = response.data;
+      });
+
+    this._movementTypeService.loadAll()
+      .subscribe((response: any) => {
+        if (!response) { return; }
+        const tipoMovimentacao = this.fields.find(field => field.formcontrolname === 'tipoMovimentacao');
+        tipoMovimentacao.select.data = response.data;
+      });
+
+
   }
 
   onRefresh(params?: { page?: number; limit?: number; s?: any }): void {
@@ -105,7 +160,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     }
 
     this._loadingService.show();
-    this._financialMovementService.loadAll(this.personId, this.options).subscribe(
+    this._financialMovementService.loadAll(this.options).subscribe(
       (response: any) => {
         if (response) {
           const data: any[] = response.data.map((item) => {
@@ -182,6 +237,37 @@ export class IndexComponent implements OnInit, OnDestroy {
     }
 
     this.onRefresh({ ...this.paginationInitial, ...params });
+  }
+
+  openDialogFilter() {
+    this._dialog.open(FilterDialogComponent, {
+      data: {
+        form: this.formFilter,
+        fields: this.fields
+      }
+    }).afterClosed().subscribe(() => {
+      const obj = this.removeNullUndefinedProperties(this.formFilter.value);
+      const filter = Object.keys(obj).map(item => {
+        if (!obj[item]) {
+          return null;
+        } else if (this.fields.find(field => field.type === 'select' && field.formcontrolname === item)) {
+          return `${item}.id||$eq||${obj[item]}`;
+        } else if (item === 'possuiLembrete') {
+          return `dtLembrete||$notnull`;
+        } else {
+          return `${item}||$eq||${obj[item]}`;
+        }
+      }).filter(item => item !== null && item !== undefined);
+
+      this.options = { ...this.options, filter };
+      this.onRefresh();
+    });
+  }
+
+  removeNullUndefinedProperties(payload) {
+    Object.keys(payload).forEach(key => payload[key] === undefined || payload[key] === null ? delete payload[key] : {});
+
+    return payload;
   }
 
   ngOnDestroy(): void { }
