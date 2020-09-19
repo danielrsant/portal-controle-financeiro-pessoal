@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "agenda10"
+  "defaultProject": "agenda10",
+  "cli": {
+    "analytics": "eaeb0057-73d9-4588-8f3b-b0a5ac32d04e"
+  }
 }

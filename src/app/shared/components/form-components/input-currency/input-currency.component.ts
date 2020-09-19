@@ -14,7 +14,8 @@ export class InputCurrencyComponent implements OnInit {
   @Input() label: string;
   @Input() iconName: string;
   @Input() disabled: boolean;
-  
+  @Input() appearance: string;
+
   @Output() changeValue = new EventEmitter();
 
   constructor(

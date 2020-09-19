@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             response => {
                 if (response) {
                     localStorage.setItem('user', JSON.stringify(response.data.pessoa));
-                    localStorage.setItem('token', response.data.accessToken);
+                    localStorage.setItem('token', response.token);
                     this.navigate();
                     this.openDialog();
                 } else {

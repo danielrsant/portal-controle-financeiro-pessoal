@@ -14,7 +14,7 @@ import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { fadeInUp400ms, stagger40ms,  } from 'src/app/shared/animations';
+import { fadeInUp400ms, stagger40ms, } from 'src/app/shared/animations';
 import { TableColumn } from '../../../models/table-column.interface';
 import { DefaultParams } from '../../../enums/default';
 import { Subject } from 'rxjs';
@@ -53,6 +53,9 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
   @Output() clickRow = new EventEmitter();
   @Output() search = new EventEmitter();
   @Output() create = new EventEmitter();
+  @Output() update = new EventEmitter();
+  @Output() view = new EventEmitter();
+  @Output() delete = new EventEmitter();
 
   dataSource: MatTableDataSource<{}>;
   actualDirection: string;
@@ -216,9 +219,20 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onActions(data) {
-    console.log(data);
-    
+  onActions(data, element) {
+    switch (data) {
+      case 'detalhar':
+        this.view.emit(element);
+        break;
+
+      case 'alterar':
+        this.update.emit(element);
+        break;
+
+      case 'excluir':
+        this.delete.emit(element);
+        break;
+    }
   }
 
 

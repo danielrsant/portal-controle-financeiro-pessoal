@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from './components/components.module';
 
-
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [],
@@ -18,7 +18,10 @@ import { ComponentsModule } from './components/components.module';
     ComponentsModule
   ],
   exports: [
-    ComponentsModule
+    ComponentsModule,
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ]
 })
 export class CoreModule { }

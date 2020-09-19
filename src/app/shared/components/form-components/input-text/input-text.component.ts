@@ -24,6 +24,8 @@ export class InputTextComponent implements OnInit {
   @Input() mask: string;
   @Input() dropSpecialCharacters: boolean = true;
 
+  @Input() autocomplete = 'off';
+
   appearance$: Observable<string>;
 
   constructor(

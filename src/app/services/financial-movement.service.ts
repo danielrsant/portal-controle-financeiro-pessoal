@@ -1,6 +1,6 @@
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,16 +13,30 @@ export class FinancialMovementService {
 
   constructor(private http: HttpClient) { }
 
-  loadAll(payload?: any): Observable<any[]> {
+  loadAll(pessoaId: number, payload?: any): Observable<any[]> {
     const url = `${this.API_BASE_URL}/movimentacoes`;
+    if (!payload.filter) {
+      payload.filter = [];
+    }
+
+    payload.filter[0] = `pessoa.id||$eq||${pessoaId}`;
+    payload.filter[1] = `status||$eq||1`;
+
 
     return this.http.get(url, { params: payload }).pipe(map((result: any) => result));
   }
 
-  loadOne(id: number): Observable<any> {
+  loadOne(id: number, pessoaId: number): Observable<any> {
     const url = `${this.API_BASE_URL}/movimentacoes/${id}`;
+    const payload: any = {};
+    if (!payload.filter) {
+      payload.filter = [];
+    }
 
-    return this.http.get(url).pipe(map((result: any) => result));
+    payload.filter[0] = `pessoa.id||$eq||${pessoaId}`;
+    payload.filter[1] = `status||$eq||1`;
+
+    return this.http.get(url, { params: payload }).pipe(map((result: any) => result));
   }
 
   create(payload: any): Observable<any> {
@@ -34,10 +48,14 @@ export class FinancialMovementService {
   update(id: number, payload: any): Observable<any> {
     const url = `${this.API_BASE_URL}/movimentacoes/${id}`;
 
-    return this.http.put(url, payload).pipe(map((result: any) => result.data));
+    return this.http.put(url, payload).pipe(map((result: any) => result));
   }
 
-  destroy(id: number): boolean {
-    return;
+  destroy(id: number): Observable<any> {
+    const url = `${this.API_BASE_URL}/movimentacoes/${id}`;
+
+    return this.http.put(url, {
+      status: 0
+    }).pipe(map((result: any) => result));
   }
 }

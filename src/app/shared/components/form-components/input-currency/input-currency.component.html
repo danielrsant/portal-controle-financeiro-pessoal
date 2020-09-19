@@ -1,4 +1,4 @@
-<mat-form-field [formGroup]="formGroup" fxFlex>
+<mat-form-field [formGroup]="formGroup" fxFlex [appearance]="appearance">
   <mat-label>{{ label }}</mat-label>
   <input matInput currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" [disabled]="disabled"
          [formControlName]="formcontrolname" [required]="checkRequired()"
