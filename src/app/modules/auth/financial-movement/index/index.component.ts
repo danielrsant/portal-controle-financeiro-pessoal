@@ -150,7 +150,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   onDelete(item: any): void {
     this._loadingService.show();
-    this._financialMovementService.destroy(item.id).subscribe(response => {
+    this._financialMovementService.destroy(item.id).subscribe(() => {
       this.onRefresh();
     });
   }
@@ -173,11 +173,15 @@ export class IndexComponent implements OnInit, OnDestroy {
   openDialogFilter() {
     this._dialog.open(FilterDialogComponent, {
       data: {
-        form: this.formFilter,
         fields: this.filterFields
       }
-    }).afterClosed().subscribe(() => {
-      const obj = this.removeNullUndefinedProperties(this.formFilter.value);
+    }).afterClosed().subscribe((data) => {
+      if (!data) {
+        return;
+      }
+
+      
+      const obj = this.removeNullUndefinedProperties(data.form.value);
       const filter = Object.keys(obj).map(item => {
         if (!obj[item]) {
           return null;

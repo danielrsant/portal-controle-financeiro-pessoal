@@ -39,5 +39,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancelar</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Concluir</button>
+    <button mat-button (click)="complete()" cdkFocusInitial>Concluir</button>
 </mat-dialog-actions>

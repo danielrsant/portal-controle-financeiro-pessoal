@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -25,6 +25,8 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   operation: Operation;
 
   form: FormGroup;
+  formParcelas: FormGroup;
+  parcelasDataSource = [];
 
   categories$: Observable<any[]>;
   movementTypes$: Observable<any[]>;
@@ -32,10 +34,11 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
+    private _fb: FormBuilder,
+    private _loadingService: LoadingService,
     private _financialMovementService: FinancialMovementService,
     private _categoryService: CategoryService,
     private _movementTypeService: MovementTypeService,
-    private _loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -80,6 +83,33 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
       tipoMovimentacao: new FormControl(null, Validators.required),
       pessoa: new FormControl({ id: pessoa.id }),
     });
+
+    this.formParcelas = new FormGroup({
+      qtdParcela: new FormControl(),
+      total: new FormControl(),
+      juros: new FormControl(),
+      dtVencimento: new FormControl(),
+      parcelas: new FormArray([])
+    });
+  }
+
+  addParcela() {
+    const qtdParcela = this.formParcelas.get('qtdParcela').value;
+    const parcelas = this.formParcelas.get('parcelas') as FormArray;
+    parcelas.clear();
+    const { total, juros, dtVencimento } = this.formParcelas.value;
+    Array.from(Array(qtdParcela).keys())
+      .forEach((_, index) => parcelas.push(new FormGroup({
+        id: new FormControl(),
+        total: new FormControl(total + juros),
+        dtVencimento: new FormControl(moment.tz(dtVencimento, 'America/Sao_Paulo').add(index, 'months').toDate()),
+        dtConclusao: new FormControl(),
+        pago: new FormControl(),
+      })));
+  }
+
+  get parcelas() {
+    return this.formParcelas.get('parcelas') as FormArray;
   }
 
   setForm(): void {

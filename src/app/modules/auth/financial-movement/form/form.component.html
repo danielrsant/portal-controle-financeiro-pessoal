@@ -1,134 +1,97 @@
 <div fxFlex fxLayout="column">
-  <app-header
-    [operation]="operation"
-    [title]="title"
-    [icon]="icon"
-    [backPage]="true"
-    [btn]="'Salvar'"
-    [btnDisabled]="form.invalid ? true : false"
-    (btnClick)="onSave()"
-  >
+  <app-header [operation]="operation" [title]="title" [icon]="icon" [backPage]="true" [btn]="'Salvar'"
+    [btnDisabled]="form.invalid ? true : false" (btnClick)="onSave()">
   </app-header>
 
-  <mat-card fxFlex fxLayout="column" class="content-page-form">
-    <div
-      fxFlex
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="20px"
-      fxLayoutAlign="space-between"
-    >
-      <app-input-text
-        fxFlex="80"
-        [formGroup]="form"
-        formcontrolname="descricao"
-        label="Descrição"
-        maxLength="150"
-        autocomplete="off"
-      >
-      </app-input-text>
+  <mat-tab-group [disableRipple]="false" mat-align-tabs="center">
+    <mat-tab label="Conta">
+      <mat-card fxFlex fxLayout="column" class="content-page-form">
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+          <app-input-text fxFlex="80" [formGroup]="form" formcontrolname="descricao" label="Descrição" maxLength="150"
+            autocomplete="off">
+          </app-input-text>
 
-      <app-input-datepicker
-        fxFlex
-        [formGroup]="form"
-        [clearOption]="false"
-        formcontrolname="dtLancamento"
-        label="Selecione a data de lançamento"
-        appearance="outline"
-      >
-      </app-input-datepicker>
-    </div>
+          <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtLancamento"
+            label="Selecione a data de lançamento" appearance="outline">
+          </app-input-datepicker>
+        </div>
 
-    <div
-      fxFlex
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="20px"
-      fxLayoutAlign="space-between"
-    >
-      <app-input-currency
-        fxFlex
-        [formGroup]="form"
-        formcontrolname="total"
-        label="Total"
-        appearance="outline"
-      >
-      </app-input-currency>
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+          <app-input-currency fxFlex [formGroup]="form" formcontrolname="total" label="Total" appearance="outline">
+          </app-input-currency>
 
-      <app-input-select
-        fxFlex
-        [appearance]="'outline'"
-        [formGroup]="form"
-        formcontrolname="categoria"
-        label="Selecione uma categoria"
-        [data]="(categories$ | async)?.data"
-        valueField="id"
-        displayField="descricao"
-        searchField="descricao"
-      ></app-input-select>
+          <app-input-select fxFlex [appearance]="'outline'" [formGroup]="form" formcontrolname="categoria"
+            label="Selecione uma categoria" [data]="(categories$ | async)?.data" valueField="id"
+            displayField="descricao" searchField="descricao"></app-input-select>
 
-      <app-input-select
-        fxFlex
-        [appearance]="'outline'"
-        [formGroup]="form"
-        formcontrolname="tipoMovimentacao"
-        label="Tipo de movimentação"
-        [data]="(movementTypes$ | async)?.data"
-        valueField="id"
-        displayField="descricao"
-        searchField="descricao"
-      ></app-input-select>
-    </div>
+          <app-input-select fxFlex [appearance]="'outline'" [formGroup]="form" formcontrolname="tipoMovimentacao"
+            label="Tipo de movimentação" [data]="(movementTypes$ | async)?.data" valueField="id"
+            displayField="descricao" searchField="descricao"></app-input-select>
+        </div>
 
-    <div
-      fxFlex
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="20px"
-      fxLayoutAlign="space-between"
-    >
-      <app-input-datepicker
-        fxFlex
-        [formGroup]="form"
-        [clearOption]="false"
-        formcontrolname="dtVencimento"
-        label="Selecione a data de vencimento"
-        appearance="outline"
-      >
-      </app-input-datepicker>
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+          <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtVencimento"
+            label="Selecione a data de vencimento" appearance="outline">
+          </app-input-datepicker>
 
-      <app-input-datepicker
-        fxFlex
-        [formGroup]="form"
-        [clearOption]="false"
-        formcontrolname="dtLembrete"
-        label="Selecione a data de lembrete"
-        appearance="outline"
-      >
-      </app-input-datepicker>
-    </div>
+          <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtLembrete"
+            label="Selecione a data de lembrete" appearance="outline">
+          </app-input-datepicker>
+        </div>
 
-    <div
-      fxFlex
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="20px"
-      fxLayoutAlign="space-between"
-    >
-      <app-input-toggle
-        fxFlex
-        [formGroup]="form"
-        formcontrolname="pago"
-        label="Pago"
-      ></app-input-toggle>
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+          <app-input-toggle fxFlex [formGroup]="form" formcontrolname="pago" label="Pago"></app-input-toggle>
 
-      <app-input-toggle
-        fxFlex
-        [formGroup]="form"
-        formcontrolname="contaFixa"
-        label="Conta fixa"
-      >
-      </app-input-toggle>
-    </div>
-  </mat-card>
+          <app-input-toggle fxFlex [formGroup]="form" formcontrolname="contaFixa" label="Conta fixa">
+          </app-input-toggle>
+        </div>
+
+      </mat-card>
+    </mat-tab>
+
+    <mat-tab label="Parcelas">
+      <mat-card fxLayout="column" class="content-page-form" fxLayoutGap="0 20px">
+
+        <app-input-number fxFlex [formGroup]="formParcelas" formcontrolname="qtdParcela" label="Quantidade de parcelas"
+          autocomplete="off">
+        </app-input-number>
+
+
+        <app-input-currency fxFlex appearance="outline" [formGroup]="formParcelas" formcontrolname="total" label="Total"
+          autocomplete="off">
+        </app-input-currency>
+
+
+        <!-- VALOR / PORCENTAGEM -->
+        <app-input-currency fxFlex appearance="outline" [formGroup]="formParcelas" formcontrolname="juros" label="Juros"
+          autocomplete="off">
+        </app-input-currency>
+
+        <app-input-datepicker fxFlex [formGroup]="formParcelas" [clearOption]="false" formcontrolname="dtVencimento"
+          label="Selecione a data de vencimento" appearance="outline">
+        </app-input-datepicker>
+
+
+        <button mat-raised-button color="accent" style="color: #FFF" (click)="addParcela()">Criar parcelas</button>
+      </mat-card>
+
+      <mat-card fxLayout="column" class="content-page-form"
+        *ngFor="let parcela of parcelas.controls; let i = index">
+        <app-input-currency fxFlex [formGroup]="parcela" formcontrolname="total" label="Total" appearance="outline">
+        </app-input-currency>
+
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+          <app-input-datepicker fxFlex [formGroup]="parcela" [clearOption]="false" formcontrolname="dtVencimento"
+            label="Selecione a data de vencimento" appearance="outline">
+          </app-input-datepicker>
+        </div>
+
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+          <app-input-toggle fxFlex [formGroup]="parcela" formcontrolname="pago" label="Pago"></app-input-toggle>
+        </div>
+
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+
 </div>

@@ -53,7 +53,7 @@ export class FilterDialogComponent implements OnInit {
   }
 
   complete() {
-    this._dialog.close();
+    this._dialog.close({ form: this.form });
   }
 
   cancel() {
