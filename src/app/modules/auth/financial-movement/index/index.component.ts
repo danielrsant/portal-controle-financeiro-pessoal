@@ -1,20 +1,20 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { CategoryService } from 'src/app/services/category.service';
+import { FinancialMovementService } from 'src/app/services/financial-movement.service';
+import { MovementTypeService } from 'src/app/services/movement-type.service';
 import { Config } from 'src/app/shared/components/several-components/data-table/config';
+import { FilterDialogComponent } from 'src/app/shared/components/several-components/filter-dialog/filter-dialog.component';
 import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
 import { Operation } from 'src/app/shared/enums/operation';
-import { TableColumn } from 'src/app/shared/models/table-column.interface';
 import { UtilsService } from 'src/app/shared/services/utils.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FinancialMovementService } from 'src/app/services/financial-movement.service';
-import * as moment from 'moment';
-import { MatDialog } from '@angular/material/dialog';
-import { FilterDialogComponent } from 'src/app/shared/components/several-components/filter-dialog/filter-dialog.component';
-import { FormControl, FormGroup } from '@angular/forms';
-import { IFormField } from 'src/app/shared/interfaces/form-filter.interface';
-import { CategoryService } from 'src/app/services/category.service';
-import { MovementTypeService } from 'src/app/services/movement-type.service';
+
 import { PageConfig } from './page-config';
 
 @Component({
@@ -39,7 +39,6 @@ export class IndexComponent implements OnInit, OnDestroy {
   operation: Operation = Operation.INDEX;
 
   options: any = {};
-  paginationInitial = { page: 0, limit: 10 };
 
   dataSource: any[] = [];
   columns = new PageConfig().columns;
@@ -50,29 +49,27 @@ export class IndexComponent implements OnInit, OnDestroy {
   selection = new SelectionModel<any>(true, []);
   configuration = new Config({}, 0);
 
-  subscription: Subscription;
+  destroy$ = new Subject<any>();
 
   ngOnInit(): void {
     this.setFormFilter();
-    this.onRefresh(this.paginationInitial);
+    this.onRefresh();
   }
 
-  setFormFilter() {
+  setFormFilter(): void {
     this._categoryService.loadAll()
-      .subscribe((response: any) => {
+      .pipe(takeUntil(this.destroy$)).subscribe((response: any) => {
         if (!response) { return; }
         const categoria = this.filterFields.find(field => field.formcontrolname === 'categoria');
         categoria.select.data = response.data;
       });
 
     this._movementTypeService.loadAll()
-      .subscribe((response: any) => {
+      .pipe(takeUntil(this.destroy$)).subscribe((response: any) => {
         if (!response) { return; }
         const tipoMovimentacao = this.filterFields.find(field => field.formcontrolname === 'tipoMovimentacao');
         tipoMovimentacao.select.data = response.data;
       });
-
-
   }
 
   onRefresh(params?: { page?: number; limit?: number; s?: any }): void {
@@ -91,7 +88,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     }
 
     this._loadingService.show();
-    this._financialMovementService.loadAll(this.options).subscribe(
+    this._financialMovementService.loadAll(this.options).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
           const data: any[] = response.data.map((item) => {
@@ -113,6 +110,7 @@ export class IndexComponent implements OnInit, OnDestroy {
             return obj;
           });
           this.dataSource = data;
+          this.configuration.total = response.total;
           this._loadingService.hide();
         }
       },
@@ -124,7 +122,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.filterOptions();
   }
 
-  filterOptions() {
+  filterOptions(): void {
     Object.entries(this.options).forEach(([key, value]) => {
       if (!value) {
         delete this.options[key];
@@ -150,12 +148,12 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   onDelete(item: any): void {
     this._loadingService.show();
-    this._financialMovementService.destroy(item.id).subscribe(response => {
+    this._financialMovementService.destroy(item.id).pipe(takeUntil(this.destroy$)).subscribe(response => {
       this.onRefresh();
     });
   }
 
-  onSearch(search: string) {
+  onSearch(search: string): void {
     this._utilsService.paginatorWasChanged.emit();
     const params = { s: null };
 
@@ -167,16 +165,16 @@ export class IndexComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.onRefresh({ ...this.paginationInitial, ...params });
+    this.onRefresh({ ...params });
   }
 
-  openDialogFilter() {
+  openDialogFilter(): void {
     this._dialog.open(FilterDialogComponent, {
       data: {
         form: this.formFilter,
         fields: this.filterFields
       }
-    }).afterClosed().subscribe(() => {
+    }).afterClosed().pipe(takeUntil(this.destroy$)).subscribe(() => {
       const obj = this.removeNullUndefinedProperties(this.formFilter.value);
       const filter = Object.keys(obj).map(item => {
         if (!obj[item]) {
@@ -195,11 +193,13 @@ export class IndexComponent implements OnInit, OnDestroy {
     });
   }
 
-  removeNullUndefinedProperties(payload) {
+  removeNullUndefinedProperties(payload): any {
     Object.keys(payload).forEach(key => payload[key] === undefined || payload[key] === null ? delete payload[key] : {});
-
     return payload;
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }
