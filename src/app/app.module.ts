@@ -12,6 +12,12 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoadingModule } from './shared/components/several-components/loading/loading.module';
 import { SharedModule } from './shared/shared.module';
 
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+ 
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  wheelPropagation: true
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,12 +39,16 @@ import { SharedModule } from './shared/shared.module';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
+
+    // SCROLL BAR
+    PerfectScrollbarModule
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG }
   ],
   bootstrap: [AppComponent]
 })

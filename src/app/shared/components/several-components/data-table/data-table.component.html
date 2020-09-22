@@ -1,6 +1,6 @@
 <div>
 
-  <div class="card overflow-auto -mt-16 mat-elevation-z3">
+  <div class="card mat-elevation-z3">
     <div class="bg-app-bar sticky" fxLayout="row wrap" fxLayoutAlign="start center">
 
       <div fxLayout="row">
@@ -26,7 +26,7 @@
         <input class="input-search" [formControl]="searchCtrl" [placeholder]="'Pesquisar...'" type="search">
       </div>
       
-      <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+      <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" style="margin-bottom: 5px;">
         <button class="btn-table" fxFlex="none" mat-icon-button
           [matTooltip]="'Filtro'" type="button" (click)="onClickFilterButton()" >
           <mat-icon>filter_list</mat-icon>
@@ -50,7 +50,7 @@
 
     </div>
 
-    <div *ngIf="dataSource.filteredData.length > 0" class="overflow">
+    <div *ngIf="dataSource.filteredData.length > 0" class="overflow" [perfectScrollbar]="config">
 
       <table [dataSource]="dataSource" class="table-responsiveness mat-table" mat-table matSort (matSortChange)="sortChange($event)">
 
