@@ -1,14 +1,20 @@
+@import "src/app/shared/@decorators/scss/breakpoints";
+
 .header {
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
-  height: 200px;
+  height: 180px;
   position: relative;
 
   background-color: rgba(var(--color-primary));
 
   .wrapper {
     margin: 0px 20px 0px 20px !important;
+
+    @include media-breakpoint('xs') {
+      margin: 0px !important;
+    }
   }
 
   .icon {
