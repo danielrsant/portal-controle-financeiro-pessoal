@@ -1,6 +1,6 @@
 <div class="header" [ngStyle]="{ height: height }">
     <div fxFlex fxLayout="column" class="wrapper">
-        <div fxFlex fxLayout="row" class="content">
+        <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
             <ng-container>
                 <div fxFlex fxLayout="row" fxLayoutAlign="start center">
                     <button *ngIf="backPage" mat-icon-button class="pointer" (click)="onBackPage()">

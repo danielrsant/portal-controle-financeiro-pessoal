@@ -3,16 +3,19 @@
 .empty-list {
   display: flex;
   justify-content: center;
-  font-size: 26px;
+  font-size: 20px;
   color: grey;
   align-items: center;
   min-height: 300px;
 }
 
 .title {
-    margin-bottom: 0px !important;
-    padding-right: 1.5rem !important;
-    font-size: 20px !important;
+  margin-bottom: 0px;
+  padding-right: 1.5rem;
+  margin-right: 1.5rem;
+  font-size: 20px;
+  margin-top: 7px;
+  border-right: 1px solid #c3c3c3;
 }
 
 .input-search {
@@ -23,6 +26,7 @@
   border-width: 0px;
   outline: 0;
   margin-left: 10px;
+  margin-right: 10px;
 }
 
 .card {
@@ -32,9 +36,8 @@
 .bg-app-bar {
   color: black !important;
   background-color: #ebebee;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  height: 4rem;
+  padding: 5px 1.5rem 5px 1.5rem;
+  min-height: 4rem;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 
@@ -53,6 +56,12 @@
   background-color: white !important;
   padding-left: 1rem;
   border-radius: 40px;
+  font: 400 14px/20px var(--font);
+  margin-top: 2px;
+
+  @include media-breakpoint('xs') {
+    margin-bottom: 10px;
+  }
 }
 
 .sticky {

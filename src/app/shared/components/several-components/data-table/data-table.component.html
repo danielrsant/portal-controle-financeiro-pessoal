@@ -1,52 +1,53 @@
 <div>
 
   <div class="card overflow-auto -mt-16 mat-elevation-z3">
-    <div class="bg-app-bar sticky" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-      <h2 class="title" fxFlex="none" fxHide.lt-md>
-        <span *ngIf="selection.isEmpty()">{{ title }}</span>
-        <span *ngIf="selection.hasValue()">{{ selection.selected.length }}
-          <span *ngIf="selection.selected.length <= 1">{{ 'COMMON.REGISTER' | lowercase }}</span>
-          <span *ngIf="selection.selected.length > 1">{{ 'COMMON.REGISTERS' | lowercase }}</span>
-          {{ 'COMMON.SELECTED' | lowercase }}
-        </span>
-      </h2>
+    <div class="bg-app-bar sticky" fxLayout="row wrap" fxLayoutAlign="start center">
 
-      <div *ngIf="selection.hasValue()" fxFlex="none">
-        <button *ngFor="let button of config.options?.selectionButtons" color="primary" mat-icon-button
-          [matTooltip]=" button.title " type="button" (click)="button.function(selection.selected)">
-          <mat-icon>{{ button.icon }}</mat-icon>
-        </button>
+      <div fxLayout="row">
+        <h2 class="title" fxFlex="none" fxHide.lt-md>
+          <span *ngIf="selection.isEmpty()">{{ title }}</span>
+          <span *ngIf="selection.hasValue()">{{ selection.selected.length }}
+            <span *ngIf="selection.selected.length <= 1">{{ 'COMMON.REGISTER' | lowercase }}</span>
+            <span *ngIf="selection.selected.length > 1">{{ 'COMMON.REGISTERS' | lowercase }}</span>
+            {{ 'COMMON.SELECTED' | lowercase }}
+          </span>
+        </h2>
+  
+        <div *ngIf="selection.hasValue()" fxFlex="none">
+          <button *ngFor="let button of config.options?.selectionButtons" color="primary" mat-icon-button
+            [matTooltip]=" button.title " type="button" (click)="button.function(selection.selected)">
+            <mat-icon>{{ button.icon }}</mat-icon>
+          </button>
+        </div>
       </div>
 
-      <div class="input-card" fxFlex="40" fxFlex.gt-sm="400px" fxFlex.lt-md="40" fxLayout="row" fxLayoutAlign="start center">
+      <div fxFlex fxFlex.gt-md="300px" fxLayout="row" fxLayoutAlign="start center" class="input-card">
         <mat-icon size="20px">search</mat-icon>
         <input class="input-search" [formControl]="searchCtrl" [placeholder]="'Pesquisar...'" type="search">
       </div>
+      
+      <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+        <button class="btn-table" fxFlex="none" mat-icon-button
+          [matTooltip]="'Filtro'" type="button" (click)="onClickFilterButton()" >
+          <mat-icon>filter_list</mat-icon>
+        </button>
+  
+        <button [matMenuTriggerFor]="columnFilterMenu" class="btn-table" fxFlex="none" mat-icon-button
+          [matTooltip]="'Colunas'" type="button">
+          <mat-icon>filter_alt</mat-icon>
+        </button>
+  
+        <button (click)="onRefresh()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab
+          [matTooltip]="'Atualizar'" type="button">
+          <mat-icon>refresh</mat-icon>
+        </button>
 
-      <span fxFlex></span>
+        <button (click)="onCreate()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab
+          [matTooltip]="'Adicionar'" type="button">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
 
-      <button class="btn-table" fxFlex="none" fxHide.gt-xs mat-icon-button type="button">
-        <mat-icon>search</mat-icon>
-      </button>
-
-      <button class="btn-table" fxFlex="none" mat-icon-button
-        [matTooltip]="'Filtro'" type="button" (click)="onClickFilterButton()" >
-        <mat-icon>filter_list</mat-icon>
-      </button>
-
-      <button [matMenuTriggerFor]="columnFilterMenu" class="btn-table" fxFlex="none" mat-icon-button
-        [matTooltip]="'Colunas'" type="button">
-        <mat-icon>filter_alt</mat-icon>
-      </button>
-
-      <button (click)="onCreate()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab
-        [matTooltip]="'Adicionar'" type="button">
-        <mat-icon>add</mat-icon>
-      </button>
-      <button (click)="onRefresh()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab
-        [matTooltip]="'Atualizar'" type="button">
-        <mat-icon>refresh</mat-icon>
-      </button>
     </div>
 
     <div *ngIf="dataSource.filteredData.length > 0" class="overflow">
