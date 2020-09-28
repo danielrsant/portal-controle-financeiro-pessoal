@@ -5,7 +5,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { SidenavItemComponent } from './sidebar/sidenav-item/sidenav-item.component';
+import { SidebarItemComponent } from './sidebar/sidebar-item/sidebar-item.component';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { SidenavItemComponent } from './sidebar/sidenav-item/sidenav-item.compon
   ],
   declarations: [
     SidebarComponent,
-    SidenavItemComponent
+    SidebarItemComponent
   ],
   exports: [
     SidebarComponent

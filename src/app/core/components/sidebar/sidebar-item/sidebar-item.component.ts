@@ -19,13 +19,13 @@ import { NavigationDropdown, NavigationItem, NavigationLink } from '../../../../
 
 
 @Component({
-  selector: 'app-sidenav-item',
-  templateUrl: './sidenav-item.component.html',
-  styleUrls: ['./sidenav-item.component.scss'],
+  selector: 'app-sidebar-item',
+  templateUrl: './sidebar-item.component.html',
+  styleUrls: ['./sidebar-item.component.scss'],
   animations: [dropdownAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SidenavItemComponent implements OnInit, OnChanges, OnDestroy {
+export class SidebarItemComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() item: NavigationItem;
   @Input() level: number;

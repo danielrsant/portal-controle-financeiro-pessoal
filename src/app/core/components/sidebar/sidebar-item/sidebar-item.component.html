@@ -19,7 +19,7 @@
     <mat-icon class="item-dropdown-icon" fxFlex="none">{{ icKeyboardArrowRight }}</mat-icon>
   </div>
   <div [@dropdown]="isOpen" class="item-dropdown">
-    <app-sidenav-item *ngFor="let subItem of item.children" [item]="subItem" [level]="level + 1"></app-sidenav-item>
+    <app-sidebar-item *ngFor="let subItem of item.children" [item]="subItem" [level]="level + 1"></app-sidebar-item>
   </div>
 </ng-container>
 
