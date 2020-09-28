@@ -65,7 +65,7 @@
               [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
             </mat-checkbox>
           </th>
-          <td *matCellDef="let row" class="w-4" mat-cell>
+          <td *matCellDef="let row" class="w-4" [ngStyle]="{'text-align': column?.align}" mat-cell>
             <mat-checkbox (change)="$event ? selection.toggle(row) : null" (click)="$event.stopPropagation()"
               [checked]="selection.isSelected(row)" color="primary">
             </mat-checkbox>
@@ -77,7 +77,7 @@
           <!-- Image Column -->
           <ng-container *ngIf="column.type === 'image'" [matColumnDef]="column.property">
             <th *matHeaderCellDef mat-header-cell></th>
-            <td *matCellDef="let row" class="w-8 min-w-8 pr-0" mat-cell>
+            <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
               <img [src]="row[column.property] || DEFAULT_AVATAR" class="avatar h-8 w-8 align-middle">
             </td>
           </ng-container>
@@ -85,15 +85,15 @@
           <!-- Checkbox Column -->
           <ng-container *ngIf="column.type === 'checkbox'" [matColumnDef]="column.property">
             <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label.toUpperCase() }}</th>
-            <td *matCellDef="let row" class="w-8 min-w-8 pr-0" mat-cell>
-              <mat-checkbox [checked]="row[column.property]" color="primary"></mat-checkbox>
+            <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
+              <mat-checkbox [checked]="row[column.property]" [disabled]="column.disabled" color="primary"></mat-checkbox>
             </td>
           </ng-container>
 
           <!-- Color Column -->
           <ng-container *ngIf="column.type === 'color'" [matColumnDef]="column.property">
             <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label.toUpperCase() }}</th>
-            <td *matCellDef="let row" class="w-8 min-w-8 pr-0" mat-cell>
+            <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
               <mat-icon [color]="row[column.property]">colorize</mat-icon>
             </td>
           </ng-container>
@@ -101,13 +101,13 @@
           <!-- Text Columns -->
           <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
             <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}</th>
-            <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property] }}</td>
+            <td *matCellDef="let row" [ngClass]="column.cssClasses" [ngStyle]="{'text-align': column?.align}" mat-cell>{{ row[column.property] }}</td>
           </ng-container>
 
           <!-- Actions Column -->
           <ng-container *ngIf="column.type === 'actions'" [matColumnDef]="column.property">
             <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}</th>
-            <td mat-cell *matCellDef="let element" class="right-align">
+            <td [ngStyle]="{'text-align': column?.align}" mat-cell *matCellDef="let element" class="right-align">
               <button mat-icon-button [matMenuTriggerFor]="moreMenu" (click)="$event.stopPropagation();">
                 <mat-icon>more_vert</mat-icon>
               </button>

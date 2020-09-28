@@ -169,7 +169,7 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onFilterChange(value: string) {
+  onFilterChange(value: string): void {
     if (!this.dataSource) {
       return;
     }
@@ -178,50 +178,50 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
     this.dataSource.filter = value;
   }
 
-  onRefresh(params = {}) {
-    this.selection.clear()
+  onRefresh(params = {}): void {
+    this.selection.clear();
     this.refresh.emit(params);
   }
 
-  console(x) {
+  console(x): void {
     console.log(x);
   }
 
-  onClickRow(row: any) {
+  onClickRow(row: any): void {
     this.clickRow.emit(row);
   }
 
-  onCreate() {
+  onCreate(): void {
     this.create.emit();
   }
 
-  trackByProperty<T>(index: number, column: TableColumn<T>) {
+  trackByProperty<T>(index: number, column: TableColumn<T>): any {
     return column.property;
   }
 
-  toggleColumnVisibility(column: any, event: Event) {
+  toggleColumnVisibility(column: any, event: Event): void {
     event.stopPropagation();
     event.stopImmediatePropagation();
     column.visible = !column.visible;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+  isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle(event) {
+  masterToggle(event): void {
     if (event.checked) {
       this.dataSource.data.forEach(row => this.selection.select(row));
     } else {
-      this.selection.clear()
+      this.selection.clear();
     }
   }
 
-  onActions(data, element) {
+  onActions(data, element): void {
     switch (data) {
       case 'detalhar':
         this.view.emit(element);
@@ -237,9 +237,8 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onClickFilterButton() {
+  onClickFilterButton(): void {
     this.dialogFilter.emit();
   }
-
 
 }

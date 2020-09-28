@@ -39,15 +39,14 @@ export class IndexComponent implements OnInit, OnDestroy {
   operation: Operation = Operation.INDEX;
 
   options: any = {};
-
   dataSource: any[] = [];
   columns = new PageConfig().columns;
+  configuration = new Config({}, 0);
 
   formFilter: FormGroup;
   filterFields = new PageConfig().filterFields;
 
   selection = new SelectionModel<any>(true, []);
-  configuration = new Config({}, 0);
 
   destroy$ = new Subject<any>();
 
@@ -91,25 +90,17 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._financialMovementService.loadAll(this.options).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          const data: any[] = response.data.map((item) => {
-            const obj = {
-              id: item.id,
-              descricao: item.descricao,
-              contaFixa: item.contaFixa,
-              dtConclusao: item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY') : '-',
-              dtLancamento: moment.utc(item.dtLancamento).format('DD/MM/YYYY'),
-              dtLembrete: item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY') : '-',
-              dtVencimento: item.dtVencimento ? moment.utc(item.dtVencimento).format('DD/MM/YYYY') : '-',
-              lembreteEnviado: item.lembreteEnviado,
-              pago: item.pago,
-              tipoMovimentacao: item.tipoMovimentacao.descricao,
-              categoria: item.categoria.descricao,
-              total: item.total,
-            };
-
-            return obj;
+          response.data = response.data.map((item) => {
+            item.dtConclusao = item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY')  : '-';
+            item.dtLancamento = moment.utc(item.dtLancamento).format('DD/MM/YYYY');
+            item.dtLembrete = item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY')  : '-';
+            item.dtVencimento = item.dtVencimento ? moment.utc(item.dtVencimento).format('DD/MM/YYYY')  : '-';
+            item.tipoMovimentacao = item.tipoMovimentacao.descricao;
+            item.categoria = item.categoria.descricao;
+            return item;
           });
-          this.dataSource = data;
+
+          this.dataSource = response.data;
           this.configuration.total = response.total;
           this._loadingService.hide();
         }

@@ -8,79 +8,95 @@ export class PageConfig {
       label: 'Ações',
       property: 'actions',
       type: 'actions',
-      visible: true
+      visible: true,
+      align: 'center'
     },
     {
       label: 'Id',
       property: 'id',
       type: 'text',
-      visible: true
+      visible: true,
+      align: 'start'
     },
     {
       label: 'Descrição',
       property: 'descricao',
       type: 'text',
-      visible: true
+      visible: true,
+      align: 'start'
     },
     {
       label: 'Conta fixa',
       property: 'contaFixa',
       type: 'checkbox',
-      visible: true
+      disabled: true,
+      visible: true,
+      align: 'center',
     },
     {
       label: 'Data de conclusão',
       property: 'dtConclusao',
       type: 'text',
       visible: true,
+      align: 'center',
     },
     {
       label: 'Data de lançamento',
       property: 'dtLancamento',
       type: 'text',
       visible: true,
+      align: 'center',
     },
     {
       label: 'Data de lembrete',
       property: 'dtLembrete',
       type: 'text',
       visible: true,
+      align: 'center',
     },
     {
       label: 'Data de vencimento',
       property: 'dtVencimento',
       type: 'text',
       visible: true,
+      align: 'center',
     },
     {
       label: 'Lembrete enviado',
       property: 'lembreteEnviado',
       type: 'checkbox',
+      disabled: true,
       visible: true,
+      align: 'center',
     },
     {
       label: 'Pago',
       property: 'pago',
       type: 'checkbox',
-      visible: true
+      disabled: true,
+      visible: true,
+      align: 'center'
     },
     {
       label: 'Tipo de movimentação',
       property: 'tipoMovimentacao',
       type: 'text',
       visible: true,
+      align: 'start',
     },
     {
       label: 'Categoria',
       property: 'categoria',
       type: 'text',
-      visible: true
+      visible: true,
+      align: 'start'
     },
     {
       label: 'Total',
       property: 'total',
       type: 'text',
-      visible: true
+      visible: true,
+      align: 'start'
     },
   ];
 
