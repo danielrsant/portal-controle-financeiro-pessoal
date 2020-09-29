@@ -72,7 +72,7 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
 
   private _destroy$: Subject<boolean> = new Subject<boolean>();
 
-  get visibleColumns() {
+  get visibleColumns(): any {
     return this.columns.filter(column => column.visible).map(column => column.property);
   }
 

@@ -7,7 +7,8 @@ export interface IFormField {
       valueField: string;
       displayField: string;
       searchField: string;
-    }
+    };
+    fxFlex?: string | number;
     min?: number;
     max?: number;
   }

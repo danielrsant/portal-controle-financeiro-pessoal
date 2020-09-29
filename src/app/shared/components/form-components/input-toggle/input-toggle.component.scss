@@ -14,5 +14,12 @@
     align-items: center !important;
     height: inherit !important;
     cursor: pointer !important;
-    justify-content: center !important;
+    justify-content: start !important;
+}
+
+.mat-slide-toggle-content {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    min-width: 45px !important;
 }

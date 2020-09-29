@@ -1,3 +1,4 @@
+import { AUTO_STYLE } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -91,10 +92,10 @@ export class IndexComponent implements OnInit, OnDestroy {
       (response: any) => {
         if (response) {
           response.data = response.data.map((item) => {
-            item.dtConclusao = item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY')  : '-';
+            item.dtConclusao = item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY') : '-';
             item.dtLancamento = moment.utc(item.dtLancamento).format('DD/MM/YYYY');
-            item.dtLembrete = item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY')  : '-';
-            item.dtVencimento = item.dtVencimento ? moment.utc(item.dtVencimento).format('DD/MM/YYYY')  : '-';
+            item.dtLembrete = item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY') : '-';
+            item.dtVencimento = item.dtVencimento ? moment.utc(item.dtVencimento).format('DD/MM/YYYY') : '-';
             item.tipoMovimentacao = item.tipoMovimentacao.descricao;
             item.categoria = item.categoria.descricao;
             return item;
@@ -161,6 +162,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   openDialogFilter(): void {
     this._dialog.open(FilterDialogComponent, {
+      maxHeight: '80vh',
+      height: AUTO_STYLE,
+      width: window.innerWidth < 900 ? '100%' : '50%',
       data: {
         form: this.formFilter,
         fields: this.filterFields

@@ -147,17 +147,17 @@ export class PageConfig {
     {
       formcontrolname: 'pago',
       type: 'toggle',
-      label: 'Pago?'
+      label: 'Pago?',
     },
     {
       formcontrolname: 'possuiLembrete',
       type: 'toggle',
-      label: 'Possui lembrete?'
+      label: 'Possui lembrete?',
     },
     {
       formcontrolname: 'contaFixa',
       type: 'toggle',
-      label: 'Conta fixa?'
+      label: 'Conta fixa?',
     },
   ];
 

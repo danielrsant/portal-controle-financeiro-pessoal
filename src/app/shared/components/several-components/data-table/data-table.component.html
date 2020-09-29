@@ -65,7 +65,7 @@
               [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
             </mat-checkbox>
           </th>
-          <td *matCellDef="let row" class="w-4" [ngStyle]="{'text-align': column?.align}" mat-cell>
+          <td *matCellDef="let row" class="w-4" mat-cell>
             <mat-checkbox (change)="$event ? selection.toggle(row) : null" (click)="$event.stopPropagation()"
               [checked]="selection.isSelected(row)" color="primary">
             </mat-checkbox>

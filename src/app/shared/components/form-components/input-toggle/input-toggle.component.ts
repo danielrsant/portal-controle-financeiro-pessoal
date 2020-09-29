@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
@@ -7,7 +7,8 @@ import { UtilsService } from 'src/app/shared/services/utils.service';
 @Component({
   selector: 'app-input-toggle',
   templateUrl: './input-toggle.component.html',
-  styleUrls: ['./input-toggle.component.scss']
+  styleUrls: ['./input-toggle.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class InputToggleComponent implements OnInit {
 
