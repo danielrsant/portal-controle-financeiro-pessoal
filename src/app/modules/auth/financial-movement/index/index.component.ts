@@ -46,7 +46,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   formFilter: FormGroup;
   filterFields = new PageConfig().filterFields;
-
   selection = new SelectionModel<any>(true, []);
 
   destroy$ = new Subject<any>();
@@ -169,8 +168,11 @@ export class IndexComponent implements OnInit, OnDestroy {
         form: this.formFilter,
         fields: this.filterFields
       }
-    }).afterClosed().pipe(takeUntil(this.destroy$)).subscribe(() => {
-      const obj = this.removeNullUndefinedProperties(this.formFilter.value);
+    }).afterClosed().pipe(takeUntil(this.destroy$)).subscribe((form) => {
+      if (!form) { return; }
+
+      this.formFilter = form;
+      const obj = this.removeNullUndefinedProperties(form.value);
       const filter = Object.keys(obj).map(item => {
         if (!obj[item]) {
           return null;

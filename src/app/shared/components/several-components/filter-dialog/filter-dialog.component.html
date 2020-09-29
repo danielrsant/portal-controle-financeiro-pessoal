@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column">
     <div fxFlex fxLayout="row">
-        <h1 mat-dialog-title>Filtro</h1>
+        <h2 mat-dialog-title>Filtro</h2><mat-icon style="margin-left: 5px;">filter_list</mat-icon>
         <mat-icon fxFlex fxLayoutAlign="flex-end" class="icon" mat-dialog-close>close</mat-icon>
     </div>
 
@@ -38,7 +38,7 @@
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
-        <button color="primary" mat-raised-button [mat-dialog-close]="true" cdkFocusInitial>Concluir</button>
+        <button color="primary" mat-raised-button (click)="complete()" cdkFocusInitial><span style="color: white">Filtrar</span></button>
     </mat-dialog-actions>
 
 </div>
