@@ -5,14 +5,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FinancialMovementService {
-
   API_BASE_URL: string = environment.API;
   pessoaId = JSON.parse(localStorage.getItem('user')).id;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   loadAll(payload?: any): Observable<any[]> {
     const url = `${this.API_BASE_URL}/movimentacoes`;
@@ -23,8 +22,9 @@ export class FinancialMovementService {
     payload.filter.push(`pessoa.id||$eq||${this.pessoaId}`);
     payload.filter.push(`status||$eq||1`);
 
-
-    return this.http.get(url, { params: payload }).pipe(map((result: any) => result));
+    return this.http
+      .get(url, { params: payload })
+      .pipe(map((result: any) => result));
   }
 
   loadOne(id: number): Observable<any> {
@@ -37,13 +37,15 @@ export class FinancialMovementService {
     payload.filter.push(`pessoa.id||$eq||${this.pessoaId}`);
     payload.filter[1] = `status||$eq||1`;
 
-    return this.http.get(url, { params: payload }).pipe(map((result: any) => result));
+    return this.http
+      .get(url, { params: payload })
+      .pipe(map((result: any) => result));
   }
 
   create(payload: any): Observable<any> {
-    const url = `${this.API_BASE_URL}/movimentacoes`;
+    const url = `${this.API_BASE_URL}/movimentacoes/bulk`;
 
-    return this.http.post(url, payload);
+    return this.http.post(url, { bulk: payload });
   }
 
   update(id: number, payload: any): Observable<any> {
@@ -55,8 +57,10 @@ export class FinancialMovementService {
   destroy(id: number): Observable<any> {
     const url = `${this.API_BASE_URL}/movimentacoes/${id}`;
 
-    return this.http.put(url, {
-      status: 0
-    }).pipe(map((result: any) => result));
+    return this.http
+      .put(url, {
+        status: 0,
+      })
+      .pipe(map((result: any) => result));
   }
 }

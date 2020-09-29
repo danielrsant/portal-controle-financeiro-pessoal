@@ -20,6 +20,9 @@ export class FilterDialogComponent implements OnInit {
   constructor(private _dialog: MatDialogRef<FilterDialogComponent>, @Inject(MAT_DIALOG_DATA) data) {
     this.fields = data.fields;
     this.generateFormFilter();
+
+    console.log(this.form.value);
+    console.log(this.fields);
   }
 
   ngOnInit() { }
@@ -52,11 +55,11 @@ export class FilterDialogComponent implements OnInit {
     }
   }
 
-  complete() {
-    this._dialog.close();
+  complete(): void {
+    this._dialog.close(this.form.value);
   }
 
-  cancel() {
+  cancel(): void {
 
   }
 

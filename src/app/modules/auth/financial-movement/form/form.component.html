@@ -11,122 +11,89 @@
   </app-header>
 
   <mat-card fxFlex fxLayout="column" class="content-page-form">
-    <div
+    <app-input-select
       fxFlex
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="20px"
-      fxLayoutAlign="space-between"
-    >
-      <app-input-text
-        fxFlex="80"
-        [formGroup]="form"
-        formcontrolname="descricao"
-        label="Descrição"
-        maxLength="150"
-        autocomplete="off"
-      >
-      </app-input-text>
+      [appearance]="'outline'"
+      [formGroup]="form"
+      formcontrolname="tipoMovimentacao"
+      label="Tipo de movimentação"
+      [data]="(movementTypes$ | async)?.data"
+      valueField="id"
+      displayField="descricao"
+      searchField="descricao"
+    ></app-input-select>
 
-      <app-input-datepicker
-        fxFlex
-        [formGroup]="form"
-        [clearOption]="false"
-        formcontrolname="dtLancamento"
-        label="Selecione a data de lançamento"
-        appearance="outline"
-      >
-      </app-input-datepicker>
-    </div>
-
-    <div
+    <app-input-currency
       fxFlex
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="20px"
-      fxLayoutAlign="space-between"
-    >
-      <app-input-currency
-        fxFlex
-        [formGroup]="form"
-        formcontrolname="total"
-        label="Total"
-        appearance="outline"
-      >
-      </app-input-currency>
+      [formGroup]="form"
+      formcontrolname="total"
+      [label]="'Valor da ' + movementTypeParams.title"
+      appearance="outline"
+    ></app-input-currency>
 
-      <app-input-select
-        fxFlex
-        [appearance]="'outline'"
-        [formGroup]="form"
-        formcontrolname="categoria"
-        label="Selecione uma categoria"
-        [data]="(categories$ | async)?.data"
-        valueField="id"
-        displayField="descricao"
-        searchField="descricao"
-      ></app-input-select>
-
-      <app-input-select
-        fxFlex
-        [appearance]="'outline'"
-        [formGroup]="form"
-        formcontrolname="tipoMovimentacao"
-        label="Tipo de movimentação"
-        [data]="(movementTypes$ | async)?.data"
-        valueField="id"
-        displayField="descricao"
-        searchField="descricao"
-      ></app-input-select>
-    </div>
-
-    <div
+    <app-input-datepicker
       fxFlex
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="20px"
-      fxLayoutAlign="space-between"
+      [formGroup]="form"
+      [clearOption]="false"
+      formcontrolname="dtLancamento"
+      label="Selecione a data"
+      appearance="outline"
     >
-      <app-input-datepicker
-        fxFlex
-        [formGroup]="form"
-        [clearOption]="false"
-        formcontrolname="dtVencimento"
-        label="Selecione a data de vencimento"
-        appearance="outline"
-      >
-      </app-input-datepicker>
+    </app-input-datepicker>
 
-      <app-input-datepicker
-        fxFlex
-        [formGroup]="form"
-        [clearOption]="false"
-        formcontrolname="dtLembrete"
-        label="Selecione a data de lembrete"
-        appearance="outline"
-      >
-      </app-input-datepicker>
-    </div>
+    <app-input-text
+      fxFlex="80"
+      [formGroup]="form"
+      formcontrolname="descricao"
+      label="Descrição"
+      maxLength="150"
+      autocomplete="off"
+    >
+    </app-input-text>
 
-    <div
+    <app-input-select
       fxFlex
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="20px"
-      fxLayoutAlign="space-between"
+      [appearance]="'outline'"
+      [formGroup]="form"
+      formcontrolname="categoria"
+      label="Selecione uma categoria"
+      [data]="(categories$ | async)?.data"
+      valueField="id"
+      displayField="descricao"
+      searchField="descricao"
+    ></app-input-select>
+
+    <app-input-datepicker
+      fxFlex
+      [formGroup]="form"
+      [clearOption]="false"
+      formcontrolname="dtLembrete"
+      label="Selecione a data de lembrete"
+      appearance="outline"
     >
+    </app-input-datepicker>
+
+    <app-input-number
+      fxFlex
+      [formGroup]="form"
+      formcontrolname="repetir"
+      label="Repetir"
+      [min]="0"
+    >
+    </app-input-number>
+
+    <div fxLayoutGap="30px">
       <app-input-toggle
-        fxFlex
         [formGroup]="form"
         formcontrolname="pago"
-        label="Pago"
+        [label]="movementTypeParams.statusAccount"
       ></app-input-toggle>
 
       <app-input-toggle
         fxFlex
         [formGroup]="form"
         formcontrolname="contaFixa"
-        label="Conta fixa"
+        [label]="movementTypeParams.fixedAccount"
       >
       </app-input-toggle>
     </div>

@@ -47,19 +47,13 @@ export class PageConfig {
       visible: true,
     },
     {
-      label: 'Data de vencimento',
-      property: 'dtVencimento',
-      type: 'text',
-      visible: true,
-    },
-    {
       label: 'Lembrete enviado',
       property: 'lembreteEnviado',
       type: 'checkbox',
       visible: true,
     },
     {
-      label: 'Pago',
+      label: 'Recebido/Pago',
       property: 'pago',
       type: 'checkbox',
       visible: true
@@ -114,24 +108,19 @@ export class PageConfig {
       }
     },
     {
-      formcontrolname: 'dataLancamento',
+      formcontrolname: 'dtLancamento',
       type: 'datepicker',
       label: 'Data de lançamento'
     },
     {
-      formcontrolname: 'dataVencimento',
-      type: 'datepicker',
-      label: 'Data de vencimento'
-    },
-    {
-      formcontrolname: 'dataConclusao',
+      formcontrolname: 'dtConclusao',
       type: 'datepicker',
       label: 'Data de conclusão'
     },
     {
       formcontrolname: 'pago',
       type: 'toggle',
-      label: 'Pago?'
+      label: 'Recebido/Pago?'
     },
     {
       formcontrolname: 'possuiLembrete',
