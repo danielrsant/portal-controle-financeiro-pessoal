@@ -8,73 +8,88 @@ export class PageConfig {
       label: 'Ações',
       property: 'actions',
       type: 'actions',
-      visible: true
+      visible: true,
+      align: 'center'
     },
     {
       label: 'Id',
       property: 'id',
       type: 'text',
-      visible: true
+      visible: true,
+      align: 'start'
     },
     {
       label: 'Descrição',
       property: 'descricao',
       type: 'text',
-      visible: true
+      visible: true,
+      align: 'start'
     },
     {
       label: 'Conta fixa',
       property: 'contaFixa',
       type: 'checkbox',
-      visible: true
+      disabled: true,
+      visible: true,
+      align: 'center',
     },
     {
-      label: 'Data de conclusão',
+      label: 'Dt. conclusão',
       property: 'dtConclusao',
       type: 'text',
       visible: true,
+      align: 'center',
     },
     {
-      label: 'Data de lançamento',
+      label: 'Dt. recibo/vencimento',
       property: 'dtLancamento',
       type: 'text',
       visible: true,
+      align: 'center',
     },
     {
-      label: 'Data de lembrete',
+      label: 'Dt. Lembrete',
       property: 'dtLembrete',
       type: 'text',
       visible: true,
+      align: 'center',
     },
     {
       label: 'Lembrete enviado',
       property: 'lembreteEnviado',
       type: 'checkbox',
+      disabled: true,
       visible: true,
+      align: 'center',
     },
     {
       label: 'Recebido/Pago',
       property: 'pago',
       type: 'checkbox',
-      visible: true
+      disabled: true,
+      visible: true,
+      align: 'center'
     },
     {
       label: 'Tipo de movimentação',
       property: 'tipoMovimentacao',
       type: 'text',
       visible: true,
+      align: 'start',
     },
     {
       label: 'Categoria',
       property: 'categoria',
       type: 'text',
-      visible: true
+      visible: true,
+      align: 'start'
     },
     {
       label: 'Total',
       property: 'total',
       type: 'text',
-      visible: true
+      visible: true,
+      align: 'start'
     },
   ];
 
@@ -125,12 +140,12 @@ export class PageConfig {
     {
       formcontrolname: 'possuiLembrete',
       type: 'toggle',
-      label: 'Possui lembrete?'
+      label: 'Possui lembrete?',
     },
     {
       formcontrolname: 'contaFixa',
       type: 'toggle',
-      label: 'Conta fixa?'
+      label: 'Conta fixa?',
     },
   ];
 

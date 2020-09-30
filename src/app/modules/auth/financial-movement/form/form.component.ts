@@ -58,7 +58,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onRefresh(): void {
-    this.categories$ = this._categoryService.loadAll();
+    this.categories$ = this._categoryService.loadAll({ filter: 'status||$eq||1' });
     this.movementTypes$ = this._movementTypeService.loadAll();
   }
 
@@ -112,7 +112,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
         Validators.required,
         Validators.maxLength(150),
       ]),
-      total: new FormControl(0, Validators.required),
+      total: new FormControl(0, [Validators.required, Validators.min(0.01)]),
       dtLancamento: new FormControl(new Date(), Validators.required),
       dtConclusao: new FormControl(null),
       dtLembrete: new FormControl(null),
@@ -181,18 +181,19 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
     );
 
     formAux = formAux.map((fa, i) => {
-      const dateMoment = moment
+      const dtLancamento = moment
         .tz(fa.get('dtLancamento').value, 'America/Sao_Paulo')
         .add(i, 'month')
         .format('YYYY-MM-DD');
 
-      const clone = {...fa.value, dtLancamento: dateMoment };
+      const dtLembrete = fa.get('dtLembrete').value
+        ? moment
+            .tz(fa.get('dtLembrete').value, 'America/Sao_Paulo')
+            .add(i, 'month')
+            .format('YYYY-MM-DD')
+        : null;
 
-      if (i !== 0) {
-        clone.dtLembrete = null;
-      }
-
-      return clone;
+      return { ...fa.value, dtLancamento, dtLembrete };
     });
 
     this._financialMovementService.create(formAux).subscribe(

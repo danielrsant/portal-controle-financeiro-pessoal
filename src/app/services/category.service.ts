@@ -14,7 +14,11 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   loadAll(payload?: any): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/categorias?filter=pessoa.id||$eq||${this.pessoaId}`;
+    let url = `${this.API_BASE_URL}/categorias?filter=pessoa.id||$eq||${this.pessoaId}`;
+
+    if (payload && payload.filter) {
+      url += `&${payload.filter}`;
+    }
 
     return this.http.get(url, { params: payload }).pipe(map((result: any) => result));
   }
@@ -26,7 +30,7 @@ export class CategoryService {
   }
 
   create(payload: any): Observable<any> {
-    const url = `${ this.API_BASE_URL } /categorias`;
+    const url = `${ this.API_BASE_URL }/categorias`;
 
     return this.http.post(url, payload);
   }

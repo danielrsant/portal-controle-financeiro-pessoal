@@ -12,29 +12,55 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent implements OnInit, OnDestroy {
-
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _utilsService: UtilsService,
     private _loadingService: LoadingService,
     private _categoryService: CategoryService
-  ) { }
+  ) {}
 
   title = 'Categorias';
   icon = 'home';
   operation: Operation = Operation.INDEX;
 
-  options = {};
+  options: any = {};
   paginationInitial = { page: 1, limit: 10 };
 
   dataSource: any[] = [];
   columns: TableColumn<any>[] = [
-    { label: 'Id', property: 'id', type: 'text', visible: true },
-    { label: 'Ações', property: 'aaa', type: 'actions', visible: true },
+    {
+      label: 'Ações',
+      property: 'actions',
+      type: 'actions',
+      visible: true,
+      align: 'start',
+    },
+    {
+      label: 'Id',
+      property: 'id',
+      type: 'text',
+      visible: true,
+      align: 'start',
+    },
+    {
+      label: 'Descrição',
+      property: 'descricao',
+      type: 'text',
+      visible: true,
+      align: 'start',
+    },
+    {
+      label: 'Status',
+      property: 'status',
+      type: 'checkbox',
+      disabled: true,
+      visible: true,
+      align: 'start',
+    },
   ];
 
   selection = new SelectionModel<any>(true, []);
@@ -44,25 +70,38 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.onRefresh(this.paginationInitial);
-    this.onRefresh();
   }
 
-  onRefresh(params?: { page?: number; limit?: number; s?: any; }): void {
+  onRefresh(params?: any): void {
     this.options = { ...this.options, ...params };
-    this._categoryService.loadAll(this.options).subscribe((response: any) => {
-          if (response) {
-            console.log('resposta =>', response);
-          }
-        },
-        error => {
+
+    const { s } = this.options;
+    if (!s) {
+      delete this.options.s;
+    }
+
+    this._loadingService.show();
+    this._categoryService.loadAll(this.options).subscribe(
+      (response: any) => {
+        if (response) {
+          this.dataSource = response.data;
+          this.configuration.total = response.total;
         }
-      );
+        this._loadingService.hide();
+      },
+      (error) => {
+        this._loadingService.hide();
+        console.log(error);
+      }
+    );
     this.filterOptions();
   }
 
-  filterOptions() {
+  filterOptions(): void {
     Object.entries(this.options).forEach(([key, value]) => {
-      if (!value) { delete this.options[key]; }
+      if (!value) {
+        delete this.options[key];
+      }
     });
   }
 
@@ -71,30 +110,33 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   onView(row: any): void {
-    this._router.navigate([`../${row.id}/view`], { relativeTo: this._activatedRoute });
+    this._router.navigate([`../${row.id}/view`], {
+      relativeTo: this._activatedRoute,
+    });
   }
-  
+
   onUpdate(row: any): void {
-    this._router.navigate([`../${row.id}/edit`], { relativeTo: this._activatedRoute });
+    this._router.navigate([`../${row.id}/edit`], {
+      relativeTo: this._activatedRoute,
+    });
   }
 
+  onDelete(item: any): void {}
 
-  onDelete(item: any): void { }
-
-  onSearch(search: string) {
+  onSearch(search: string): void {
     this._utilsService.paginatorWasChanged.emit();
     const params = { s: null };
-    if (search) {
+
+    if (search.length) {
       params.s = JSON.stringify({
-        description: {
+        descricao: {
           $contL: search,
         },
       });
     }
-    this.onRefresh({ ...this.paginationInitial, ...params });
+
+    this.onRefresh({ ...params });
   }
 
-  ngOnDestroy(): void {
-  }
-
+  ngOnDestroy(): void {}
 }

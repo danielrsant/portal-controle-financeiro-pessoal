@@ -1,43 +1,44 @@
-<h2 mat-dialog-title>Install Angular</h2>
-<mat-dialog-content *ngIf="form && form.controls">
-    <div *ngFor="let field of fields">
-        <!-- DATEPICKER -->
-        <div *ngIf="field.type === 'datepicker'">
-            <app-input-datepicker fxFlex [formGroup]="form" [formcontrolname]="field.formcontrolname"
-                [label]="field.label">
+<div fxFlex fxLayout="column">
+    <div fxFlex fxLayout="row">
+        <h2 mat-dialog-title>Filtro</h2><mat-icon style="margin-left: 5px;">filter_list</mat-icon>
+        <mat-icon fxFlex fxLayoutAlign="flex-end" class="icon" mat-dialog-close>close</mat-icon>
+    </div>
+
+    <mat-dialog-content fxFlex="100" class="modal-content" fxLayout="row wrap" fxLayoutGap="10px" *ngIf="form && form.controls" [perfectScrollbar]="config">
+
+        <div fxFlex *ngFor="let field of fields">
+            <!-- DATEPICKER -->
+            <app-input-datepicker *ngIf="field.type === 'datepicker'" fxFlex [formGroup]="form"
+                [formcontrolname]="field.formcontrolname" [label]="field.label">
             </app-input-datepicker>
-        </div>
 
-        <!-- SELECT -->
-        <div *ngIf="field.type === 'select'">
-            <app-input-select fxFlex [appearance]="'outline'" [formGroup]="form"
-                [formcontrolname]="field.formcontrolname" [label]="field.label" [data]="field.select.data"
-                [valueField]="field.select.valueField" [displayField]="field.select.displayField"
-                [searchField]="field.select.searchField"></app-input-select>
-        </div>
+            <!-- SELECT -->
+            <app-input-select *ngIf="field.type === 'select'" fxFlex [appearance]="'outline'"
+                [formGroup]="form" [formcontrolname]="field.formcontrolname" [label]="field.label"
+                [data]="field.select.data" [valueField]="field.select.valueField"
+                [displayField]="field.select.displayField" [searchField]="field.select.searchField"></app-input-select>
 
-        <!-- NUMBER -->
-        <div *ngIf="field.type === 'number'">
-            <app-input-number fxFlex [formGroup]="form" [formcontrolname]="field.formcontrolname" [label]="field.label"
-                [placeholder]="field.label" [min]="field.min" [max]="field.max">
+            <!-- NUMBER -->
+            <app-input-number *ngIf="field.type === 'number'" fxFlex [formGroup]="form"
+                [formcontrolname]="field.formcontrolname" [label]="field.label" [placeholder]="field.label"
+                [min]="field.min" [max]="field.max">
             </app-input-number>
-        </div>
 
-        <!-- TEXT -->
-        <div *ngIf="field.type === 'text'">
-            <app-input-text fxFlex [formGroup]="form" [formcontrolname]="field.formcontrolname" [label]="field.label"
-                [maxLength]="field.max">
+            <!-- TEXT -->
+            <app-input-text *ngIf="field.type === 'text'" fxFlex [formGroup]="form"
+                [formcontrolname]="field.formcontrolname" [label]="field.label" [maxLength]="field.max">
             </app-input-text>
-        </div>
 
-        <!-- TOGGLE -->
-        <div *ngIf="field.type === 'toggle'">
-            <app-input-toggle fxFlex [formGroup]="form" [formcontrolname]="field.formcontrolname" [label]="field.label">
+            <!-- TOGGLE -->
+            <app-input-toggle *ngIf="field.type === 'toggle'" fxFlex [formGroup]="form"
+                [formcontrolname]="field.formcontrolname" [label]="field.label">
             </app-input-toggle>
         </div>
-    </div>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancelar</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Concluir</button>
-</mat-dialog-actions>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button color="primary" mat-raised-button (click)="complete()" cdkFocusInitial><span style="color: white">Filtrar</span></button>
+    </mat-dialog-actions>
+
+</div>

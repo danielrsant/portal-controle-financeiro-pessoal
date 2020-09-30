@@ -1,3 +1,4 @@
+import { AUTO_STYLE } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -39,15 +40,13 @@ export class IndexComponent implements OnInit, OnDestroy {
   operation: Operation = Operation.INDEX;
 
   options: any = {};
-
   dataSource: any[] = [];
   columns = new PageConfig().columns;
+  configuration = new Config({}, 0);
 
   formFilter: FormGroup;
   filterFields = new PageConfig().filterFields;
-
   selection = new SelectionModel<any>(true, []);
-  configuration = new Config({}, 0);
 
   destroy$ = new Subject<any>();
 
@@ -57,7 +56,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   setFormFilter(): void {
-    this._categoryService.loadAll()
+    this._categoryService.loadAll({ filter: 'status||$eq||1' })
       .pipe(takeUntil(this.destroy$)).subscribe((response: any) => {
         if (!response) { return; }
         const categoria = this.filterFields.find(field => field.formcontrolname === 'categoria');
@@ -91,25 +90,16 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._financialMovementService.loadAll(this.options).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          const data: any[] = response.data.map((item) => {
-            const obj = {
-              id: item.id,
-              descricao: item.descricao,
-              contaFixa: item.contaFixa,
-              dtConclusao: item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY') : '-',
-              dtLancamento: moment.utc(item.dtLancamento).format('DD/MM/YYYY'),
-              dtLembrete: item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY') : '-',
-              dtVencimento: item.dtVencimento ? moment.utc(item.dtVencimento).format('DD/MM/YYYY') : '-',
-              lembreteEnviado: item.lembreteEnviado,
-              pago: item.pago,
-              tipoMovimentacao: item.tipoMovimentacao.descricao,
-              categoria: item.categoria.descricao,
-              total: item.total,
-            };
-
-            return obj;
+          response.data = response.data.map((item) => {
+            item.dtConclusao = item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY') : 'Pendente';
+            item.dtLancamento = moment.utc(item.dtLancamento).format('DD/MM/YYYY');
+            item.dtLembrete = item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY') : 'Sem lembrete';
+            item.tipoMovimentacao = item.tipoMovimentacao.descricao;
+            item.categoria = item.categoria.descricao;
+            return item;
           });
-          this.dataSource = data;
+
+          this.dataSource = response.data;
           this.configuration.total = response.total;
           this._loadingService.hide();
         }
@@ -170,12 +160,18 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   openDialogFilter(): void {
     this._dialog.open(FilterDialogComponent, {
+      maxHeight: '80vh',
+      height: AUTO_STYLE,
+      width: window.innerWidth < 900 ? '100%' : '50%',
       data: {
         form: this.formFilter,
         fields: this.filterFields
       }
-    }).afterClosed().pipe(takeUntil(this.destroy$)).subscribe(() => {
-      const obj = this.removeNullUndefinedProperties(this.formFilter.value);
+    }).afterClosed().pipe(takeUntil(this.destroy$)).subscribe((form) => {
+      if (!form) { return; }
+
+      this.formFilter = form;
+      const obj = this.removeNullUndefinedProperties(form.value);
       const filter = Object.keys(obj).map(item => {
         if (!obj[item]) {
           return null;

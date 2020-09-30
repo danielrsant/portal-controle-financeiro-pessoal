@@ -1,31 +1,35 @@
-import {
-  Component,
-  Inject,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
 import { IFormField } from '../../../interfaces/form-filter.interface';
 
 @Component({
   selector: 'app-filter-dialog',
   templateUrl: './filter-dialog.component.html',
   styleUrls: ['./filter-dialog.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class FilterDialogComponent implements OnInit {
   form: FormGroup;
   fields: IFormField[] = [];
 
+  config: PerfectScrollbarConfigInterface = {
+    suppressScrollX: true
+  };
+
   constructor(private _dialog: MatDialogRef<FilterDialogComponent>, @Inject(MAT_DIALOG_DATA) data) {
     this.fields = data.fields;
-    this.generateFormFilter();
 
-    console.log(this.form.value);
-    console.log(this.fields);
+    if (data.form) {
+      this.form = data.form;
+    } else {
+      this.generateFormFilter();
+    }
   }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
   generateFormFilter(): void {
     let newObj = {};
@@ -56,11 +60,9 @@ export class FilterDialogComponent implements OnInit {
   }
 
   complete(): void {
-    this._dialog.close(this.form.value);
+    this._dialog.close(this.form);
   }
 
-  cancel(): void {
-
-  }
+  cancel(): void { }
 
 }
