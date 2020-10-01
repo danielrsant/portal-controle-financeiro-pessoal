@@ -34,6 +34,13 @@ export class PageConfig {
       align: 'center',
     },
     {
+      label: 'Situação',
+      property: 'situacao',
+      type: 'text',
+      visible: true,
+      align: 'center',
+    },
+    {
       label: 'Dt. conclusão',
       property: 'dtConclusao',
       type: 'text',
