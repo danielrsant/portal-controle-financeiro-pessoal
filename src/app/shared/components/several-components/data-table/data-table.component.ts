@@ -9,20 +9,22 @@ import {
   OnInit,
   Output,
   ViewChild,
-  ViewEncapsulation,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { fadeInUp400ms, stagger40ms, } from 'src/app/shared/animations';
-import { TableColumn } from '../../../models/table-column.interface';
-import { DefaultParams } from '../../../enums/default';
+import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
+import { fadeInUp400ms, stagger40ms } from 'src/app/shared/animations';
 import { UtilsService } from 'src/app/shared/services/utils.service';
+import * as XLSX from 'xlsx';
 
+import { DefaultParams } from '../../../enums/default';
+import { TableColumn } from '../../../models/table-column.interface';
 import { Config } from './config';
+
 
 @Component({
   selector: 'app-data-table',
@@ -62,13 +64,15 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
   dataSource: MatTableDataSource<{}>;
   actualDirection: string;
   actualActive: string;
-
+ 
   length = 0;
   pageSize = 10;
   pageIndex = 0;
   pageSizeOptions = [10, 50, 100, 300];
 
   DEFAULT_AVATAR = DefaultParams.DEFAULT_AVATAR;
+
+  inputOpen = false;
 
   private _destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -239,6 +243,14 @@ export class DataTableComponent implements OnInit, OnChanges, OnDestroy {
 
   onClickFilterButton(): void {
     this.dialogFilter.emit();
+  }
+
+  exportexcel(): void {
+    const element = document.getElementById('table');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, moment(new Date()).format('YYYY-MM-DD') + '.xlsx');
   }
 
 }

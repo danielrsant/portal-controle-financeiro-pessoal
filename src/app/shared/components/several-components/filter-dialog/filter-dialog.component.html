@@ -1,22 +1,24 @@
 <div fxFlex fxLayout="column">
     <div fxFlex fxLayout="row">
-        <h2 mat-dialog-title>Filtro</h2><mat-icon style="margin-left: 5px;">filter_list</mat-icon>
+        <h2 mat-dialog-title>Filtro</h2>
+        <mat-icon style="margin-left: 5px;">filter_list</mat-icon>
         <mat-icon fxFlex fxLayoutAlign="flex-end" class="icon" mat-dialog-close>close</mat-icon>
     </div>
 
-    <mat-dialog-content fxFlex="100" class="modal-content" fxLayout="row wrap" fxLayoutGap="10px" *ngIf="form && form.controls" [perfectScrollbar]="config">
+    <mat-dialog-content fxFlex="100" class="modal-content" fxLayout="row wrap" fxLayoutGap="10px"
+        fxLayoutAlign="space-between" *ngIf="form && form.controls" [perfectScrollbar]="config">
 
-        <div fxFlex *ngFor="let field of fields">
+        <div [fxFlex]="field?.fxFlex ? field?.fxFlex : '100'" *ngFor="let field of fields">
             <!-- DATEPICKER -->
             <app-input-datepicker *ngIf="field.type === 'datepicker'" fxFlex [formGroup]="form"
                 [formcontrolname]="field.formcontrolname" [label]="field.label">
             </app-input-datepicker>
 
             <!-- SELECT -->
-            <app-input-select *ngIf="field.type === 'select'" fxFlex [appearance]="'outline'"
-                [formGroup]="form" [formcontrolname]="field.formcontrolname" [label]="field.label"
-                [data]="field.select.data" [valueField]="field.select.valueField"
-                [displayField]="field.select.displayField" [searchField]="field.select.searchField"></app-input-select>
+            <app-input-select *ngIf="field.type === 'select'" fxFlex [appearance]="'outline'" [formGroup]="form"
+                [formcontrolname]="field.formcontrolname" [label]="field.label" [data]="field.select.data"
+                [valueField]="field.select.valueField" [displayField]="field.select.displayField"
+                [searchField]="field.select.searchField"></app-input-select>
 
             <!-- NUMBER -->
             <app-input-number *ngIf="field.type === 'number'" fxFlex [formGroup]="form"
@@ -38,7 +40,8 @@
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
-        <button color="primary" mat-raised-button (click)="complete()" cdkFocusInitial><span style="color: white">Filtrar</span></button>
+        <button color="primary" mat-raised-button (click)="complete()" cdkFocusInitial><span
+                style="color: white">Filtrar</span></button>
     </mat-dialog-actions>
 
 </div>

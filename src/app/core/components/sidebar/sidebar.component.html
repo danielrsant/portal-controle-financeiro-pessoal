@@ -37,8 +37,16 @@
                 <button mat-icon-button (click)="nav.toggle()">
                     <mat-icon>menu</mat-icon>
                 </button>
-                <h1>FINANÇAS</h1>
-                <span class="user">
+
+                <img style="margin-top: 5px" width="100" src="assets/images/logo2.png">
+
+                <span fxFlex fxLayoutAlign="flex-end" class="user">
+                    
+                    <button fxFlex="none" class="btn-table" mat-icon-button [matTooltip]="'Tela Cheia'"
+                        type="button" (click)="fullScreenOpened ? closeFullscreen() : openFullScreen()">
+                        <mat-icon>open_with</mat-icon> 
+                    </button>
+
                     <button #menuUser mat-icon-button [matMenuTriggerFor]="menu">
                         <mat-icon>person</mat-icon>
                     </button>
@@ -59,7 +67,7 @@
                 </span>
             </mat-toolbar>
 
-            <ng-content>
+            <ng-content class="fullScreen">
             </ng-content>
             
         </mat-sidenav-content>

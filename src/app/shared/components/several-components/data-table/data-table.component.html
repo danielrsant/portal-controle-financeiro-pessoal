@@ -1,153 +1,174 @@
 <div>
 
-  <div class="card mat-elevation-z3">
-    <div class="bg-app-bar sticky" fxLayout="row wrap" fxLayoutAlign="start center">
+    <mat-card class="bg-app-bar sticky" fxLayout="row wrap" fxLayoutAlign="start center">
 
       <div fxLayout="row">
         <h2 class="title" fxFlex="none" fxHide.lt-md>
-          <span *ngIf="selection.isEmpty()">{{ title }}</span>
+          <!-- <span *ngIf="selection.isEmpty()">{{ title }}</span> -->
           <span *ngIf="selection.hasValue()">{{ selection.selected.length }}
             <span *ngIf="selection.selected.length <= 1">{{ 'COMMON.REGISTER' | lowercase }}</span>
             <span *ngIf="selection.selected.length > 1">{{ 'COMMON.REGISTERS' | lowercase }}</span>
             {{ 'COMMON.SELECTED' | lowercase }}
           </span>
         </h2>
-  
+
         <div *ngIf="selection.hasValue()" fxFlex="none">
-          <button *ngFor="let button of config.options?.selectionButtons" color="primary" mat-icon-button
+          <button *ngFor="let button of config.options?.selectionButtons" color="primary" mat-stroked-button
             [matTooltip]=" button.title " type="button" (click)="button.function(selection.selected)">
             <mat-icon>{{ button.icon }}</mat-icon>
           </button>
         </div>
       </div>
 
-      <div fxFlex fxFlex.gt-md="300px" fxLayout="row" fxLayoutAlign="start center" class="input-card">
-        <mat-icon size="20px">search</mat-icon>
-        <input class="input-search" [formControl]="searchCtrl" [placeholder]="'Pesquisar...'" type="search">
-      </div>
-      
       <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" style="margin-bottom: 5px;">
-        <button class="btn-table" fxFlex="none" mat-icon-button
-          [matTooltip]="'Filtro'" type="button" (click)="onClickFilterButton()" >
+        <div id="input-search">
+          <input class="input-search" [ngClass]="{'open-input': inputOpen}" [formControl]="searchCtrl"
+            [placeholder]="'Pesquisar...'" type="text">
+        </div>
+
+        <button fxFlex="none" class="btn-table" color="primary" mat-stroked-button [matTooltip]="'Pesquisar...'"
+          type="button" (click)="inputOpen = !inputOpen">
+          <mat-icon>search</mat-icon>
+        </button>
+
+        <button class="btn-table" color="primary" fxFlex="none" mat-stroked-button [matTooltip]="'Filtro'" type="button"
+          (click)="onClickFilterButton()">
           <mat-icon>filter_list</mat-icon>
         </button>
-  
-        <button [matMenuTriggerFor]="columnFilterMenu" class="btn-table" fxFlex="none" mat-icon-button
-          [matTooltip]="'Colunas'" type="button">
+
+        <button [matMenuTriggerFor]="columnFilterMenu" class="btn-table" color="primary" fxFlex="none"
+          mat-stroked-button [matTooltip]="'Colunas'" type="button">
           <mat-icon>filter_alt</mat-icon>
         </button>
-  
-        <button (click)="onRefresh()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab
+
+        <button fxFlex="none" class="btn-table" color="primary" mat-stroked-button [matTooltip]="'Exportar'"
+          type="button" (click)="exportexcel()">
+          <mat-icon>save_alt</mat-icon>
+        </button>
+
+        <button (click)="onRefresh()" class="btn-table" color="primary" fxFlex="none" mat-stroked-button
           [matTooltip]="'Atualizar'" type="button">
           <mat-icon>refresh</mat-icon>
         </button>
 
-        <button (click)="onCreate()" class="btn-table" color="primary" fxFlex="none" mat-mini-fab
+        <button (click)="onCreate()" class="btn-table" color="primary" fxFlex="none" mat-stroked-button
           [matTooltip]="'Adicionar'" type="button">
-          <mat-icon>add</mat-icon>
+          <mat-icon>add</mat-icon><span>Adicionar</span>
         </button>
       </div>
 
-    </div>
+    </mat-card>
 
-    <div *ngIf="dataSource.filteredData.length > 0" class="overflow" [perfectScrollbar]="config">
 
-      <table [dataSource]="dataSource" class="table-responsiveness mat-table" mat-table matSort (matSortChange)="sortChange($event)">
+    <div class="overflow" [perfectScrollbar]="config">
 
-        <!--- Note that these columns can be defined in any order.
+      <mat-progress-bar *ngIf="!data" mode="indeterminate"></mat-progress-bar>
+
+      <ng-container *ngIf="dataSource && dataSource.filteredData">
+
+        <table id="table" [dataSource]="dataSource" class="table-responsiveness mat-table" mat-table matSort
+          (matSortChange)="sortChange($event)" *ngIf="dataSource.filteredData.length > 0">
+
+          <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="checkbox">
-          <th *matHeaderCellDef mat-header-cell>
-            <mat-checkbox (change)="$event ? masterToggle($event) : null"
-              [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
-            </mat-checkbox>
-          </th>
-          <td *matCellDef="let row" class="w-4" mat-cell>
-            <mat-checkbox (change)="$event ? selection.toggle(row) : null" (click)="$event.stopPropagation()"
-              [checked]="selection.isSelected(row)" color="primary">
-            </mat-checkbox>
-          </td>
-        </ng-container>
-
-        <ng-container *ngFor="let column of columns; trackBy: trackByProperty">
-
-          <!-- Image Column -->
-          <ng-container *ngIf="column.type === 'image'" [matColumnDef]="column.property">
-            <th *matHeaderCellDef mat-header-cell></th>
-            <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
-              <img [src]="row[column.property] || DEFAULT_AVATAR" class="avatar h-8 w-8 align-middle">
-            </td>
-          </ng-container>
-
           <!-- Checkbox Column -->
-          <ng-container *ngIf="column.type === 'checkbox'" [matColumnDef]="column.property">
-            <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label.toUpperCase() }}</th>
-            <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
-              <mat-checkbox [checked]="row[column.property]" [disabled]="column.disabled" color="primary"></mat-checkbox>
+          <ng-container matColumnDef="checkbox">
+            <th *matHeaderCellDef mat-header-cell>
+              <mat-checkbox (change)="$event ? masterToggle($event) : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+              </mat-checkbox>
+            </th>
+            <td *matCellDef="let row" class="w-4" mat-cell>
+              <mat-checkbox (change)="$event ? selection.toggle(row) : null" (click)="$event.stopPropagation()"
+                [checked]="selection.isSelected(row)" color="primary">
+              </mat-checkbox>
             </td>
           </ng-container>
 
-          <!-- Color Column -->
-          <ng-container *ngIf="column.type === 'color'" [matColumnDef]="column.property">
-            <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label.toUpperCase() }}</th>
-            <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
-              <mat-icon [color]="row[column.property]">colorize</mat-icon>
-            </td>
-          </ng-container>
+          <ng-container *ngFor="let column of columns; trackBy: trackByProperty">
 
-          <!-- Text Columns -->
-          <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
-            <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}</th>
-            <td *matCellDef="let row" [ngClass]="column.cssClasses" [ngStyle]="{'text-align': column?.align}" mat-cell>{{ row[column.property] }}</td>
-          </ng-container>
+            <!-- Image Column -->
+            <ng-container *ngIf="column.type === 'image'" [matColumnDef]="column.property">
+              <th *matHeaderCellDef mat-header-cell></th>
+              <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
+                <img [src]="row[column.property] || DEFAULT_AVATAR" class="avatar h-8 w-8 align-middle">
+              </td>
+            </ng-container>
 
-          <!-- Actions Column -->
-          <ng-container *ngIf="column.type === 'actions'" [matColumnDef]="column.property">
-            <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}</th>
-            <td [ngStyle]="{'text-align': column?.align}" mat-cell *matCellDef="let element" class="right-align">
-              <button mat-icon-button [matMenuTriggerFor]="moreMenu" (click)="$event.stopPropagation();">
-                <mat-icon>more_vert</mat-icon>
-              </button>
+            <!-- Checkbox Column -->
+            <ng-container *ngIf="column.type === 'checkbox'" [matColumnDef]="column.property">
+              <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label.toUpperCase() }}</th>
+              <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
+                <mat-checkbox [checked]="row[column.property]" [disabled]="column.disabled" color="primary">
+                </mat-checkbox>
+              </td>
+            </ng-container>
 
-              <mat-menu #moreMenu="matMenu">
-                <button mat-menu-item (click)="onActions('detalhar', element)" *ngIf="isViewed">
-                  <mat-icon class="fs-20">remove_red_eye</mat-icon>
-                  <span class="fs-12">Detalhar</span>
+            <!-- Color Column -->
+            <ng-container *ngIf="column.type === 'color'" [matColumnDef]="column.property">
+              <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label.toUpperCase() }}</th>
+              <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
+                <mat-icon [color]="row[column.property]">colorize</mat-icon>
+              </td>
+            </ng-container>
+
+            <!-- Text Columns -->
+            <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+              <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}
+              </th>
+              <td *matCellDef="let row" [ngClass]="column.cssClasses" [ngStyle]="{'text-align': column?.align}"
+                mat-cell>{{ row[column.property] }}</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container *ngIf="column.type === 'actions'" [matColumnDef]="column.property">
+              <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}
+              </th>
+              <td [ngStyle]="{'text-align': column?.align}" mat-cell *matCellDef="let element" class="right-align">
+                <button mat-icon-button [matMenuTriggerFor]="moreMenu" (click)="$event.stopPropagation();">
+                  <mat-icon>more_vert</mat-icon>
                 </button>
 
-                <button mat-menu-item (click)="onActions('alterar', element)" *ngIf="isViewed">
-                  <mat-icon class="fs-20">edit</mat-icon>
-                  <span class="fs-12">Alterar</span>
-                </button>
+                <mat-menu #moreMenu="matMenu">
+                  <button mat-menu-item (click)="onActions('detalhar', element)" *ngIf="isViewed">
+                    <mat-icon class="fs-20">remove_red_eye</mat-icon>
+                    <span class="fs-12">Detalhar</span>
+                  </button>
 
-                <button mat-menu-item (click)="onActions('excluir', element)" *ngIf="isDeleted">
-                  <mat-icon class="fs-20">delete</mat-icon>
-                  <span class="fs-12">Excluir</span>
-                </button>
-              </mat-menu>
-            </td>
+                  <button mat-menu-item (click)="onActions('alterar', element)" *ngIf="isViewed">
+                    <mat-icon class="fs-20">edit</mat-icon>
+                    <span class="fs-12">Alterar</span>
+                  </button>
+
+                  <button mat-menu-item (click)="onActions('excluir', element)" *ngIf="isDeleted">
+                    <mat-icon class="fs-20">delete</mat-icon>
+                    <span class="fs-12">Excluir</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
           </ng-container>
 
-        </ng-container>
+          <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
+          <tr (click)="onClickRow(row)" *matRowDef="let row; columns: visibleColumns;" @fadeInUp
+            class="hover:bg-hover trans-ease-out cursor-pointer" mat-row></tr>
 
-        <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
-        <tr (click)="onClickRow(row)" *matRowDef="let row; columns: visibleColumns;" @fadeInUp
-          class="hover:bg-hover trans-ease-out cursor-pointer" mat-row></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex"
+          [length]="length" class="sticky footer-paginator">
+        </mat-paginator>
 
-      </table>
-      <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex" [length]="length"
-        class="sticky footer-paginator">
-      </mat-paginator>
+      </ng-container>
 
     </div>
-    <div *ngIf="dataSource.filteredData.length == 0" class="w-full empty-list">
+
+    <div *ngIf="dataSource && !dataSource.filteredData.length" class="w-full empty-list">
       <mat-icon style="margin-right: 20px;">cancel_presentation</mat-icon>
-      NENHUM REGISTRO ENCONTRADO
+      NENHUM REGISTRO ENCONTRADO 
     </div>
-  </div>
 
 </div>
 

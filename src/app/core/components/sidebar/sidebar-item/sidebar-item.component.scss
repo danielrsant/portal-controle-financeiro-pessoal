@@ -8,7 +8,7 @@
   cursor: pointer;
   align-items: center;
   box-sizing: border-box;
-  padding: 0px 15px 0px 0px;
+  padding: 0px;
   user-select: none;
   text-decoration: none;
 
@@ -21,14 +21,13 @@
   }
   
   &.active {
-    background-color: #212939;
+    background-color: #1e2535;
 
     .row-item {
-      background-color: rgba(var(--color-primary));
-      width: 265px;
+      background-color: #121620;
+      width: 100%;
       height: 48px;
-      padding: 15px 15px 0px 0px;
-      border-radius: 0 25px 25px 0;
+      padding: 15px 0px 0px 0px;
     }
   }
 
@@ -85,6 +84,7 @@
   line-height: 18px;
   transform: rotate(0deg) !important;
   width: 18px;
+  margin-right: 15px;
 }
 
 .item-dropdown {

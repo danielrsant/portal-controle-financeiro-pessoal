@@ -86,7 +86,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.options.sort = this.options.sort.replace('categoria', 'categoria.id');
     }
 
-    this._loadingService.show();
+    this.dataSource = null;
     this._financialMovementService.loadAll(this.options).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
@@ -101,11 +101,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 
           this.dataSource = response.data;
           this.configuration.total = response.total;
-          this._loadingService.hide();
         }
       },
       (error) => {
-        this._loadingService.hide();
         console.log(error);
       }
     );

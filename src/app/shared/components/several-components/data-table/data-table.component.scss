@@ -18,28 +18,12 @@
   border-right: 1px solid #c3c3c3;
 }
 
-.input-search {
-  height: 40px;
-  width: 250px;
-  min-width: 110px;
-  border-radius: 9999px;
-  border-width: 0px;
-  outline: 0;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.card {
-  border-radius: .25rem;
-}
-
 .bg-app-bar {
-  color: black !important;
-  background-color: #ebebee;
   padding: 5px 1.5rem 0px 1.5rem;
   min-height: 4rem;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
+  margin-bottom: -2px;
 
   @include media-breakpoint('xs') {
     padding-left: 0.5rem;
@@ -48,17 +32,8 @@
 }
 
 .btn-table {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.input-card {
-  background-color: white !important;
-  padding-left: 1rem;
-  border-radius: 40px;
-  font: 400 14px/20px var(--font);
-  margin-top: 2px;
-  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .sticky {
@@ -69,13 +44,13 @@
   display: block; 
   overflow: auto;
   position: relative;
+  min-height: 300px;
   
   .table-responsiveness {
     width: 100%;
     display: table;
   }
 }
-
 
 .border {
   border-width: 1px;
@@ -100,4 +75,38 @@
   outline: 0 !important;
   min-height: 64px !important;
   max-height: 250px !important;
+}
+
+::ng-deep .mat-stroked-button {
+  border-color: #cfd8e3 !important;
+}
+
+#input-search {
+
+  input[type=text] {
+    min-width: 0px;
+    width: 0px;
+    font-size: 0px;
+    transition: width 0.2s ease-out;
+    margin-right: -69px;
+    padding: 0px;
+    border: 0px;
+  } 
+
+  .input-search {
+    height: 40px;
+    outline: 0;
+    margin-left: 15px;
+  }
+  
+  .open-input {
+    background-color: white !important;
+    box-sizing: border-box !important;
+    border: 1px solid #CED7E3 !important;
+    border-radius: 5px !important;
+    font-size: 15px !important;
+    padding: 12px 12px 12px 12px !important;
+    width: 250px !important;
+    z-index: -1;
+  }
 }
