@@ -38,11 +38,9 @@
                     <mat-icon>menu</mat-icon>
                 </button>
 
-                <img style="margin-top: 5px" width="100" src="assets/images/logo2.png">
-
                 <span fxFlex fxLayoutAlign="flex-end" class="user">
                     
-                    <button fxFlex="none" class="btn-table" mat-icon-button [matTooltip]="'Tela Cheia'"
+                    <button fxFlex="none" mat-icon-button [matTooltip]="'Tela Cheia'"
                         type="button" (click)="fullScreenOpened ? closeFullscreen() : openFullScreen()">
                         <mat-icon>open_with</mat-icon> 
                     </button>
@@ -52,8 +50,8 @@
                     </button>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item>
-                            <mat-icon>people_outline</mat-icon>
-                            <span>Teste</span>
+                            <mat-icon>person</mat-icon>
+                            <span>Perfil</span>
                         </button>
                         <button mat-menu-item (click)="onConfig()">
                             <mat-icon>settings</mat-icon>
