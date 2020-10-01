@@ -80,17 +80,15 @@ export class IndexComponent implements OnInit, OnDestroy {
       delete this.options.s;
     }
 
-    this._loadingService.show();
+    this.dataSource = null;
     this._categoryService.loadAll(this.options).subscribe(
       (response: any) => {
         if (response) {
           this.dataSource = response.data;
           this.configuration.total = response.total;
         }
-        this._loadingService.hide();
       },
       (error) => {
-        this._loadingService.hide();
         console.log(error);
       }
     );
