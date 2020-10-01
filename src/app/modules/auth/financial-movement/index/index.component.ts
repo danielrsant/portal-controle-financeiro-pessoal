@@ -91,7 +91,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       (response: any) => {
         if (response) {
           response.data = response.data.map((item) => {
-            item.dtConclusao = item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY') : 'Pendente';
+            item.dtConclusao = item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY') : '-';
             item.dtLancamento = moment.utc(item.dtLancamento).format('DD/MM/YYYY');
             item.dtLembrete = item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY') : 'Sem lembrete';
             item.tipoMovimentacao = item.tipoMovimentacao.descricao;
