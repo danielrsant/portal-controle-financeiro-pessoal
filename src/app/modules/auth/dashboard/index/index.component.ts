@@ -53,6 +53,8 @@ export class IndexComponent implements OnInit {
   viewGauge = [300, 100];
   legendPosition;
 
+  hide = false;
+  
   constructor() {
     this.changeResponsiveness();
    }

@@ -59,6 +59,17 @@
                 font-size: 20px;
                 margin: 0px;
             }
+
+            .card-subtitle-hide {
+                font-size: 20px;
+                margin: 0px;
+                margin-top: -10px;
+            }
+
+            .icon-visible {
+                margin-top: 2px;
+                cursor: pointer;
+            }
         }
 
         .card-footer {
