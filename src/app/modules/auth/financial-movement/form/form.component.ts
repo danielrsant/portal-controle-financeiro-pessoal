@@ -36,6 +36,8 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
     fixedAccount: 'Receita fixa',
   };
 
+  dtHoje = new Date();
+
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
@@ -43,7 +45,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
     private _categoryService: CategoryService,
     private _movementTypeService: MovementTypeService,
     private _loadingService: LoadingService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.setOperation();
@@ -113,10 +115,10 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
         Validators.maxLength(150),
       ]),
       total: new FormControl(0, [Validators.required, Validators.min(0.01)]),
-      dtLancamento: new FormControl(new Date(), Validators.required),
+      dtConta: new FormControl(new Date(), Validators.required),
       dtConclusao: new FormControl(null),
       dtLembrete: new FormControl(null),
-      pago: new FormControl(0),
+      concluido: new FormControl(0),
       contaFixa: new FormControl(0),
       categoria: new FormControl(null, Validators.required),
       tipoMovimentacao: new FormControl(1, Validators.required),
@@ -133,6 +135,19 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
       this._loadingService.show();
       this._financialMovementService.loadOne(this.id).subscribe(
         (response: any) => {
+
+          if (!response) {
+            return;
+          }
+
+          Object.keys(response).forEach(key => {
+            if (['dtConta', 'dtLembrete', 'dtConclusao'].includes(key) && response[key]) {
+
+              const [year, month, day] = response[key].split('-');
+              response[key] = new Date(year, month - 1, day);
+            }
+          });
+
           this.form.patchValue(response);
           const { categoria, tipoMovimentacao, pessoa } = response;
           this.form.get('categoria').setValue(categoria.id);
@@ -158,7 +173,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   onSave(): void {
     this._loadingService.show();
     if (this.form.dirty) {
-      if (this.form.get('pago').value) {
+      if (this.form.get('concluido').value) {
         this.form
           .get('dtConclusao')
           .setValue(
@@ -181,19 +196,19 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
     );
 
     formAux = formAux.map((fa, i) => {
-      const dtLancamento = moment
-        .tz(fa.get('dtLancamento').value, 'America/Sao_Paulo')
+      const dtConta = moment
+        .tz(fa.get('dtConta').value, 'America/Sao_Paulo')
         .add(i, 'month')
         .format('YYYY-MM-DD');
 
       const dtLembrete = fa.get('dtLembrete').value
         ? moment
-            .tz(fa.get('dtLembrete').value, 'America/Sao_Paulo')
-            .add(i, 'month')
-            .format('YYYY-MM-DD')
+          .tz(fa.get('dtLembrete').value, 'America/Sao_Paulo')
+          .add(i, 'month')
+          .format('YYYY-MM-DD')
         : null;
 
-      return { ...fa.value, dtLancamento, dtLembrete };
+      return { ...fa.value, dtConta, dtLembrete };
     });
 
     this._financialMovementService.create(formAux).subscribe(
@@ -228,5 +243,5 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
       );
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 }
