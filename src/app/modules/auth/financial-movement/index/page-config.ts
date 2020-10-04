@@ -9,7 +9,7 @@ export class PageConfig {
       property: 'actions',
       type: 'actions',
       visible: true,
-      align: 'center'
+      align: 'start'
     },
     {
       label: 'Id',
@@ -48,8 +48,8 @@ export class PageConfig {
       align: 'center',
     },
     {
-      label: 'Dt. recibo/vencimento',
-      property: 'dtLancamento',
+      label: 'Dt. limite',
+      property: 'dtConta',
       type: 'text',
       visible: true,
       align: 'center',
@@ -70,8 +70,8 @@ export class PageConfig {
       align: 'center',
     },
     {
-      label: 'Recebido/Pago',
-      property: 'pago',
+      label: 'Concluído',
+      property: 'concluido',
       type: 'checkbox',
       disabled: true,
       visible: true,
@@ -129,9 +129,9 @@ export class PageConfig {
       }
     },
     {
-      formcontrolname: 'dtLancamento',
+      formcontrolname: 'dtConta',
       type: 'datepicker',
-      label: 'Data de lançamento'
+      label: 'Data limite'
     },
     {
       formcontrolname: 'dtConclusao',
@@ -139,9 +139,9 @@ export class PageConfig {
       label: 'Data de conclusão'
     },
     {
-      formcontrolname: 'pago',
+      formcontrolname: 'concluido',
       type: 'toggle',
-      label: 'Recebido/Pago?'
+      label: 'Concluído?'
     },
     {
       formcontrolname: 'possuiLembrete',

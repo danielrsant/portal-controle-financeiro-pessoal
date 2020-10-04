@@ -5,7 +5,7 @@
     [icon]="icon"
     [backPage]="true"
     [btn]="'Salvar'"
-    [btnDisabled]="form.invalid ? true : false"
+    [btnDisabled]="form.invalid || !form.dirty ? true : false"
     (btnClick)="onSave()"
   >
   </app-header>
@@ -33,7 +33,7 @@
       fxFlex
       [formGroup]="form"
       [clearOption]="false"
-      formcontrolname="dtLancamento"
+      formcontrolname="dtConta"
       label="Selecione a data"
     >
     </app-input-datepicker>
@@ -65,6 +65,7 @@
       [clearOption]="false"
       formcontrolname="dtLembrete"
       label="Selecione a data de lembrete"
+      [min]="dtHoje"
     >
     </app-input-datepicker>
 
@@ -80,7 +81,7 @@
     <div fxLayoutGap="30px">
       <app-input-toggle
         [formGroup]="form"
-        formcontrolname="pago"
+        formcontrolname="concluido"
         [label]="movementTypeParams.statusAccount"
       ></app-input-toggle>
 

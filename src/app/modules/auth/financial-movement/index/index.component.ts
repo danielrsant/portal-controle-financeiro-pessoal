@@ -92,7 +92,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         if (response) {
           response.data = response.data.map((item) => {
             item.dtConclusao = item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY') : '-';
-            item.dtLancamento = moment.utc(item.dtLancamento).format('DD/MM/YYYY');
+            item.dtConta = moment.utc(item.dtConta).format('DD/MM/YYYY');
             item.dtLembrete = item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY') : 'Sem lembrete';
             item.tipoMovimentacao = item.tipoMovimentacao.descricao;
             item.categoria = item.categoria.descricao;
@@ -185,6 +185,16 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.options = { ...this.options, filter };
       this.onRefresh();
     });
+  }
+
+  formatDateField(payload): any {
+    Object.keys(payload).forEach(key => {
+      if (payload[key] instanceof Date) {
+        payload[key] = moment.tz(payload[key], 'America/Sao_Paulo').format('YYYY-MM-DD 00:00:00');
+      }
+    });
+    
+    return payload;
   }
 
   ngOnDestroy(): void {
