@@ -1,3 +1,8 @@
+<ng-container *ngIf="isSubheading(item)"> 
+  <div class="subheading">{{ item.label }}</div>
+  <app-sidebar-item *ngFor="let subItem of item.children" [item]="subItem" [level]="0"></app-sidebar-item>
+</ng-container>
+
 <a class="item" fxLayout="row" *ngIf="isLink(item) && !isFunction(item.route)" [fragment]="item.fragment"
   [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }" [routerLink]="item.route"
   routerLinkActive="active" matRipple>

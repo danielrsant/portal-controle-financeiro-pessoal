@@ -40,12 +40,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
     }
 
-    onLogin() {
+    onLogin(): void {
         this._loading.show();
         this._authenticationService.login(this.form.value.email, this.form.value.senha).pipe(takeUntil(this.onDestroy$)).subscribe(
             response => {
                 if (response) {
-                    localStorage.setItem('user', JSON.stringify(response.data.pessoa));
+                    localStorage.setItem('user', JSON.stringify({ ...response.data.pessoa, ...{ email: response.data.email } }));
                     localStorage.setItem('token', response.token);
                     this.navigate();
                     this.openDialog();
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this._router.navigate([`../auth/dashboard`], { relativeTo: this._activatedRoute });
     }
 
-    openDialog() {
+    openDialog(): void {
         const dialogRef = this.dialog.open(ModalComponent, {
             maxHeight: '80vh',
             height: AUTO_STYLE,

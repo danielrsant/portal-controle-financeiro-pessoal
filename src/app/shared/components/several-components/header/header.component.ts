@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() btn: string;
   @Input() btnDisabled = false;
 
-  @Input() height = '200px';
+  @Input() height = '175px';
   @Input() bgImage = false;
 
   @Output() btnClick = new EventEmitter();

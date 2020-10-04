@@ -40,8 +40,9 @@
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
-        <button color="primary" mat-raised-button (click)="complete()" cdkFocusInitial><span
-                style="color: white">Filtrar</span></button>
+        <button color="primary" mat-stroked-button (click)="clearFilters()"><span>Limpar
+                Filtros</span></button>
+        <button color="primary" mat-raised-button (click)="complete()" cdkFocusInitial><span style="color: white">Filtrar</span></button>
     </mat-dialog-actions>
 
 </div>

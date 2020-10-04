@@ -14,19 +14,16 @@
                 </div>
                 <div class="user-info"> 
                     <div class="name">
-                        <h4>Daniel Rosa</h4>
+                        <h4>{{ user?.nome }} {{ user?.sobrenome }}</h4>
                     </div>
                     <div class="email">
-                        <h5>danrsant14@gmail.com</h5>
+                        <h5>{{ user?.email }}</h5>
                     </div>
                 </div>
             </div>
 
 
             <div class="menu">
-                <div class="menu-title">
-                    MENUS
-                </div>
                 <app-sidebar-item *ngFor="let item of items; trackBy: trackByRoute" [item]="item" [level]="0">
                 </app-sidebar-item>
             </div>

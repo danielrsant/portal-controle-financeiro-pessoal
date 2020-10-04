@@ -90,3 +90,13 @@
 .item-dropdown {
   overflow: hidden;
 }
+
+.subheading {
+  box-sizing: border-box;
+  color: var(--sidenav-item-color);
+  font: var(--font-caption);
+  margin-top: var(--padding);
+  padding: var(--padding-12) var(--padding);
+  text-transform: uppercase;
+  white-space: nowrap;
+}

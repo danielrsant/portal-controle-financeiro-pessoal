@@ -35,6 +35,7 @@ export class SidebarItemComponent implements OnInit, OnChanges, OnDestroy {
 
   isLink = this.navigationService.isLink;
   isDropdown = this.navigationService.isDropdown;
+  isSubheading = this.navigationService.isSubheading;
 
   destroy$ = new Subject();
 
@@ -44,11 +45,11 @@ export class SidebarItemComponent implements OnInit, OnChanges, OnDestroy {
     private navigationService: NavigationService) { }
 
   @HostBinding('class')
-  get levelClass() {
+  get levelClass(): string {
     return `item-level-${this.level}`;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       filter(() => this.isDropdown(this.item)),
@@ -67,13 +68,13 @@ export class SidebarItemComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  toggleOpen() {
+  toggleOpen(): void {
     this.isOpen = !this.isOpen;
     this.navigationService.triggerOpenChange(this.item as NavigationDropdown);
     this.cd.markForCheck();
   }
 
-  onOpenChange(item: NavigationDropdown) {
+  onOpenChange(item: NavigationDropdown): any {
     if (this.isChildrenOf(this.item as NavigationDropdown, item)) {
       return;
     }
@@ -88,7 +89,7 @@ export class SidebarItemComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onRouteChange() {
+  onRouteChange(): void {
     if (this.hasActiveChilds(this.item as NavigationDropdown)) {
       this.isActive = true;
       this.isOpen = true;
@@ -102,7 +103,7 @@ export class SidebarItemComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  isChildrenOf(parent: NavigationDropdown, item: NavigationDropdown) {
+  isChildrenOf(parent: NavigationDropdown, item: NavigationDropdown): any {
     if (parent.children.indexOf(item) !== -1) {
       return true;
     }
@@ -112,7 +113,7 @@ export class SidebarItemComponent implements OnInit, OnChanges, OnDestroy {
       .some(child => this.isChildrenOf(child as NavigationDropdown, item));
   }
 
-  hasActiveChilds(parent: NavigationDropdown) {
+  hasActiveChilds(parent: NavigationDropdown): any {
     return parent.children.some(child => {
       if (this.isDropdown(child)) {
         return this.hasActiveChilds(child);
@@ -124,7 +125,7 @@ export class SidebarItemComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  isFunction(prop: NavigationLink['route']) {
+  isFunction(prop: NavigationLink['route']): any {
     return prop instanceof Function;
   }
 

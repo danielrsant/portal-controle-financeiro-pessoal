@@ -1,21 +1,5 @@
 <div id="login" class="inner-scroll" fxLayout="row" fxLayoutAlign="center center">
 
-    <!-- <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
-
-        <div class="logo" [@animate]="{value:'*',params:{scale:'0.2'}}">
-            <img width="160" src="assets/images/logo.png">
-        </div>
-
-        <div class="title" [@animate]="{value:'*',params:{delay:'50ms',y:'25px'}}">
-            Bem Vindo ao Sistema Financeiro!
-        </div>
-
-        <div class="description" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper nisl erat,
-            vel convallis elit fermentum pellentesque. Sed mollis velit facilisis facilisis viverra.
-        </div>
-    </div> -->
-
     <div id="login-form-wrapper" [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}">
 
         <mat-card id="login-form">
@@ -26,18 +10,23 @@
 
             <div class="title">CRIE SUA CONTA AQUI</div>
 
-            <form name="form" [formGroup]="form" novalidate>
-                <div fxLayout="row" fxLayoutGap="10px">
-                    <app-input-text fxFlex="48" [formGroup]="formPerson" formcontrolname="nome" [label]="'Nome'"></app-input-text>
-                    <app-input-text fxFlex="48" [formGroup]="formPerson" formcontrolname="sobrenome" [label]="'Sobrenome'"></app-input-text>
+            <form fxLayout="column" name="form" [formGroup]="form" novalidate>
+                <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayout.xs="column">
+                    <app-input-text fxFlex="49" [formGroup]="formPerson" formcontrolname="nome" [label]="'Nome'"></app-input-text>
+                    <app-input-text fxFlex="49" [formGroup]="formPerson" formcontrolname="sobrenome" [label]="'Sobrenome'"></app-input-text>
                 </div>
                 
-                <app-input-email [formGroup]="form" formcontrolname="email"></app-input-email>
-                <app-input-password [formGroup]="form" formcontrolname="senha"></app-input-password>
-                <app-input-password [formGroup]="form" formcontrolname="confirmarSenha" 
-                placeholder="Senha (Confirmar)" label="Senha (Confirmar)"></app-input-password>
+                <app-input-email fxFlex [formGroup]="form" formcontrolname="email"></app-input-email>
 
-                <app-input-datepicker [formGroup]="formPerson" formcontrolname="dtNascimento" [label]="'Data de Nascimento'" [max]="dtToday"></app-input-datepicker>
+                <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayout.xs="column">
+                    <app-input-password fxFlex="49" [formGroup]="form" formcontrolname="senha"></app-input-password>
+                    <app-input-password fxFlex="49" [formGroup]="form" formcontrolname="confirmarSenha" 
+                    placeholder="Senha (Confirmar)" label="Senha (Confirmar)"></app-input-password>
+                </div>
+
+                <app-input-datepicker fxFlex [formGroup]="formPerson" formcontrolname="dtNascimento" [label]="'Data de Nascimento'" [max]="dtToday"></app-input-datepicker>
+
+                <app-input-text fxFlex [formGroup]="formPerson" formcontrolname="celular" [label]="'Celular'" [placeholder]="'(99) 9 9999-9999'" [mask]="'(00) 0 0000-0000'"></app-input-text>
 
                 <button mat-raised-button color="primary" class="submit-button" aria-label="ENTRAR"
                     [disabled]="form.invalid || formPerson.invalid" (click)="onRegister()">

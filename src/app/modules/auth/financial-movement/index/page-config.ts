@@ -105,7 +105,6 @@ export class PageConfig {
       formcontrolname: 'id',
       type: 'number',
       label: 'Id',
-      min: 1
     },
     {
       formcontrolname: 'tipoMovimentacao',

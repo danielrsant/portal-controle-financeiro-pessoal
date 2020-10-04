@@ -13,7 +13,6 @@
   <mat-card fxFlex fxLayout="column" class="content-page-form">
     <app-input-select
       fxFlex
-      [appearance]="'outline'"
       [formGroup]="form"
       formcontrolname="tipoMovimentacao"
       label="Tipo de movimentação"
@@ -28,7 +27,6 @@
       [formGroup]="form"
       formcontrolname="total"
       [label]="'Valor da ' + movementTypeParams.title"
-      appearance="outline"
     ></app-input-currency>
 
     <app-input-datepicker
@@ -37,7 +35,6 @@
       [clearOption]="false"
       formcontrolname="dtLancamento"
       label="Selecione a data"
-      appearance="outline"
     >
     </app-input-datepicker>
 
@@ -53,7 +50,6 @@
 
     <app-input-select
       fxFlex
-      [appearance]="'outline'"
       [formGroup]="form"
       formcontrolname="categoria"
       label="Selecione uma categoria"
@@ -69,7 +65,6 @@
       [clearOption]="false"
       formcontrolname="dtLembrete"
       label="Selecione a data de lembrete"
-      appearance="outline"
     >
     </app-input-datepicker>
 

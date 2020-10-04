@@ -59,6 +59,10 @@ export class FilterDialogComponent implements OnInit {
     }
   }
 
+  clearFilters(): void {
+    this.form.reset();
+  }
+
   complete(): void {
     this._dialog.close(this.form);
   }

@@ -9,15 +9,27 @@ import { trackByRoute } from '../../../shared/utils/track-by';
 
 
 export const ROUTES: any[] = [
-    { route: '/auth/admin', label: 'Administrador', icon: 'person', type: 'dropdown', children: [{ route: '/auth/dashboard', label: 'Dashboard', icon: 'dashboard', type: 'link' }] },
-    { route: '/auth/categorias', label: 'Categorias', icon: 'person', type: 'link' },
-    { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'person', type: 'link' },
-    { route: '/table-list', label: 'A fazer', icon: 'content_paste', type: 'link' },
-    { route: '/auth/agendamento', label: 'Agendamentos', icon: 'schedule', type: 'link' },
-    { route: '/typography', label: 'Documentos', icon: 'library_books', type: 'link' },
-    { route: '/auth/customizar', label: 'Configurações', icon: 'bubble_chart', type: 'link' },
-    { route: '/auth/exemplo', label: 'Tela de Exemplo', icon: 'bubble_chart', type: 'link' },
-    { route: '/notifications', label: 'Notificações', icon: 'notifications', type: 'link' },
+    {
+        label: 'DASHBOARDS', type: 'subheading', children: [
+            { route: '/auth/admin', label: 'Administrador', icon: 'person', type: 'dropdown', children: [{ route: '/auth/dashboard', label: 'Dashboard', icon: 'dashboard', type: 'link' }] },
+        ]
+    },
+    {
+        label: 'ADMINISTRADOR', type: 'subheading', children: [
+            { route: '/auth/categorias', label: 'Categorias', icon: 'person', type: 'link' },
+            { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'person', type: 'link' },
+            { route: '/table-list', label: 'A fazer', icon: 'content_paste', type: 'link' },
+            { route: '/auth/agendamento', label: 'Agendamentos', icon: 'schedule', type: 'link' },
+        ]
+    },
+    {
+        label: 'CONFIGURAÇÕES', type: 'subheading', children: [
+            { route: '/typography', label: 'Documentos', icon: 'library_books', type: 'link' },
+            { route: '/auth/customizar', label: 'Layout e Cores', icon: 'bubble_chart', type: 'link' },
+            { route: '/auth/exemplo', label: 'Tela de Exemplo', icon: 'bubble_chart', type: 'link' },
+            { route: '/notifications', label: 'Notificações', icon: 'notifications', type: 'link' },
+        ]
+    }
 ];
 
 @Component({
@@ -31,8 +43,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     items = ROUTES;
     selectedItem;
 
-    elem;
+    documentElement;
     fullScreenOpened = false;
+
+    user: any;
 
     trackByRoute = trackByRoute;
 
@@ -53,7 +67,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.elem = document.documentElement;
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.documentElement = document.documentElement;
     }
 
     onConfig(): void {
@@ -66,24 +81,22 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
 
     openFullScreen(): void {
-        if (this.elem.requestFullscreen) {
-            this.elem.requestFullscreen();
-        } else if (this.elem.mozRequestFullScreen) {
+        if (this.documentElement.requestFullscreen) {
+            this.documentElement.requestFullscreen();
+        } else if (this.documentElement.mozRequestFullScreen) {
             /* Firefox */
-            this.elem.mozRequestFullScreen();
-        } else if (this.elem.webkitRequestFullscreen) {
+            this.documentElement.mozRequestFullScreen();
+        } else if (this.documentElement.webkitRequestFullscreen) {
             /* Chrome, Safari and Opera */
-            this.elem.webkitRequestFullscreen();
-        } else if (this.elem.msRequestFullscreen) {
+            this.documentElement.webkitRequestFullscreen();
+        } else if (this.documentElement.msRequestFullscreen) {
             /* IE/Edge */
-            this.elem.msRequestFullscreen();
+            this.documentElement.msRequestFullscreen();
         }
         this.fullScreenOpened = true;
     }
-    
+
     closeFullscreen(): void {
-        console.log('ok');
-        
         if (this.document.exitFullscreen) {
             this.document.exitFullscreen();
         } else if (this.document.mozCancelFullScreen) {

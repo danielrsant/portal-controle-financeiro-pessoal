@@ -15,14 +15,9 @@ export class UtilsService {
     private _toastrService: ToastrService
   ) { }
 
-  formIsValid(form: FormGroup): boolean {
-    if (form.valid) {
-      return true;
-    } else {
-      this.markFormTouched(form);
-      this._toastrService.error('Ops', 'Existem campos que não foram preenchidos adequadamente!');
-      return false;
-    }
+  removeNullUndefinedProperties(payload): any {
+    Object.keys(payload).forEach(key => payload[key] === undefined || payload[key] === null ? delete payload[key] : {});
+    return payload;
   }
 
   hasRequiredField(abstractControl: AbstractControl): boolean {
@@ -35,56 +30,7 @@ export class UtilsService {
     return false;
   }
 
-  setValuesForm(form: FormGroup, item: any, exceptions = []): void {
-    const keys = Object.keys(form.getRawValue());
-    for (let i = 0; i < keys.length; i++) {
-      if (!(exceptions.includes(keys[i]))) {
-        if (form.get(keys[i])) {
-          form.get(keys[i]).setValue(item[keys[i]]);
-        }
-      }
-    }
-  }
-
-  enableForm(form: FormGroup, exceptions: Array<string>): void {
-    const keys = Object.keys(form.getRawValue());
-
-    for (let i = 0; i < keys.length; i++) {
-      if (!(exceptions.includes(keys[i]))) {
-        form.get(keys[i]).enable();
-      }
-    }
-  }
-
-  disableForm(form: FormGroup, exceptions: Array<string>) {
-    const keys = Object.keys(form.getRawValue());
-
-    for (let i = 0; i < keys.length; i++) {
-      if (!(exceptions.includes(keys[i]))) {
-        form.get(keys[i]).disable();
-      }
-    }
-  }
-
-  // formIsValid(form: FormGroup): boolean {
-  //   if (form.valid) {
-  //     return true;
-  //   } else {
-  //     this.markFormTouched(form);
-  //     this._swalService.error('Ops', 'Existem campos que não foram preenchidos adequadamente!');
-  //     return false;
-  //   }
-  // }
-
-  markFormTouched(form: FormGroup): void {
-    const keys = Object.keys(form.getRawValue());
-
-    for (const key of keys) {
-      form.get(key).markAsTouched();
-    }
-  }
-
-  validateFileImage(file, required?) {
+  validateFileImage(file, required?): boolean {
     if (file && typeof file.name == 'string') {
       const mimeType = file.type;
       if (mimeType.match(/image\/png/) || mimeType.match(/image\/jpg/) || mimeType.match(/image\/jpeg/)) {
@@ -102,7 +48,7 @@ export class UtilsService {
 
   }
 
-  validateFilePdf(file) {
+  validateFilePdf(file): boolean {
     const mimeType = file.type;
     if (mimeType.match(/application\/pdf/)) {
       return true;
@@ -111,7 +57,7 @@ export class UtilsService {
     }
   }
 
-  validateFileZip(file) {
+  validateFileZip(file): boolean {
     const mimeType = file.type;
     if (mimeType.match(/application\/zip/) || mimeType.match(/application\/x-zip-compressed/)) {
       return true;
@@ -120,7 +66,7 @@ export class UtilsService {
     }
   }
 
-  momentToDate(date) {
+  momentToDate(date): any {
     if (typeof date === 'object') {
       return moment(date).format('YYYY-MM-DD HH:mm:ss');
     } else {
@@ -128,8 +74,8 @@ export class UtilsService {
     }
   }
 
-  checkDateIsBefore(date) {
+  checkDateIsBefore(date): any {
     return moment(date).isBefore(moment());
-	}
+  }
 
 }

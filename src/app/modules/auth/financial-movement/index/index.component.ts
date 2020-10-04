@@ -169,7 +169,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       if (!form) { return; }
 
       this.formFilter = form;
-      const obj = this.removeNullUndefinedProperties(form.value);
+      const obj = this._utilsService.removeNullUndefinedProperties(form.value);
       const filter = Object.keys(obj).map(item => {
         if (!obj[item]) {
           return null;
@@ -185,11 +185,6 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.options = { ...this.options, filter };
       this.onRefresh();
     });
-  }
-
-  removeNullUndefinedProperties(payload): any {
-    Object.keys(payload).forEach(key => payload[key] === undefined || payload[key] === null ? delete payload[key] : {});
-    return payload;
   }
 
   ngOnDestroy(): void {
