@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() bgImage = false;
 
   @Output() btnClick = new EventEmitter();
+  @Output() btnBackPage = new EventEmitter();
 
   onDestroy$ = new Subject<any>();
 
@@ -35,15 +36,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void { }
 
-  onClickBtn() {
+  onClickBtn(): void {
     this.btnClick.emit();
   }
 
   onBackPage(): void {
     if (this.operation === Operation.NEW) {
       this._router.navigate(['../'], { relativeTo: this._activatedRoute });
-    } else {
+    } else if (this.operation === Operation.EDIT || this.operation === Operation.VIEW) {
       this._router.navigate(['../../'], { relativeTo: this._activatedRoute });
+    } else {
+      this.btnBackPage.emit();
     }
   }
 

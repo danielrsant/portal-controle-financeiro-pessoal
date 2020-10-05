@@ -2,7 +2,7 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@a
 import { FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
+import { StyleService } from 'src/app/shared/services/style.service';
 
 @Component({
   selector: 'app-input-file',
@@ -38,11 +38,11 @@ export class InputFileComponent implements OnInit {
 
   constructor(
     private _toastrService: ToastrService,
-    private _customizeInputsService: CustomizeInputsService
+    private _styleService: StyleService
   ) { }
 
   ngOnInit(): void { 
-    this.appearance$ = this._customizeInputsService.appearance;
+    this.appearance$ = this._styleService.appearance$;
   }
 
   @HostListener('change', ['$event.target.files']) emitFiles(event: FileList): void {

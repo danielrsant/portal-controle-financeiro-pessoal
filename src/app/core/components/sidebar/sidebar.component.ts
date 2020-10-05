@@ -11,22 +11,22 @@ import { trackByRoute } from '../../../shared/utils/track-by';
 export const ROUTES: any[] = [
     {
         label: 'DASHBOARDS', type: 'subheading', children: [
-            { route: '/auth/admin', label: 'Administrador', icon: 'person', type: 'dropdown', children: [{ route: '/auth/dashboard', label: 'Dashboard', icon: 'dashboard', type: 'link' }] },
+            // { route: '/auth/admin', label: 'Administrador', icon: 'person', type: 'dropdown', children: [] },
+            { route: '/auth/dashboard', label: 'Dashboard', icon: 'insert_chart_outlined', type: 'link' }
         ]
     },
     {
         label: 'ADMINISTRADOR', type: 'subheading', children: [
-            { route: '/auth/categorias', label: 'Categorias', icon: 'person', type: 'link' },
-            { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'person', type: 'link' },
-            { route: '/table-list', label: 'A fazer', icon: 'content_paste', type: 'link' },
-            { route: '/auth/agendamento', label: 'Agendamentos', icon: 'schedule', type: 'link' },
+            { route: '/auth/categorias', label: 'Categorias', icon: 'category', type: 'link' },
+            { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'import_export', type: 'link' },
+            { route: '/auth/fazer', label: 'A fazer', icon: 'content_paste', type: 'link' },
+            { route: '/auth/agendamento', label: 'Agendamentos', icon: 'event', type: 'link' },
         ]
     },
     {
         label: 'CONFIGURAÇÕES', type: 'subheading', children: [
-            { route: '/typography', label: 'Documentos', icon: 'library_books', type: 'link' },
+            { route: '/auth/perfil', label: 'Perfil', icon: 'account_circle', type: 'link' },
             { route: '/auth/customizar', label: 'Layout e Cores', icon: 'bubble_chart', type: 'link' },
-            { route: '/auth/exemplo', label: 'Tela de Exemplo', icon: 'bubble_chart', type: 'link' },
             { route: '/notifications', label: 'Notificações', icon: 'notifications', type: 'link' },
         ]
     }

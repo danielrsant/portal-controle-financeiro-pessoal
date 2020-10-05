@@ -1,15 +1,15 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment-timezone';
 import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { FinancialMovementService } from '../../../../services/financial-movement.service';
 import { MovementTypeService } from '../../../../services/movement-type.service';
 import { LoadingService } from '../../../../shared/components/several-components/loading/loading.service';
 import { CategoryService } from './../../../../services/category.service';
 import { Operation } from './../../../../shared/enums/operation';
-import * as moment from 'moment-timezone';
-import { takeUntil } from 'rxjs/operators';
 
 // tslint:disable: variable-name
 
@@ -18,12 +18,11 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
+export class FormComponent implements OnInit, OnDestroy {
   id: number;
   title: string;
-  icon = 'home';
+  icon = 'import_export';
   operation: Operation;
-  destroy$ = new Subject();
 
   form: FormGroup;
 
@@ -37,6 +36,8 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   };
 
   dtHoje = new Date();
+
+  destroy$ = new Subject();
 
   constructor(
     private _router: Router,
@@ -53,9 +54,6 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.onRefresh();
     this.setParamsAccount();
     this.onListenToggleInput();
-  }
-
-  ngAfterViewInit(): void {
     this.setForm();
   }
 
@@ -65,7 +63,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   setParamsAccount(): void {
-    this.form.get('tipoMovimentacao').valueChanges.subscribe((value) => {
+    this.form.get('tipoMovimentacao').valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
       if (value === 1) {
         // Receita
         this.movementTypeParams.title = 'Receita';
@@ -81,7 +79,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onListenToggleInput(): void {
-    this.form.valueChanges.subscribe((data) => {
+    this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((data) => {
       if (data.contaFixa && data.repetir) {
         this.form.get('contaFixa').reset();
         this.form.get('repetir').reset();
@@ -133,7 +131,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
       this.operation === Operation.VIEW
     ) {
       this._loadingService.show();
-      this._financialMovementService.loadOne(this.id).subscribe(
+      this._financialMovementService.loadOne(this.id).pipe(takeUntil(this.destroy$)).subscribe(
         (response: any) => {
 
           if (!response) {
@@ -211,7 +209,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
       return { ...fa.value, dtConta, dtLembrete };
     });
 
-    this._financialMovementService.create(formAux).subscribe(
+    this._financialMovementService.create(formAux).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
           this._loadingService.hide();
@@ -227,7 +225,7 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   onUpdate(): void {
     this._financialMovementService
       .update(this.form.value.id, this.form.value)
-      .subscribe(
+      .pipe(takeUntil(this.destroy$)).subscribe(
         (response: any) => {
           if (response) {
             this._loadingService.hide();
@@ -243,5 +241,8 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
       );
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

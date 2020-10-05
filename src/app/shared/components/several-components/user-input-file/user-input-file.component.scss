@@ -1,0 +1,61 @@
+.input-file {
+  ::ng-deep .mat-form-field-flex {
+    position: relative !important;
+    display: flex !important;
+    align-items: stretch !important;
+    min-height: 125px !important;
+    max-width: 125px !important;
+    border-width: 2.5px !important;
+    border-radius: 65px !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+    background-color: #E2E8F0 !important;
+    border-color: #8C9095 !important;
+  }
+} 
+
+.image {
+  position: absolute;
+  left: 0;
+  top: -12px;
+
+  height: 125px;
+  max-width: 125px;
+  border-radius: 200px;
+}
+
+.pointer {
+  cursor: pointer;
+  z-index: 2;
+  color: #2e3238 !important;
+  text-align: center;
+}
+
+.icons {
+  position: absolute !important;
+  left: 5px !important;
+  top: 5px !important;
+  min-width: 115px !important;
+  height: 29px !important;
+  margin-top: 65px !important;
+  margin-bottom: -23px !important;
+  padding-left: 10px !important;
+  padding-right: 8px !important;
+  z-index: 2 !important;
+  border-bottom-left-radius: 50px !important;
+  border-bottom-right-radius: 50px !important;
+}
+
+.label {
+  line-height: 30px;
+}
+
+::ng-deep .filename {
+  display: none !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  width: 100% !important;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  height: 0px !important;
+}

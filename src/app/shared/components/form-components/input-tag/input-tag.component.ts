@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
+import { StyleService } from 'src/app/shared/services/style.service';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
@@ -31,11 +31,11 @@ export class InputTagComponent implements OnInit {
 
   constructor(
     private _utilsService: UtilsService,
-    private _customizeInputsService: CustomizeInputsService
+    private _styleService: StyleService
   ) { }
 
   ngOnInit() {
-    this.appearance$ = this._customizeInputsService.appearance;
+    this.appearance$ = this._styleService.appearance$;
     this.data = this.formGroup.get(this.formcontrolname).value ? [this.formGroup.get(this.formcontrolname).value] : [];
     this.formGroup.get(this.formcontrolname).setValue('');
   }

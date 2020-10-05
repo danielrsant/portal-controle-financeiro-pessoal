@@ -11,8 +11,18 @@
 
     <mat-card fxFlex fxLayout="column" class="content-page">
 
-        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
-            <app-input-text fxFlex="85" 
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
+            <app-user-input-file 
+                [formGroup]="form" 
+                [formcontrolname]="'image'" 
+                [isImage]="true" 
+                [accept]="'image/jpeg, image/png'"
+                [showImage]="true" 
+                [label]="'Selecionar Imagem'" 
+                (insertedFile)="insertedFile($event)">
+            </app-user-input-file>
+        </div>
+            <!-- <app-input-text fxFlex="85" 
                 [formGroup]="form" 
                 [formcontrolname]="'descricao'" 
                 [label]="'Descrição da Categoria'" 
@@ -23,8 +33,7 @@
                 [formGroup]="form" 
                 [formcontrolname]="'status'" 
                 [label]="'Status'"
-            ></app-input-toggle>
-        </div>
+            ></app-input-toggle> -->
         
     </mat-card>
 </div>

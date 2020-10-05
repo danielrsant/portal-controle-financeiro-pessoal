@@ -22,27 +22,55 @@
     <mat-card fxFlex fxLayout="column">
 
         <div fxFlex fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-            <app-input-select fxFlex="50" [appearance]="'outline'" [formGroup]="form" formcontrolname="appearance"
-                label="Escolha um tipo" [data]="formTypes" valueField="id" displayField="description"
-                searchField="description"></app-input-select>
+            <app-input-select fxFlex="50" 
+                [appearance]="'outline'" 
+                [formGroup]="form" 
+                formcontrolname="appearance"
+                label="Escolha um tipo" 
+                [data]="formTypes" 
+                [optionClear]="false"
+                valueField="id" 
+                displayField="description"
+                searchField="description"
+                (select)="changeTypeInput($event)">
+            </app-input-select>
         </div>
 
         <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
-            <app-input-datepicker-range fxFlex [appearance]="form.get('appearance').value" [formGroup]="form"
-                formcontrolnameStart="dtInitial" formcontrolnameEnd="dtFinal" label="Data">
+            <app-input-datepicker-range fxFlex 
+                [appearance]="form.get('appearance').value" 
+                [formGroup]="form"
+                formcontrolnameStart="dtInitial" 
+                formcontrolnameEnd="dtFinal" 
+                label="Data">
             </app-input-datepicker-range>
 
-            <app-input-text fxFlex [appearance]="form.get('appearance').value" [formGroup]="form" formcontrolname="text"
-                label="Entrada de Texto"></app-input-text>
+            <app-input-text fxFlex 
+                [appearance]="form.get('appearance').value" 
+                [formGroup]="form" 
+                formcontrolname="text"
+                label="Entrada de Texto">
+        </app-input-text>
         </div>
 
         <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
-            <app-input-select fxFlex [appearance]="form.get('appearance').value" [formGroup]="form"
-                formcontrolname="select" label="Selecione uma Opção" [data]="dataRadio" valueField="id"
-                displayField="description" searchField="description"></app-input-select>
+            <app-input-select fxFlex 
+                [appearance]="form.get('appearance').value" 
+                [formGroup]="form"
+                formcontrolname="select" 
+                label="Selecione uma Opção" 
+                [data]="dataRadio" 
+                valueField="id"
+                displayField="description" 
+                searchField="description">
+            </app-input-select>
 
-            <app-input-autocomplete fxFlex [appearance]="form.get('appearance').value" [formGroup]="form"
-                formcontrolname="autocomplete" label="Autocomplete"></app-input-autocomplete>
+            <app-input-autocomplete fxFlex 
+                [appearance]="form.get('appearance').value" 
+                [formGroup]="form"
+                formcontrolname="autocomplete" 
+                label="Autocomplete">
+            </app-input-autocomplete>
         </div>
 
     </mat-card>

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } fro
 import { FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
+import { StyleService } from 'src/app/shared/services/style.service';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
@@ -37,15 +37,15 @@ export class InputAutocompleteComponent implements OnInit, OnChanges, OnDestroy 
   constructor(
     private _utilsService: UtilsService,
     private _cdr: ChangeDetectorRef,
-    private _customizeInputsService: CustomizeInputsService
+    private _styleService: StyleService
   ) { }
 
-  ngOnInit() {
-    this.appearance$ = this._customizeInputsService.appearance;
+  ngOnInit(): void {
+    this.appearance$ = this._styleService.appearance$;
     this._start();
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.filteredData.next(this.data);
     this._start();
   }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
+import { StyleService } from 'src/app/shared/services/style.service';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
@@ -23,18 +23,18 @@ export class InputToggleComponent implements OnInit {
 
   constructor(
     private _utilsService: UtilsService,
-    private _customizeInputsService: CustomizeInputsService
+    private _styleService: StyleService
   ) { }
 
-  ngOnInit() {
-    this.appearance$ = this._customizeInputsService.appearance;
+  ngOnInit(): void {
+    this.appearance$ = this._styleService.appearance$;
   }
 
-  setValue(value) {
+  setValue(value): void {
     this.formGroup.get(this.formcontrolname).setValue(value.checked ? 1 : 0);
   }
 
-  checkRequired() {
+  checkRequired(): any {
     return this._utilsService.hasRequiredField(this.formGroup.get(this.formcontrolname));
   }
 }

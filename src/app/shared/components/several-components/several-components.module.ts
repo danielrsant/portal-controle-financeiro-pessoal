@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { MaterialModule } from '../../material/material.module';
@@ -17,6 +18,7 @@ import { CustomizeComponent } from './customize/customize.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { HeaderComponent } from './header/header.component';
+import { UserInputFileComponent } from './user-input-file/user-input-file.component';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { HeaderComponent } from './header/header.component';
     CardComponent,
     DataTableComponent,
     CustomizeComponent,
-    FilterDialogComponent
+    FilterDialogComponent,
+    UserInputFileComponent
   ],
   imports: [
     CommonModule,
@@ -40,6 +43,7 @@ import { HeaderComponent } from './header/header.component';
     FlexLayoutModule,
     NgxMatSelectSearchModule,
     PerfectScrollbarModule,
+    MaterialFileInputModule,
     NgxMaskModule.forRoot(),
   ],
   exports: [
@@ -50,7 +54,8 @@ import { HeaderComponent } from './header/header.component';
     CardComponent,
     DataTableComponent,
     CustomizeComponent,
-    FilterDialogComponent
+    FilterDialogComponent,
+    UserInputFileComponent
   ],
 })
 export class SeveralComponentsModule { }

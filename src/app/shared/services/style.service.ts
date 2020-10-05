@@ -21,13 +21,16 @@ export class StyleService implements OnDestroy {
   private _styleSubject = new BehaviorSubject<Style>(this.defaultStyle);
   style$ = this._styleSubject.asObservable();
 
+  private _inputThemeSubject = new BehaviorSubject<any>(localStorage.getItem('theme-input') ? localStorage.getItem('theme-input') : 'outline');
+  appearance$ = this._inputThemeSubject.asObservable();
+
   destroy$ = new Subject();
 
   constructor(@Inject(DOCUMENT) private document: Document) {
     this.style$.pipe(takeUntil(this.destroy$)).subscribe(style => this._updateStyle(style));
   }
 
-  setColor(color: ColorVariable) {
+  setColor(color: ColorVariable): void {
     if (this.document) {
       localStorage.setItem('theme-color', JSON.stringify(color));
       this.document.documentElement.style.setProperty('--color-primary', color.default.replace('rgb(', '').replace(')', ''));
@@ -35,12 +38,17 @@ export class StyleService implements OnDestroy {
     }
   }
 
-  setStyle(style: Style) {
+  setStyle(style: Style): void {
     localStorage.setItem('theme-type', JSON.stringify(style));
     this._styleSubject.next(style);
   }
 
-  private _updateStyle(style: Style) {
+  setInputTheme(appearance): void {
+    localStorage.setItem('theme-input', appearance);
+    this._inputThemeSubject.next(appearance);
+  }
+
+  private _updateStyle(style: Style): void {
     const body = this.document.body;
 
     Object.values(Style).filter(s => s !== style).forEach(value => {

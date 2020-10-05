@@ -11,7 +11,7 @@ export class CustomizeService {
 
   constructor() {}
 
-  setTheme(theme){
+  setTheme(theme): void {
     this.dataSource.next(theme);
   }
 }

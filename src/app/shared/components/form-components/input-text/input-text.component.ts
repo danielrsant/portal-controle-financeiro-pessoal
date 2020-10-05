@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
+import { StyleService } from 'src/app/shared/services/style.service';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
@@ -30,18 +30,18 @@ export class InputTextComponent implements OnInit {
 
   constructor(
     private _utilsService: UtilsService,
-    private _customizeInputsService: CustomizeInputsService
+    private _styleService: StyleService
   ) { }
 
   ngOnInit(): void {
-    this.appearance$ = this._customizeInputsService.appearance;
+    this.appearance$ = this._styleService.appearance$;
   }
 
   checkRequired(): boolean {
     return this._utilsService.hasRequiredField(this.formGroup.get(this.formcontrolname));
   }
 
-  onChange(value) {
+  onChange(value): any {
     if (this.maxLength && value.length > this.maxLength) {
       value = value.substring(0, (value.length - 1));
     }

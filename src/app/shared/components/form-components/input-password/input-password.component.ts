@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
+import { StyleService } from 'src/app/shared/services/style.service';
 
 @Component({
   selector: 'app-input-password',
@@ -23,11 +23,11 @@ export class InputPasswordComponent implements OnInit {
   appearance$: Observable<string>;
 
   constructor(
-    private _customizeInputsService: CustomizeInputsService
+    private _styleService: StyleService
   ) { }
 
   ngOnInit(): void {
-    this.appearance$ = this._customizeInputsService.appearance;
+    this.appearance$ = this._styleService.appearance$;
   }
 
 }

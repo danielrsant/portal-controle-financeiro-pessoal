@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { CustomizeInputsService } from 'src/app/shared/services/customize-inputs.service';
+import { StyleService } from 'src/app/shared/services/style.service';
 
 @Component({
   selector: 'app-input-select',
@@ -44,11 +44,11 @@ export class InputSelectComponent implements OnInit, OnDestroy {
   constructor(
     private _cdr: ChangeDetectorRef,
     private _utilsService: UtilsService,
-    private _customizeInputsService: CustomizeInputsService
+    private _styleService: StyleService
   ) { }
 
   ngOnInit() {
-    this.appearance$ = this._customizeInputsService.appearance;
+    this.appearance$ = this._styleService.appearance$;
 
     this.dataFilterCtrl.valueChanges.pipe(debounceTime(300), takeUntil(this.onDestroy$)).subscribe(
       (data) => {

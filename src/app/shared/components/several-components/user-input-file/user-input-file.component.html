@@ -1,0 +1,21 @@
+<mat-form-field class="input-file" [formGroup]="formGroup" fxLayout="column" [fxLayoutAlign]="position">
+
+  <div fxLayout="row">
+    <ngx-mat-file-input #removableInput [accept]="accept" [formControlName]="formcontrolname">
+    </ngx-mat-file-input>
+    <span *ngIf="!disabled" fxFlex fxLayoutAlign="space-between" class="icons" [ngStyle]="{'background-color': image ? 'rgb(179, 179, 179, 0.5)' : ''}">
+      <mat-icon matRipple fxFlex class="pointer">camera_alt</mat-icon>
+      <mat-icon matRipple fxFlex class="pointer" *ngIf="!removableInput.empty" 
+      (click)="removableInput.clear($event); image = null" style="margin-left: 40px">delete</mat-icon>
+    </span>
+  </div>
+  
+  <div fxLayout="row">
+    <img class="image" [src]="image" *ngIf="showImage && image">
+  </div>
+
+</mat-form-field>
+
+<mat-error class="mt-8"
+  *ngIf="!formGroup?.get(formcontrolname).value && formGroup?.get(formcontrolname).touched && formGroup.touched">
+</mat-error>

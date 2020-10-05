@@ -36,7 +36,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   ) { }
 
   title = 'Movimentações';
-  icon = 'home';
+  icon = 'import_export';
   operation: Operation = Operation.INDEX;
 
   options: any = {};

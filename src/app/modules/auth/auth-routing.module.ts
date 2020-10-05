@@ -6,14 +6,6 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      // {
-      //   path: 'agendamento',
-      //   loadChildren: () => import('./schedule/schedule.module').then(m => m.ScheduleModule)
-      // },
-      {
-        path: 'exemplo',
-        loadChildren: () => import('./example-page/example-page.module').then(m => m.ExamplePageModule)
-      },
       {
         path: 'agendamento',
         loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarModule)
@@ -25,6 +17,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
+        path: 'fazer',
+        loadChildren: () => import('./to-do/to-do.module').then(m => m.ToDoModule)
       },
       {
         path: 'funcionarios',
@@ -41,6 +37,10 @@ const routes: Routes = [
       {
         path: 'movimentacoes',
         loadChildren: () => import('./financial-movement/financial-movement.module').then(m => m.FinancialMovementModule)
+      },
+      {
+        path: 'perfil',
+        loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
       },
       {
         path: 'erro',
