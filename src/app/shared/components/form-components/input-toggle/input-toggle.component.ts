@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { StyleService } from 'src/app/shared/services/style.service';
@@ -20,6 +20,8 @@ export class InputToggleComponent implements OnInit {
   @Input() appearance: string = '';
 
   appearance$: Observable<string>;
+
+  @Output() changeValue = new EventEmitter();
 
   constructor(
     private _utilsService: UtilsService,
