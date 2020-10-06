@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { StyleService } from 'src/app/shared/services/style.service';
@@ -26,6 +26,8 @@ export class InputDatepickerRangeComponent implements OnInit {
 
   @Input() appearance: string = '';
 
+  @Output() clear = new EventEmitter();
+
   minDate = null;
   maxDate = null;
 
@@ -42,12 +44,10 @@ export class InputDatepickerRangeComponent implements OnInit {
 
   checkRequired(formcontrolnameStart, formcontrolNameEnd): boolean {
     return this._utilsService.hasRequiredField(this.formGroup.get(formcontrolnameStart)) || this._utilsService.hasRequiredField(this.formGroup.get(formcontrolNameEnd));
-  };
+  }
 
   resetField(): void {
-    this.formGroup.get(this.formcontrolnameStart).setValue(null);
-    this.formGroup.get(this.formcontrolnameEnd).setValue(null);
-    this.formGroup.markAsUntouched();
+    this.clear.emit();
   }
 
   verifyDate(): void {

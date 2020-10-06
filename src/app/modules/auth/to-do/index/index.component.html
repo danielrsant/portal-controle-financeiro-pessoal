@@ -1,22 +1,22 @@
-<app-header 
-  [title]="title" 
-  [icon]="icon">
-</app-header>
+<div fxFlex fxLayout="column">
+  <app-header 
+    [title]="title" 
+    [icon]="icon"
+    [btn]="'Adicionar'"
+    (btnClick)="onAdd()">
+  </app-header>
+  
+  <mat-card fxFlex fxLayout="column" class="content-page-form">
 
-<div class="content-page">
-  <app-data-table
-    [title]="title"
-    [selection]="selection"
-    [data]="dataSource"
-    [columns]="columns"
-    [config]="configuration"
-    (create)="onCreate()"
-    (refresh)="onRefresh($event)"
-    (search)="onSearch($event)"
-    (view)="onView($event)"
-    (update)="onUpdate($event)"
-    (delete)="onDelete($event)"
-    (dialogFilter)="openDialogFilter()"
-  >
-  </app-data-table>
+    <div cdkDropList (cdkDropListDropped)="drop($event)">
+      <div *ngFor="let movie of movies, index as i" cdkDrag>
+        <div>{{i+1}}</div>
+        <div><i class="material-icons" cdkDragHandle>reorder</i></div>
+        <div><mat-checkbox (change)="movie.isDisable = !movie.isDisable">Click and drop only through icon</mat-checkbox></div>
+        <div><button mat-icon-button><i class="material-icons" (click)="delete(i)">delete_outline</i></button>
+        </div>
+      </div>
+    </div>
+    
+  </mat-card>
 </div>

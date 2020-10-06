@@ -18,6 +18,7 @@ export class FormComponent implements OnInit, OnDestroy {
   operation: Operation;
 
   form: FormGroup;
+  dtToday = new Date();
 
   constructor(
     private _router: Router,
@@ -45,6 +46,10 @@ export class FormComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.maxLength(80),
       ]),
+      nome: new FormControl(null, Validators.required),
+      sobrenome: new FormControl(null, Validators.required),
+      dtNascimento: new FormControl(null, Validators.required),
+      celular: new FormControl(null, Validators.required),
       status: new FormControl(1),
     });
   }
