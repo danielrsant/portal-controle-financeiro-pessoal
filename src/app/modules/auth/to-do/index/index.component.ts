@@ -17,7 +17,7 @@ import { UtilsService } from 'src/app/shared/services/utils.service';
 })
 export class IndexComponent implements OnInit, OnDestroy {
 
-  title = 'A Fazer';
+  title = 'Gerenciador de Tarefas';
   icon = 'content_paste';
   operation: Operation = Operation.INDEX;
 

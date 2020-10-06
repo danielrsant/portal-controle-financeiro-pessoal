@@ -19,7 +19,7 @@ export const ROUTES: any[] = [
         label: 'ADMINISTRADOR', type: 'subheading', children: [
             { route: '/auth/categorias', label: 'Categorias', icon: 'category', type: 'link' },
             { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'import_export', type: 'link' },
-            { route: '/auth/fazer', label: 'A fazer', icon: 'content_paste', type: 'link' },
+            { route: '/auth/fazer', label: 'Gerenciador de Tarefas', icon: 'content_paste', type: 'link' },
             { route: '/auth/agendamento', label: 'Agendamentos', icon: 'event', type: 'link' },
         ]
     },
