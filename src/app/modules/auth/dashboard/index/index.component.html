@@ -9,16 +9,16 @@
                     <h2 class="card-title">{{ card?.title }}</h2>
                     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="flex-end">
                         <h3 *ngIf="!hide" class="card-subtitle">{{ card?.subTitle }}</h3>
-                        <h3 *ngIf="hide" class="card-subtitle-hide">_________</h3>
-                        <mat-icon matSuffix class="icon-visible" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <!-- <h3 *ngIf="hide" class="card-subtitle-hide">_________</h3> -->
+                        <!-- <mat-icon matSuffix class="icon-visible" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
                     </div>
                 </div>
-                <div class="card-footer">
+                <!-- <div class="card-footer">
                     <div fxLayout="row" fxLayoutGap="10px" class="stats">
                         <mat-icon class="footer-icon">{{ card?.footerIcon }}</mat-icon>
                         <div>{{ card?.footerTitle }}</div>
                     </div>
-                </div>
+                </div> -->
             </mat-card>
         </div>
     </div>
@@ -53,7 +53,7 @@
                     [showXAxisLabel]="true" 
                     [showYAxisLabel]="true" 
                     [xAxisLabel]="'Período'" 
-                    [yAxisLabel]="'Quantidade'"
+                    [yAxisLabel]="'Quantidade (R$)'"
                     [xAxisTickFormatting]="axisDate">
                 </ngx-charts-line-chart>
             </div>
@@ -62,7 +62,7 @@
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxFlex>
                 <div layout="row" fxLayoutAlign="space-between">
-                    <span fxFlex>Movimentações 2</span>
+                    <span fxFlex>Movimentações</span>
                     <span fxFlex="5" fxFlex.xs="10">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
                             <mat-icon>more_vert</mat-icon>
@@ -87,7 +87,7 @@
                     [showXAxisLabel]="true"
                     [showYAxisLabel]="true"
                     [xAxisLabel]="'Período'" 
-                    [yAxisLabel]="'Quantidade'"
+                    [yAxisLabel]="'Quantidade (R$)'"
                     [xAxisTickFormatting]="axisDate">
                 </ngx-charts-area-chart-stacked>
             </div>
@@ -130,15 +130,16 @@
 
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxLayout="column" fxFlex>
-                <div layout="row" fxLayoutAlign="space-between">
-                    <span fxFlex>Categorias X Gastos</span>
-                    <span fxFlex="5" fxFlex.xs="10">
-                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu xPosition="before" #settings1="matMenu">
-                            <button mat-menu-item>Informações</button>
-                        </mat-menu>
+                <div layout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                    <span fxFlex="60">Categorias X Gastos</span>
+                    <span fxFlex>
+                        <app-input-datepicker-range 
+                        [formGroup]="formFilter" 
+                        [formcontrolnameStart]="'dtPeriodo1'"
+                        [formcontrolnameEnd]="'dtPeriodo2'" 
+                        [label]="'Período'"
+                        (clear)="formFilter.get('dtPeriodo1').setValue(null)">
+                    </app-input-datepicker-range>
                     </span>
                 </div>
             </mat-card-title>

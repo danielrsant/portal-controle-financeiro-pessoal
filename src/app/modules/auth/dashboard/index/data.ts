@@ -52,7 +52,7 @@ export let times: any = [
         name: 'Receitas',
         series: [
             {
-                value: 2,
+                value: 2.50,
                 name: '01/07/2020',
             },
             {

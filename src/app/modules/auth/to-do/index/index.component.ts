@@ -1,19 +1,13 @@
-import { AUTO_STYLE } from '@angular/animations';
-import { SelectionModel } from '@angular/cdk/collections';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
-import { Config } from 'src/app/shared/components/several-components/data-table/config';
-import { FilterDialogComponent } from 'src/app/shared/components/several-components/filter-dialog/filter-dialog.component';
 import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
 import { Operation } from 'src/app/shared/enums/operation';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
-import { PageConfig } from './page-config';
 
 @Component({
   selector: 'app-index',
@@ -21,6 +15,33 @@ import { PageConfig } from './page-config';
   styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent implements OnInit, OnDestroy {
+
+  title = 'Categorias';
+  icon = 'category';
+  operation: Operation = Operation.INDEX;
+
+  destroy$ = new Subject();
+  movies = [{
+    name: 'Episode I - The Phantom Menace',
+    isDisable: false
+  }, {
+    name: 'Episode II - Attack of the Clones',
+    isDisable: false
+  }, {
+    name: 'Episode III - Revenge of the Sith',
+    isDisable: false
+  }, {
+    name: 'Episode IV - A New Hope',
+    isDisable: false
+  }, {
+    name: 'Episode V - The Empire Strikes Back',
+    isDisable: false
+  }, {
+    name: 'Episode VI - Return of the Jedi',
+    isDisable: false
+  }
+  ];
+
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
@@ -28,118 +49,25 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _loadingService: LoadingService,
     private _categoryService: CategoryService,
     private _dialog: MatDialog
-  ) {}
-
-  title = 'Categorias';
-  icon = 'category';
-  operation: Operation = Operation.INDEX;
-
-  options: any = {};
-  paginationInitial = { page: 1, limit: 10 };
-
-  dataSource: any[] = [];
-  columns = new PageConfig().columns;
-  configuration = new Config({}, 0);
-
-  formFilter: FormGroup;
-  filterFields = new PageConfig().filterFields;
-  selection = new SelectionModel<any>(true, []);
-
-  destroy$ = new Subject();
+  ) { }
 
   ngOnInit(): void {
-    this.onRefresh(this.paginationInitial);
+
   }
 
-  onRefresh(params?: any): void {
-    this.options = { ...this.options, ...params };
 
-    const { s } = this.options;
-    if (!s) {
-      delete this.options.s;
-    }
-
-    this.dataSource = null;
-    this._categoryService.loadAll(this.options).subscribe(
-      (response: any) => {
-        if (response) {
-          this.dataSource = response.data;
-          this.configuration.total = response.total;
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    this.filterOptions();
+  delete(index: any): void {
+    this.movies.splice(index, 1);
   }
 
-  filterOptions(): void {
-    Object.entries(this.options).forEach(([key, value]) => {
-      if (!value) {
-        delete this.options[key];
-      }
+  onAdd(): void {
+    this.movies.push({
+      name: 'new item',
+      isDisable: false
     });
   }
-
-  openDialogFilter(): void {
-    this._dialog.open(FilterDialogComponent, {
-      maxHeight: '80vh',
-      height: AUTO_STYLE,
-      width: window.innerWidth < 900 ? '100%' : '50%',
-      data: {
-        form: this.formFilter,
-        fields: this.filterFields
-      }
-    }).afterClosed().pipe(takeUntil(this.destroy$)).subscribe((form) => {
-      if (!form) { return; }
-
-      this.formFilter = form;
-      const obj = this._utilsService.removeNullUndefinedProperties(form.value);
-      const filter = Object.keys(obj).map(item => {
-        if (!obj[item]) {
-          return null;
-        } else {
-          return `${item}||$eq||${obj[item]}`;
-        }
-      }).filter(item => item !== null && item !== undefined);
-
-      this.options = { ...this.options, filter };
-      this.onRefresh();
-    });
-  }
-
-  onCreate(): void {
-    this._router.navigate([`../new`], { relativeTo: this._activatedRoute });
-  }
-
-  onView(row: any): void {
-    this._router.navigate([`../${row.id}/view`], {
-      relativeTo: this._activatedRoute,
-    });
-  }
-
-  onUpdate(row: any): void {
-    this._router.navigate([`../${row.id}/edit`], {
-      relativeTo: this._activatedRoute,
-    });
-  }
-
-  onDelete(item: any): void {}
-
-  onSearch(search: string): void {
-    this._utilsService.paginatorWasChanged.emit();
-    const params = { s: null };
-
-    if (search.length) {
-      params.s = JSON.stringify({
-        descricao: {
-          $contL: search,
-        },
-      });
-    }
-
-    this.onRefresh({ ...params });
+  drop(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
   }
 
   ngOnDestroy(): void {

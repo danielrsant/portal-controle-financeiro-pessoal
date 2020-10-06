@@ -1,7 +1,7 @@
 @import "src/app/shared/@decorators/scss/breakpoints";
 
 .content {
-    margin: 5px 10px 0 10px;
+    margin: 25px 10px 0 10px;
 
     .card {
         margin: 10px;
@@ -15,7 +15,7 @@
         .card-header {
             border-radius: 3px;
             padding: 15px;
-            margin: -35px 15px 10px 0px;
+            margin: -50px 5px 5px 0px;
             float: left;
             height: 85px;
 
@@ -95,7 +95,8 @@
     }
 
     .card-top {
-        margin-top: 30px;
+        margin-top: 35px;
+        margin-bottom: 10px;
     }
 }
 
