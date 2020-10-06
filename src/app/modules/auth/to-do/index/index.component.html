@@ -6,17 +6,41 @@
     (btnClick)="onAdd()">
   </app-header>
   
-  <mat-card fxFlex fxLayout="column" class="content-page-form">
+  <mat-card fxFlex fxLayout="row" fxLayoutAlign="space-evenly" class="content-page-form">
 
-    <div cdkDropList (cdkDropListDropped)="drop($event)">
-      <div *ngFor="let movie of movies, index as i" cdkDrag>
-        <div>{{i+1}}</div>
-        <div><i class="material-icons" cdkDragHandle>reorder</i></div>
-        <div><mat-checkbox (change)="movie.isDisable = !movie.isDisable">Click and drop only through icon</mat-checkbox></div>
-        <div><button mat-icon-button><i class="material-icons" (click)="delete(i)">delete_outline</i></button>
+    <div cdkDropList class="list mt-20" (cdkDropListDropped)="drop($event)">
+      <mat-card class="box mat-elevation-z4" *ngFor="let movie of movies, index as i" cdkDrag>
+        <div matTooltip="Prioridade" class="drag-index">{{i+1}}</div>
+        <div class="w-100 drag-content">
+          {{ movie?.name }}
         </div>
-      </div>
+        <div class="w-10 delete-icon">
+          <button mat-icon-button>
+            <i matTooltip="Feito" class="material-icons" (click)="delete(i)">check</i>
+          </button>
+          <button mat-icon-button>
+            <i matTooltip="Excluír" class="material-icons" (click)="delete(i)">delete_outline</i>
+          </button>
+        </div>
+      </mat-card>
     </div>
-    
+
+    <div cdkDropList class="list mt-20" (cdkDropListDropped)="drop($event)">
+      <mat-card class="box mat-elevation-z4" *ngFor="let movie of movies, index as i" cdkDrag>
+        <div matTooltip="Prioridade" class="drag-index">{{i+1}}</div>
+        <div class="w-100 drag-content">
+          {{ movie?.name }}
+        </div>
+        <div class="w-10 delete-icon">
+          <button mat-icon-button>
+            <i matTooltip="Feito" class="material-icons" (click)="delete(i)">check</i>
+          </button>
+          <button mat-icon-button>
+            <i matTooltip="Excluír" class="material-icons" (click)="delete(i)">delete_outline</i>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  
   </mat-card>
 </div>

@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -16,11 +17,13 @@ import { UtilsService } from 'src/app/shared/services/utils.service';
 })
 export class IndexComponent implements OnInit, OnDestroy {
 
-  title = 'Categorias';
-  icon = 'category';
+  title = 'A Fazer';
+  icon = 'content_paste';
   operation: Operation = Operation.INDEX;
 
+  form: FormGroup;
   destroy$ = new Subject();
+
   movies = [{
     name: 'Episode I - The Phantom Menace',
     isDisable: false
@@ -42,6 +45,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
   ];
 
+  showInput = false;
+
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
@@ -52,8 +57,10 @@ export class IndexComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-
-  }
+    this.form = new FormGroup({
+      description: new FormControl()
+    });
+   }
 
 
   delete(index: any): void {
@@ -66,6 +73,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       isDisable: false
     });
   }
+
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
   }
