@@ -83,6 +83,7 @@
         [formGroup]="form"
         formcontrolname="concluido"
         [label]="movementTypeParams.statusAccount"
+        (changeValue)="onChangeConcluidoToggleButton($event.checked)"
       ></app-input-toggle>
 
       <app-input-toggle

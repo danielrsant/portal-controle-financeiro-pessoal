@@ -87,6 +87,19 @@ export class FormComponent implements OnInit, OnDestroy {
     });
   }
 
+  onChangeConcluidoToggleButton(value): void {
+    if (Operation.EDIT) {
+      if (value) {
+        this.form.disable();
+        this.form.markAsPristine();
+        this.form.get('concluido').enable();
+      } else {
+        this.form.enable();
+      }
+    }
+
+  }
+
   setOperation(): void {
     this.id = this._activatedRoute.snapshot.params.id as number;
     if (this.id) {
@@ -147,7 +160,7 @@ export class FormComponent implements OnInit, OnDestroy {
           });
 
           this.form.patchValue(response);
-          const { categoria, tipoMovimentacao, pessoa } = response;
+          const { categoria, tipoMovimentacao, pessoa, concluido } = response;
           this.form.get('categoria').setValue(categoria.id);
           this.form.get('tipoMovimentacao').setValue(tipoMovimentacao.id);
           this.form.get('pessoa').setValue(pessoa.id);
@@ -158,6 +171,8 @@ export class FormComponent implements OnInit, OnDestroy {
             this.form.get('repetir').disable();
             this.form.get('contaFixa').disable();
           }
+
+          this.onChangeConcluidoToggleButton(concluido);
           this._loadingService.hide();
         },
         (err) => {
