@@ -6,7 +6,15 @@
   
   <mat-card fxFlex fxLayout="row" fxLayoutAlign="space-evenly" class="content-page-form">
 
-    <div cdkDropList class="list mt-20" (cdkDropListDropped)="drop($event)">
+    <div cdkDropList class="list mt-20" (cdkDropListDropped)="drop($event)" style="border-top: 3px solid yellow;">
+      <div class="title">
+        Fazendo
+      </div>
+      <div class="title">
+        <button color="accent" mat-stroked-button>
+        <span>Adicionar</span>
+      </button>
+      </div>
       <mat-card class="box mat-elevation-z4" *ngFor="let movie of movies, index as i" cdkDrag>
         <div matTooltip="Prioridade" class="drag-index">{{i+1}}</div>
         <div class="w-100 drag-content">
@@ -23,7 +31,15 @@
       </mat-card>
     </div>
 
-    <div cdkDropList class="list mt-20" (cdkDropListDropped)="drop($event)">
+    <div cdkDropList class="list mt-20" (cdkDropListDropped)="drop($event)" style="border-top: 3px solid green;">
+      <div class="title">
+        Feito
+      </div>
+      <div class="title">
+        <button color="accent" mat-stroked-button>
+        <span>Adicionar</span>
+      </button>
+      </div>
       <mat-card class="box mat-elevation-z4" *ngFor="let movie of movies, index as i" cdkDrag>
         <div matTooltip="Prioridade" class="drag-index">{{i+1}}</div>
         <div class="w-100 drag-content">
