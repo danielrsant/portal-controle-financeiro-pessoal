@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,28 +24,25 @@ export class IndexComponent implements OnInit, OnDestroy {
   form: FormGroup;
   destroy$ = new Subject();
 
-  movies = [{
-    name: 'Episode I - The Phantom Menace',
-    isDisable: false
-  }, {
-    name: 'Episode II - Attack of the Clones',
-    isDisable: false
-  }, {
-    name: 'Episode III - Revenge of the Sith',
-    isDisable: false
-  }, {
-    name: 'Episode IV - A New Hope',
-    isDisable: false
-  }, {
-    name: 'Episode V - The Empire Strikes Back',
-    isDisable: false
-  }, {
-    name: 'Episode VI - Return of the Jedi',
-    isDisable: false
-  }
+  data = [
+    { id: 1, description: 'Descrição', done: false },
+    { id: 2, description: 'Descrição', done: false },
+    { id: 3, description: 'Descrição', done: false },
+    { id: 4, description: 'Descrição', done: false },
+    { id: 5, description: 'Descrição', done: true },
+    { id: 6, description: 'Descrição', done: true },
+    { id: 7, description: 'Descrição', done: true },
+    { id: 8, description: 'Descrição', done: true },
   ];
 
-  showInput = false;
+  toDo = [];
+  done = [];
+
+  showInputNewToDo = false;
+  showInputNewDone = false;
+
+  editIndexToDo: number;
+  editIndexDone: number;
 
   constructor(
     private _router: Router,
@@ -58,28 +55,108 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      description: new FormControl()
+      newToDo: new FormControl(),
+      editToDo: new FormControl(),
+      newDone: new FormControl(),
+      editDone: new FormControl()
     });
-   }
 
-
-  delete(index: any): void {
-    this.movies.splice(index, 1);
+    this.separateData();
   }
 
-  onAdd(): void {
-    this.movies.push({
-      name: 'new item',
-      isDisable: false
+  separateData(): void {
+    this.data.forEach(element => {
+      if (element.done) {
+        this.done.push(element);
+      } else {
+        this.toDo.push(element);
+      }
     });
   }
 
-  drop(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+
+  drop(event: CdkDragDrop<string[]>, type: 'toDo' | 'done'): void {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+
+      const obj: any = event.container.data[event.currentIndex];
+
+      this.data.map(element => {
+        if (element.id === obj.id) {
+          if (type === 'done') {
+            element.done = true;
+          } else {
+            element.done = false;
+          }
+        }
+      });
+
+    }
+  }
+
+  addToDo(type): void {
+    this.showInputNewToDo = !this.showInputNewToDo;
+  }
+
+  addDone(type): void {
+    this.showInputNewDone = !this.showInputNewDone;
+  }
+
+  editToDo(index): void {
+    if (index === this.editIndexToDo) {
+      this.editIndexToDo = null;
+    } else {
+      this.editIndexToDo = index;
+    }
+  }
+
+  editDone(index): void {
+    if (index === this.editIndexDone) {
+      this.editIndexDone = null;
+    } else {
+      this.editIndexDone = index;
+    }
+  }
+
+  update(item, type: 'toDo' | 'done', event): void {
+    this.data = this.data.map(element => {
+      if (element.id === item.id) {
+        element.description = event.target.value;
+      }
+      return element;
+    });
+
+    if (type === 'toDo') {
+      this.editIndexToDo = null;
+    } else {
+      this.editIndexDone = null;
+    }
+  }
+
+  create(type: 'toDo' | 'done', event): void {
+    if (type === 'toDo') {
+      this.toDo.splice(0, 0 , { id: this.toDo.length, description: event.target.value, done: false });
+      this.form.get('newToDo').setValue(null);
+    } else {
+      this.done.splice(0, 0 , { id: this.done.length, description: event.target.value, done: true });
+      this.form.get('newDone').setValue(null);
+    }
+  }
+
+  delete(item): void {
+
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
 }

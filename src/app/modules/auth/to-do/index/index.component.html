@@ -1,60 +1,80 @@
 <div fxFlex fxLayout="column">
-  <app-header 
-    [title]="title" 
-    [icon]="icon">
+  <app-header [title]="title" [icon]="icon">
   </app-header>
-  
+
   <mat-card fxFlex fxLayout="row" fxLayoutAlign="space-evenly" class="content-page-form">
 
-    <div cdkDropList class="list mt-20" (cdkDropListDropped)="drop($event)" style="border-top: 3px solid yellow;">
-      <div class="title">
-        Fazendo
-      </div>
-      <div class="title">
-        <button color="accent" mat-stroked-button>
-        <span>Adicionar</span>
-      </button>
-      </div>
-      <mat-card class="box mat-elevation-z4" *ngFor="let movie of movies, index as i" cdkDrag>
-        <div matTooltip="Prioridade" class="drag-index">{{i+1}}</div>
-        <div class="w-100 drag-content">
-          {{ movie?.name }}
+    <div cdkDropListGroup class="group">
+
+      <div class="container" style="border-top: 3px solid #c5c136;">
+
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <h2 class="title">A Fazer</h2>
+          <div>
+            <button color="primary" mat-stroked-button (click)="addToDo('fazer')">
+              <mat-icon>add</mat-icon>
+              <span>Adicionar</span>
+            </button>
+          </div>
         </div>
-        <div class="w-10 delete-icon">
-          <button mat-icon-button>
-            <i matTooltip="Feito" class="material-icons" (click)="delete(i)">check</i>
-          </button>
-          <button mat-icon-button>
-            <i matTooltip="Excluír" class="material-icons" (click)="delete(i)">delete_outline</i>
-          </button>
+
+        <div *ngIf="showInputNewToDo" fxLayoutAlign="center">
+          <app-input-text (keyup)="$event.keyCode === 13 ? create('toDo', $event) : $event.preventDefault()" fxFlex="50" [formGroup]="form" [formcontrolname]="'newToDo'" [label]="'Nova Tarefa'"
+            [appearance]="'outline'"></app-input-text>
         </div>
-      </mat-card>
+
+        <div cdkDropList [cdkDropListData]="toDo" class="list" (cdkDropListDropped)="drop($event, 'toDo')">
+          <div class="box" *ngFor="let item of toDo; let index = index" cdkDrag>
+            <span *ngIf="!(index === editIndexToDo)">{{ item?.description }}</span>
+            <span *ngIf="index === editIndexToDo">
+              <app-input-text (keyup)="$event.keyCode === 13 ? update(item, 'toDo', $event) : $event.preventDefault()"
+                [formGroup]="form" [formcontrolname]="'editToDo'" [appearance]="'standard'"
+                style="height: 40px; margin-top: -31px;">
+              </app-input-text>
+            </span>
+            <div class="actions">
+              <mat-icon class="icon-action" matTooltip="Editar" (click)="editToDo(index)">edit</mat-icon>
+              <mat-icon class="icon-action" matTooltip="Excluír" (click)="delete(item)">delete_outline</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container" style="border-top: 3px solid green;">
+
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <h2 class="title">Feito</h2>
+          <div>
+            <button color="primary" mat-stroked-button (click)="addDone('feito')">
+              <mat-icon>add</mat-icon>
+              <span>Adicionar</span>
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="showInputNewDone" fxLayoutAlign="center">
+          <app-input-text (keyup)="$event.keyCode === 13 ? create('done', $event) : $event.preventDefault()" fxFlex="50" [formGroup]="form" [formcontrolname]="'newDone'" [label]="'Nova Tarefa'"
+            [appearance]="'outline'"></app-input-text>
+        </div>
+
+        <div cdkDropList [cdkDropListData]="done" class="list" (cdkDropListDropped)="drop($event, 'done')">
+          <div class="box" *ngFor="let item of done; let index = index" cdkDrag>
+            <span *ngIf="!(index === editIndexDone)">{{ item?.description }}</span>
+            <span *ngIf="index === editIndexDone">
+              <app-input-text (keyup)="$event.keyCode === 13 ? update(item, 'done', $event) : $event.preventDefault()"
+                [formGroup]="form" [formcontrolname]="'editDone'" [appearance]="'standard'"
+                style="height: 40px; margin-top: -31px;">
+              </app-input-text>
+            </span>
+            <div class="actions">
+              <mat-icon class="icon-action" matTooltip="Editar" (click)="editDone(index)">edit</mat-icon>
+              <mat-icon class="icon-action" matTooltip="Excluír" (click)="delete(item)">delete_outline</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div cdkDropList class="list mt-20" (cdkDropListDropped)="drop($event)" style="border-top: 3px solid green;">
-      <div class="title">
-        Feito
-      </div>
-      <div class="title">
-        <button color="accent" mat-stroked-button>
-        <span>Adicionar</span>
-      </button>
-      </div>
-      <mat-card class="box mat-elevation-z4" *ngFor="let movie of movies, index as i" cdkDrag>
-        <div matTooltip="Prioridade" class="drag-index">{{i+1}}</div>
-        <div class="w-100 drag-content">
-          {{ movie?.name }}
-        </div>
-        <div class="w-10 delete-icon">
-          <button mat-icon-button>
-            <i matTooltip="Feito" class="material-icons" (click)="delete(i)">check</i>
-          </button>
-          <button mat-icon-button>
-            <i matTooltip="Excluír" class="material-icons" (click)="delete(i)">delete_outline</i>
-          </button>
-        </div>
-      </mat-card>
-    </div>
-  
   </mat-card>
 </div>
