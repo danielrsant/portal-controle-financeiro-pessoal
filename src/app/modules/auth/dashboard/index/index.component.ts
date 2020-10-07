@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { single, multi, times, limit } from './data';
@@ -34,14 +34,14 @@ export class IndexComponent implements OnInit, OnDestroy {
     {
       title: 'Contas a Pagar',
       subTitle: '',
-      icon: 'attach_money',
-      color: 'card-color-yellow',
+      icon: 'receipt',
+      color: 'card-neon-life',
     },
     {
       title: 'Contas a Receber',
       subTitle: '',
-      icon: 'account_balance',
-      color: 'card-color-blue',
+      icon: 'receipt',
+      color: 'card-color-yellow',
     },
     {
       title: 'Saldo Disponível',
@@ -52,8 +52,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     {
       title: 'Saldo Previsto',
       subTitle: '',
-      icon: 'account_balance',
-      color: 'card-color-blue',
+      icon: 'account_balance_wallet',
+      color: 'card-color-pinot-noir',
     }
   ];
 
@@ -73,7 +73,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   constructor(
     private _dashboardService: DashboardService,
     private _toastrService: ToastrService,
-    private _loadingService: LoadingService
+    private _loadingService: LoadingService,
+    private _currencyPipe: CurrencyPipe
   ) {
     this.changeResponsiveness();
   }
@@ -113,12 +114,12 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
 
-
+  // DESPESAS
   getExpense(): void {
     this._dashboardService.getExpense().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[0].subTitle = 'R$ ' + response.total;
+          this.cards[1].subTitle = this._currencyPipe.transform(response.total, 'BRL');
         }
       },
       (error) => {
@@ -127,11 +128,12 @@ export class IndexComponent implements OnInit, OnDestroy {
     );
   }
 
+  // RECEITAS
   getRevenue(): void {
     this._dashboardService.getRevenue().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[1].subTitle = 'R$ ' + response.total;
+          this.cards[0].subTitle = this._currencyPipe.transform(response.total, 'BRL');
         }
       },
       (error) => {
@@ -140,6 +142,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     );
   }
 
+  // CONTAS A PAGAR
   getTotalAccountsPayable(): void {
     this._dashboardService.getTotalAccountsPayable().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
@@ -153,6 +156,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     );
   }
 
+  // CONTAS A RECEBER
   getTotalAccountsReceivable(): void {
     this._dashboardService.getTotalAccountsReceivable().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
@@ -166,11 +170,12 @@ export class IndexComponent implements OnInit, OnDestroy {
     );
   }
 
+  // SALDO DISPONÍVEL
   getBalance(): void {
     this._dashboardService.getBalance().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[4].subTitle = 'R$ ' + response.total;
+          this.cards[4].subTitle = this._currencyPipe.transform(response.total, 'BRL');
         }
       },
       (error) => {
@@ -179,11 +184,12 @@ export class IndexComponent implements OnInit, OnDestroy {
     );
   }
 
+  // ATRASADAS
   getOverdueBills(): void {
     this._dashboardService.getOverdueBills().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[5].subTitle = 'R$ ' + response.total;
+          this.cards[5].subTitle = response.total;
         }
       },
       (error) => {
@@ -193,11 +199,12 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
 
+  // SALDO PREVISTO
   getExpectedBalance(): void {
     this._dashboardService.getExpectedBalance().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[5].subTitle = 'R$ ' + response.total;
+          this.cards[5].subTitle = this._currencyPipe.transform(response.total, 'BRL');
         }
       },
       (error) => {
@@ -273,6 +280,10 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   axisDate(val: string): string {
     return new DatePipe('en').transform(val, 'dd MMMM');
+  }
+
+  getFormattedPrice(price: number) {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
   }
 
   ngOnDestroy(): void {

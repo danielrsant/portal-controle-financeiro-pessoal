@@ -26,6 +26,13 @@ export class PageConfig {
       align: 'start',
     },
     {
+      label: 'Limite',
+      property: 'limite',
+      type: 'text',
+      visible: true,
+      align: 'start',
+    },
+    {
       label: 'Status',
       property: 'status',
       type: 'checkbox',

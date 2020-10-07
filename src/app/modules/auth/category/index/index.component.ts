@@ -1,5 +1,6 @@
 import { AUTO_STYLE } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
+import { CurrencyPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,7 +28,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _utilsService: UtilsService,
     private _loadingService: LoadingService,
     private _categoryService: CategoryService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _currencyPipe: CurrencyPipe,
   ) {}
 
   title = 'Categorias';
@@ -63,6 +65,12 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._categoryService.loadAll(this.options).subscribe(
       (response: any) => {
         if (response) {
+          response.data = response.data.map(data => {
+            data.limite = this._currencyPipe.transform(data.limite, 'BRL');
+
+            return data;
+          });
+
           this.dataSource = response.data;
           this.configuration.total = response.total;
         }

@@ -19,6 +19,10 @@
             float: left;
             height: 85px;
 
+            .card-icon {
+                color: white;
+            }
+
             @include media-breakpoint('lt-sm') {
                 height: 50px;
                 width: 50px;
@@ -52,11 +56,13 @@
             }
 
             .card-title {
+                color: #696969;
                 margin: 0px;
             }
 
             .card-subtitle {
-                font-size: 20px;
+                font-size: 25px;
+                // font-size: 2em;
                 margin: 0px;
             }
 
@@ -100,9 +106,17 @@
     }
 }
 
+.card-neon-life {
+    background: #7474BF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #348AC7, #7474BF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #348AC7, #7474BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+}
+
 .card-color-yellow {
     background: linear-gradient(60deg, #ffa726, #fb8c00) !important;
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4) !important;
+
 }
 
 .card-color-green {
@@ -117,6 +131,14 @@
 
 .card-color-blue {
     background: linear-gradient(60deg, #26c6da, #00acc1);
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+}
+
+.card-color-pinot-noir {
+    background: #EC6F66;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #F3A183, #EC6F66);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #F3A183, #EC6F66); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
 
