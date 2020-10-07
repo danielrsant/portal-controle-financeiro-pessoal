@@ -88,10 +88,13 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onChangeConcluidoToggleButton(value): void {
-    if (Operation.EDIT) {
+    if (this.operation === Operation.EDIT) {
       if (value) {
         this.form.disable();
-        this.form.markAsPristine();
+        // this.form.markAsPristine();
+        this.form.get('pessoa').enable();
+        this.form.get('id').enable();
+        this.form.get('dtConclusao').enable();
         this.form.get('concluido').enable();
       } else {
         this.form.enable();

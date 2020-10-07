@@ -94,7 +94,7 @@ export class IndexComponent implements OnInit, OnDestroy {
             item.dtConclusao = item.dtConclusao ? moment.utc(item.dtConclusao).format('DD/MM/YYYY') : '-';
             item.dtConta = moment.utc(item.dtConta).format('DD/MM/YYYY');
             item.dtLembrete = item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY') : 'Sem lembrete';
-            item.tipoMovimentacao = item.tipoMovimentacao.descricao;
+            item.tipoMovimentacao = item.tipoMovimentacao.descricao === 'Receita' ? {icon: 'arrow_upward', color: '#ABE188'} : {icon: 'arrow_downward', color: 'red'};
             item.categoria = item.categoria.descricao;
             return item;
           });

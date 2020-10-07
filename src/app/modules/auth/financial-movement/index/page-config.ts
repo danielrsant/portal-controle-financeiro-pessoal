@@ -38,7 +38,7 @@ export class PageConfig {
       property: 'situacao',
       type: 'text',
       visible: true,
-      align: 'center',
+      align: 'start',
     },
     {
       label: 'Dt. conclusão',
@@ -80,9 +80,9 @@ export class PageConfig {
     {
       label: 'Tipo de movimentação',
       property: 'tipoMovimentacao',
-      type: 'text',
+      type: 'icon',
       visible: true,
-      align: 'start',
+      align: 'center',
     },
     {
       label: 'Categoria',

@@ -144,7 +144,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dashboardService.getTotalAccountsPayable().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[2].subTitle = 'R$ ' + response.total;
+          this.cards[2].subTitle = response.total;
         }
       },
       (error) => {
@@ -157,7 +157,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dashboardService.getTotalAccountsReceivable().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[3].subTitle = 'R$ ' + response.total;
+          this.cards[3].subTitle = response.total;
         }
       },
       (error) => {

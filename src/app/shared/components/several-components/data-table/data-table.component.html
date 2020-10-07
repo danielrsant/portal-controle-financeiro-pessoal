@@ -115,6 +115,14 @@
             </ng-container>
 
             <!-- Text Columns -->
+            <ng-container *ngIf="column.type === 'icon'" [matColumnDef]="column.property">
+              <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}
+              </th>
+              <td *matCellDef="let row" [ngClass]="column.cssClasses" [ngStyle]="{'text-align': column?.align}"
+                mat-cell><mat-icon [ngStyle]="{'color': row[column.property].color}">{{ row[column.property].icon }}</mat-icon></td>
+            </ng-container>
+
+            <!-- Text Columns -->
             <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
               <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}
               </th>
