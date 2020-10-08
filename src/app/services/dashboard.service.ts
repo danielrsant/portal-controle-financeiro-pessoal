@@ -57,19 +57,23 @@ export class DashboardService {
 
 
   getLineChart(): Observable<any[]> {
-
     const url = `${this.API_BASE_URL}/movimentacoes/movimentacoes-tipo-movimentacao`;
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
   getPieChartData(payload?: any): Observable<any[]> {
-
     let url = `${this.API_BASE_URL}/movimentacoes/despesas-categoria`;
 
     if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
       url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
     }
+
+    return this.http.get(url).pipe(map((result: any) => result));
+  }
+
+  getLimits(): Observable<any[]> {
+    const url = `${this.API_BASE_URL}/movimentacoes/despesas-categoria`;
 
     return this.http.get(url).pipe(map((result: any) => result));
   }

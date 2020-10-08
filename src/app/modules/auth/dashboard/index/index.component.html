@@ -1,7 +1,7 @@
 <div fxFlex fxLayout="column">
     <div fxFlex fxLayout="row wrap" fxLayoutAlign="flex-start" class="content">
         <div fxFlex fxLayout="row" *ngFor="let card of cards">
-            <mat-card fxFlex="1 1 calc(25% - 32px)" class="card card-top">
+            <mat-card fxFlex class="card card-top">
                 <div class="card-header {{card?.color}} card-header-icon">
                     <mat-icon class="card-icon">{{ card?.icon }}</mat-icon>
                 </div>
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content" style="margin-top: 0px;">
         
 
         <mat-card fxFlex fxLayout="column" class="card">
@@ -50,7 +50,7 @@
 
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxFlex>
-                <div layout="row" fxLayoutAlign="space-between">
+                <div layout="row" fxLayoutAlign="space-between center">
                     <span fxFlex>Movimentações</span>
                     <span fxFlex="5" fxFlex.xs="10">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
@@ -86,7 +86,7 @@
     <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title>
-                <div layout="row" fxLayoutAlign="space-between">
+                <div layout="row" fxLayoutAlign="space-between center">
                     <span fxFlex>Economia Anual</span>
                     <span fxFlex="5" fxFlex.xs="10">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
@@ -119,7 +119,7 @@
 
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxFlex>
-                <div layout="row" fxLayoutAlign="space-between">
+                <div layout="row" fxLayoutAlign="space-between center">
                     <span fxFlex>Movimentações</span>
                     <span fxFlex="5" fxFlex.xs="10">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
@@ -156,7 +156,7 @@
     <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxLayout="column" fxFlex>
-                <div layout="row" fxLayoutAlign="space-between">
+                <div layout="row" fxLayoutAlign="space-between center">
                     <span fxFlex>Limite de Gastos</span>
                     <span fxFlex="3" fxFlex.xs="10">
                         <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
@@ -175,7 +175,8 @@
                     <mat-list-item-content fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between">
                         <div fxFlex fxLayout="row" fxLayoutAlign="start center">
                             <div fxFlex="15">
-                                <mat-icon matListAvatar color="primary">{{ limit?.icon }}</mat-icon>
+                                <mat-icon matListAvatar [ngStyle]="{'color': limit?.color}" 
+                                style="font-size: 30px; margin-left: 15px;">{{ limit?.icon }}</mat-icon>
                             </div>
                             <div fxLayout="column" fxLayoutAlign="center start">
                                 <span mat-line style="margin: 0; font-weight: 600; font-size: 18px;">{{ limit?.category}}</span>

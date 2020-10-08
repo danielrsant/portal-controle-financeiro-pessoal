@@ -107,39 +107,52 @@
 }
 
 .card-neon-life {
-    background: #7474BF;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #348AC7, #7474BF);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #348AC7, #7474BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #3F51B5;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #5967b8, #3F51B5);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #5967b8, #3F51B5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
 
 .card-color-yellow {
-    background: linear-gradient(60deg, #ffa726, #fb8c00) !important;
+    background: #fb8c00;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #d39e4e, #fb8c00);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #d39e4e, #fb8c00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4) !important;
-
 }
 
 .card-color-green {
-    background: linear-gradient(60deg, #66bb6a, #43a047);
+    background: #43a047;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #63c067, #43a047);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #63c067, #43a047); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4);
 }
 
 .card-color-red {
-    background: linear-gradient(60deg, #ef5350, #e53935);
+    background: #e53935;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #e4615f, #e53935);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #e4615f, #e53935); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4);
 }
 
 .card-color-blue {
-    background: linear-gradient(60deg, #26c6da, #00acc1);
+    background: #00acc1;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #26c6da, #00acc1);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #26c6da, #00acc1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
 
 .card-color-pinot-noir {
     background: #EC6F66;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #F3A183, #EC6F66);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #F3A183, #EC6F66); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
-    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+    background: -webkit-linear-gradient(to left, #e99273, #EC6F66);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #e99273, #EC6F66); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(184, 148, 82, 0.4);
+}
+
+.card-color-purple {
+    background: #9931B1;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #9752a7, #9931B1);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #9752a7, #9931B1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(96, 7, 104, 0.4);
 }
 
 mat-card-title {

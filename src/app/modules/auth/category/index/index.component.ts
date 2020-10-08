@@ -66,8 +66,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       (response: any) => {
         if (response) {
           response.data = response.data.map(data => {
-            data.limite = this._currencyPipe.transform(data.limite, 'BRL');
-
+            data.limite = data.limite ? this._currencyPipe.transform(data.limite, 'BRL') : 'R$00.00';
             return data;
           });
 

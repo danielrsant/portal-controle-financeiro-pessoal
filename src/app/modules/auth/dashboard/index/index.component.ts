@@ -54,13 +54,19 @@ export class IndexComponent implements OnInit, OnDestroy {
       subTitle: '',
       icon: 'account_balance_wallet',
       color: 'card-color-pinot-noir',
+    },
+    {
+      title: 'Atrasadas',
+      subTitle: '',
+      icon: 'assignment_late',
+      color: 'card-color-purple',
     }
   ];
 
   times;
   single;
+  limits = [];
   multi = multi;
-  limits = limit;
 
   view: any[];
   viewGauge = [300, 100];
@@ -85,6 +91,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.getCards();
     this.getLineChart();
     this.getPieChartData();
+    this.getLimits();
   }
 
   createFormFilter(): void {
@@ -111,6 +118,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.getTotalAccountsReceivable();
     this.getBalance();
     this.getExpectedBalance();
+    this.getOverdueBills();
   }
 
 
@@ -184,12 +192,12 @@ export class IndexComponent implements OnInit, OnDestroy {
     );
   }
 
-  // ATRASADAS
-  getOverdueBills(): void {
-    this._dashboardService.getOverdueBills().pipe(takeUntil(this.destroy$)).subscribe(
+  // SALDO PREVISTO
+  getExpectedBalance(): void {
+    this._dashboardService.getExpectedBalance().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[5].subTitle = response.total;
+          this.cards[5].subTitle = this._currencyPipe.transform(response.total, 'BRL');
         }
       },
       (error) => {
@@ -198,13 +206,12 @@ export class IndexComponent implements OnInit, OnDestroy {
     );
   }
 
-
-  // SALDO PREVISTO
-  getExpectedBalance(): void {
-    this._dashboardService.getExpectedBalance().pipe(takeUntil(this.destroy$)).subscribe(
+  // ATRASADAS
+  getOverdueBills(): void {
+    this._dashboardService.getOverdueBills().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[5].subTitle = this._currencyPipe.transform(response.total, 'BRL');
+          this.cards[6].subTitle = response.total;
         }
       },
       (error) => {
@@ -258,6 +265,53 @@ export class IndexComponent implements OnInit, OnDestroy {
     );
   }
 
+  getLimits(): void {
+    this._dashboardService.getLimits().pipe(takeUntil(this.destroy$)).subscribe(
+      (response: any) => {
+        if (response) {
+          console.log(response);
+          
+          response.data.forEach(element => {
+            const max = parseFloat(element.limite) + parseFloat(element.limite);
+            const limitValue = parseFloat(element.limite);
+            const value = parseFloat(element.value);
+
+            let status = '';
+            let icon = '';
+            let color = '';
+
+            if ((limitValue / 2) < value) {
+              status = 'Ultrapassou o limite!';
+              icon = 'sentiment_very_dissatisfied';
+              color = 'red';
+            } else if ((limitValue / 2) > value && limitValue < value) {
+              status = 'Quase lá!';
+              icon = 'sentiment_satisfied';
+              color = 'yellow';
+            } else {
+              status = 'Longe do Limite!';
+              icon = 'mood';
+              color = 'green';
+            }
+
+            this.limits.push({
+                category: element.name,
+                status: status,
+                icon: icon,
+                color: color,
+                max: max,
+                limit: limitValue,
+                value: value,
+            });
+          });
+        }
+      },
+      (error) => {
+        this._loadingService.hide();
+      }
+    );
+  }
+
   onResize = () => window.addEventListener('resize', () => {
     this.changeResponsiveness();
   })
@@ -282,7 +336,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     return new DatePipe('en').transform(val, 'dd MMMM');
   }
 
-  getFormattedPrice(price: number) {
+  getFormattedPrice(price: number): any {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
   }
 
