@@ -5,7 +5,6 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { CalendarComponent } from './calendar.component';
-import { CalendarService } from './calendar.service';
 import { CalendarEventFormDialogComponent } from './event-form/event-form.component';
 import { CommonModule } from '@angular/common';
 
@@ -13,10 +12,6 @@ const routes: Routes = [
     {
         path: '**',
         component: CalendarComponent,
-        children: [],
-        // resolve: {
-        //     chat: CalendarService
-        // }
     }
 ];
 
@@ -33,9 +28,6 @@ const routes: Routes = [
             provide: DateAdapter,
             useFactory: adapterFactory
         }),
-    ],
-    providers: [
-        CalendarService
     ],
     entryComponents: [
         CalendarEventFormDialogComponent

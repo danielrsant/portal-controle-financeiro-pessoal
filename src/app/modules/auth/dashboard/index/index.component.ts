@@ -44,6 +44,12 @@ export class IndexComponent implements OnInit, OnDestroy {
       color: 'card-color-yellow',
     },
     {
+      title: 'Contas Atrasadas',
+      subTitle: '',
+      icon: 'assignment_late',
+      color: 'card-color-purple',
+    },
+    {
       title: 'Saldo Disponível',
       subTitle: '',
       icon: 'account_balance',
@@ -55,12 +61,6 @@ export class IndexComponent implements OnInit, OnDestroy {
       icon: 'account_balance_wallet',
       color: 'card-color-pinot-noir',
     },
-    {
-      title: 'Atrasadas',
-      subTitle: '',
-      icon: 'assignment_late',
-      color: 'card-color-purple',
-    }
   ];
 
   times;
@@ -178,12 +178,26 @@ export class IndexComponent implements OnInit, OnDestroy {
     );
   }
 
+   // ATRASADAS
+   getOverdueBills(): void {
+    this._dashboardService.getOverdueBills().pipe(takeUntil(this.destroy$)).subscribe(
+      (response: any) => {
+        if (response) {
+          this.cards[4].subTitle = response.total;
+        }
+      },
+      (error) => {
+        this._loadingService.hide();
+      }
+    );
+  }
+
   // SALDO DISPONÍVEL
   getBalance(): void {
     this._dashboardService.getBalance().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[4].subTitle = this._currencyPipe.transform(response.total, 'BRL');
+          this.cards[5].subTitle = this._currencyPipe.transform(response.total, 'BRL');
         }
       },
       (error) => {
@@ -197,21 +211,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dashboardService.getExpectedBalance().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.cards[5].subTitle = this._currencyPipe.transform(response.total, 'BRL');
-        }
-      },
-      (error) => {
-        this._loadingService.hide();
-      }
-    );
-  }
-
-  // ATRASADAS
-  getOverdueBills(): void {
-    this._dashboardService.getOverdueBills().pipe(takeUntil(this.destroy$)).subscribe(
-      (response: any) => {
-        if (response) {
-          this.cards[6].subTitle = response.total;
+          this.cards[6].subTitle = this._currencyPipe.transform(response.total, 'BRL');
         }
       },
       (error) => {

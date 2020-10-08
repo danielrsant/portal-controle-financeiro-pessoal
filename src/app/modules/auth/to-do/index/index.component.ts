@@ -1,14 +1,10 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { CategoryService } from 'src/app/services/category.service';
-import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
 import { Operation } from 'src/app/shared/enums/operation';
-import { UtilsService } from 'src/app/shared/services/utils.service';
 
+import { ToDoService } from '../../../../services/to-do.service';
 
 @Component({
   selector: 'app-index',
@@ -45,12 +41,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   editIndexDone: number;
 
   constructor(
-    private _router: Router,
-    private _activatedRoute: ActivatedRoute,
-    private _utilsService: UtilsService,
-    private _loadingService: LoadingService,
-    private _categoryService: CategoryService,
-    private _dialog: MatDialog
+    private _toDoService: ToDoService
   ) { }
 
   ngOnInit(): void {
@@ -142,10 +133,10 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   create(type: 'toDo' | 'done', event): void {
     if (type === 'toDo') {
-      this.toDo.splice(0, 0 , { id: this.toDo.length, description: event.target.value, done: false });
+      this.toDo.splice(0, 0, { id: this.toDo.length, description: event.target.value, done: false });
       this.form.get('newToDo').setValue(null);
     } else {
-      this.done.splice(0, 0 , { id: this.done.length, description: event.target.value, done: true });
+      this.done.splice(0, 0, { id: this.done.length, description: event.target.value, done: true });
       this.form.get('newDone').setValue(null);
     }
   }

@@ -6,7 +6,7 @@ import { addDays, addHours, endOfMonth, isSameDay, isSameMonth, startOfDay, subD
 import { Subject } from 'rxjs';
 import { sharedAnimations } from 'src/app/shared/animations';
 
-import { CalendarService } from './calendar.service';
+import { CalendarService } from '../../../services/calendar.service';
 import { CalendarEventFormDialogComponent } from './event-form/event-form.component';
 import { CalendarEventModel } from './event.model';
 
