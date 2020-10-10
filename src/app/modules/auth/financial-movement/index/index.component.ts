@@ -101,6 +101,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
           this.dataSource = response.data;
           this.configuration.total = response.total;
+          this._loadingService.hide();
         }
       },
       (error) => {

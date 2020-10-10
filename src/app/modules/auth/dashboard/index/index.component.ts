@@ -22,13 +22,13 @@ export class IndexComponent implements OnInit, OnDestroy {
     {
       title: 'Receitas',
       subTitle: '',
-      icon: 'call_received',
+      icon: 'call_made',
       color: 'card-color-green',
     },
     {
       title: 'Despesas',
       subTitle: '',
-      icon: 'call_made',
+      icon: 'call_received',
       color: 'card-color-red',
     },
     {
