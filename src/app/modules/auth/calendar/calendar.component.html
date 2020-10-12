@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div *ngIf="view === 'day'" fxFlex fxLayoutAlign="center" class="filter">
+        <!-- <div *ngIf="view === 'day'" fxFlex fxLayoutAlign="center" class="filter">
             <app-input-datepicker fxFlex="250px" fxFlex.xs="100" 
             [formGroup]="formFilter" 
             [clearOption]="false"
@@ -32,7 +32,7 @@
             label="Selecione a Data de Agendamento" 
             appearance="outline">
             </app-input-datepicker>
-        </div>
+        </div> -->
 
         <div fxFlex [ngSwitch]="view">
             <mwl-calendar-month-view 

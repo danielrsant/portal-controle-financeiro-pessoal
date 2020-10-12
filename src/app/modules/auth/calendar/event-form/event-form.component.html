@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column">
     <div fxFlex fxLayout="row">
-        <h2 mat-dialog-title></h2>
+        <h2 mat-dialog-title>Informações</h2>
         <mat-icon fxFlex fxLayoutAlign="flex-end" class="icon" mat-dialog-close>close</mat-icon>
     </div>
 
@@ -18,6 +18,10 @@
 
         <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtConta"
             label="Data">
+        </app-input-datepicker>
+
+        <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtConclusao"
+            label="Data de Conclusão">
         </app-input-datepicker>
 
         <app-input-text fxFlex [formGroup]="form" formcontrolname="descricao" label="Descrição" maxLength="150"
