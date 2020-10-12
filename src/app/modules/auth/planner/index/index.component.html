@@ -25,7 +25,7 @@
     </div>
   </mat-step> -->
   <mat-step [stepControl]="formAux">
-    <ng-template matStepLabel>Selecione as categorias</ng-template>
+    <ng-template matStepLabel>Selecione as categorias com despesas fixas</ng-template>
 
     <app-input-select fxFlex [formGroup]="formAux" formcontrolname="categoriaSelecionada"
       (select)="onSelectCategoria($event?.value)" [optionClear]="false" label="Categorias" [data]="categorias"
