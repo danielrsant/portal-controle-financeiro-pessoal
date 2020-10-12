@@ -1,79 +1,89 @@
-<app-header [title]="title" [icon]="icon">
-</app-header>
+<div fxFlex fxLayout="column">
 
-<mat-horizontal-stepper [linear]="true" #stepper>
-  <mat-step [stepControl]="form">
-    <form [formGroup]="form">
-      <ng-template matStepLabel>Informe sua receita mensal</ng-template>
-      <app-input-currency [formGroup]="form" formcontrolname="receitaMensal" label="Valor da receita mensal"
-        appearance="outline"></app-input-currency>
-      <button mat-raised-button color="primary" matStepperNext>Próximo</button>
-    </form>
-  </mat-step>
-  <!-- <mat-step [stepControl]="form" label="Informe sua meta total de gastos para o mês">
-    <mat-slider style="display: flex; margin-top: 30px" color="primary" [max]="100" [min]="0" [step]="5"
-      [thumbLabel]="true" [(ngModel)]="percentualDespesa" [vertical]="false">
-    </mat-slider>
+  <app-header [title]="title" [icon]="icon">
+  </app-header>
 
-    <h3 style="width: 100%; text-align: center;">{{ percentualDespesa }}% -
-      {{ form.get('receitaMensal').value * (percentualDespesa / 100) | currency: 'BRL' }}
-    </h3>
+  <mat-card fxFlex fxLayout="column" class="content-page-form">
 
-    <div fxLayoutGap="15px">
-      <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
-      <button mat-raised-button color="primary" matStepperNext>Próximo</button>
-    </div>
-  </mat-step> -->
-  <mat-step [stepControl]="formAux">
-    <ng-template matStepLabel>Selecione as categorias com despesas fixas</ng-template>
+    <mat-horizontal-stepper [linear]="true" #stepper>
+      <mat-step [stepControl]="form">
+        <form [formGroup]="form">
+          <ng-template matStepLabel>Informe sua receita mensal</ng-template>
+          <app-input-currency [formGroup]="form" formcontrolname="receitaMensal" label="Valor da receita mensal"
+            appearance="outline"></app-input-currency>
+          <button mat-raised-button color="primary" matStepperNext>Próximo</button>
+        </form>
+      </mat-step>
+      
+      <!-- <mat-step [stepControl]="form" label="Informe sua meta total de gastos para o mês">
+        <mat-slider style="display: flex; margin-top: 30px" color="primary" [max]="100" [min]="0" [step]="5"
+          [thumbLabel]="true" [(ngModel)]="percentualDespesa" [vertical]="false">
+        </mat-slider>
+    
+        <h3 style="width: 100%; text-align: center;">{{ percentualDespesa }}% -
+          {{ form.get('receitaMensal').value * (percentualDespesa / 100) | currency: 'BRL' }}
+        </h3>
+    
+        <div fxLayoutGap="15px">
+          <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+          <button mat-raised-button color="primary" matStepperNext>Próximo</button>
+        </div>
+      </mat-step> -->
 
-    <app-input-select fxFlex [formGroup]="formAux" formcontrolname="categoriaSelecionada"
-      (select)="onSelectCategoria($event?.value)" [optionClear]="false" label="Categorias" [data]="categorias"
-      valueField="id" displayField="descricao" searchField="descricao">
-    </app-input-select>
+      <mat-step [stepControl]="formAux">
+        <ng-template matStepLabel>Selecione as categorias com despesas fixas</ng-template>
 
-    <mat-form-field appearance="outline" style="width: 100%">
-      <mat-chip-list #chipList aria-label="Categorias">
-        <mat-chip *ngFor="let categoria of categoriasSelecionadas" [removable]="true"
-          (removed)="removeCategoria(categoria)">
-          {{categoria?.descricao}}
-          <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
-    </mat-form-field>
+        <app-input-select fxFlex [formGroup]="formAux" formcontrolname="categoriaSelecionada"
+          (select)="onSelectCategoria($event?.value)" [optionClear]="false" label="Categorias" [data]="categorias"
+          valueField="id" displayField="descricao" searchField="descricao">
+        </app-input-select>
+
+        <mat-form-field appearance="outline" style="width: 100%" *ngIf="formAux.get('categoriaSelecionada').value">
+          <mat-chip-list #chipList aria-label="Categorias">
+            <mat-chip *ngFor="let categoria of categoriasSelecionadas" [removable]="true"
+              (removed)="removeCategoria(categoria)">
+              {{categoria?.descricao}}
+              <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </mat-form-field>
 
 
-    <div fxLayoutGap="15px">
-      <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
-      <button mat-raised-button color="primary" matStepperNext>Próximo</button>
-    </div>
+        <div fxLayoutGap="15px">
+          <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+          <button mat-raised-button color="primary" matStepperNext>Próximo</button>
+        </div>
 
-  </mat-step>
+      </mat-step>
 
-  <mat-step [formGroup]="form">
-    <ng-template matStepLabel>Ajustar limites</ng-template>
-    <h1 style="width: 100%; margin-top: 20px; text-align: left;">
-      Total {{ (form.get('receitaMensal').value - totalCategorias) | currency: 'BRL' }}
-    </h1>
-    <ng-container formArrayName="categorias">
-      <div *ngFor="let control of form.get('categorias')?.controls; index as i">
-        <ng-container [formGroupName]="i">
-          <div>
-            <h3>{{ control?.value?.descricao }}</h3>
+      <mat-step [formGroup]="form">
+        <ng-template matStepLabel>Ajustar limites</ng-template>
+        <h1 style="width: 100%; margin-top: 20px; text-align: left;">
+          Total {{ (form.get('receitaMensal').value - totalCategorias) | currency: 'BRL' }}
+        </h1>
+        <ng-container formArrayName="categorias">
+          <div *ngFor="let control of form.get('categorias')?.controls; index as i">
+            <ng-container [formGroupName]="i">
+              <div>
+                <h3>{{ control?.value?.descricao }}</h3>
+              </div>
+              <div>
+                <app-input-currency [formGroup]="form.get('categorias')?.controls[i]" formcontrolname="limite"
+                  label="Limite R$" appearance="outline"></app-input-currency>
+              </div>
+
+            </ng-container>
           </div>
-          <div>
-            <app-input-currency [formGroup]="form.get('categorias')?.controls[i]" formcontrolname="limite"
-              label="Limite R$" appearance="outline"></app-input-currency>
-          </div>
 
+          <div fxLayoutGap="15px">
+            <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+            <button mat-raised-button color="primary" (click)="onSave()">Concluir</button>
+          </div>
         </ng-container>
-      </div>
 
-      <div fxLayoutGap="15px">
-        <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
-        <button mat-raised-button color="primary" (click)="onSave()">Concluir</button>
-      </div>
-    </ng-container>
+      </mat-step>
+    </mat-horizontal-stepper>
 
-  </mat-step>
-</mat-horizontal-stepper>
+  </mat-card>
+
+</div>
