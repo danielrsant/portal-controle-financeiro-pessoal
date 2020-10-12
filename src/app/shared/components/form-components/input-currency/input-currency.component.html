@@ -1,12 +1,15 @@
-<mat-form-field [formGroup]="formGroup" fxFlex [appearance]="appearance">
+<mat-form-field [formGroup]="formGroup" fxFlex="100" [appearance]="appearance ? appearance : appearance$ | async">
+
   <mat-label>{{ label }}</mat-label>
-  <input matInput currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" [disabled]="disabled"
-         [formControlName]="formcontrolname" [required]="checkRequired()"
-         [placeholder]="placeholder"
-         (blur)="onBlur()" (ngModelChange)="onChange($event)"
-         #input>
+
+  <input matInput currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
+    [disabled]="disabled" [formControlName]="formcontrolname" [required]="checkRequired()" [placeholder]="placeholder"
+    (blur)="onBlur()" (ngModelChange)="onChange($event)" #input>
+
   <mat-icon *ngIf="iconName" matSuffix class="secondary-text">{{ iconName }}</mat-icon>
+
   <mat-error>
     <app-errors [formcontrolname]="formcontrolname" [formGroup]="formGroup"></app-errors>
   </mat-error>
+
 </mat-form-field>

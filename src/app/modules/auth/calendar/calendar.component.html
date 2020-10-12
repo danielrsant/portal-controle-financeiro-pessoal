@@ -1,6 +1,6 @@
 <div id="calendar">
 
-    <app-header [icon]="'event'" title="Agendamento" height="300px">
+    <app-header [icon]="'event'" title="Calendário" height="250px">
         <div class="toolbar" fxLayout="row" fxLayoutAlign="start center">
             <mat-button-toggle-group #group="matButtonToggleGroup" (change)="view = $event.value">
                 <mat-button-toggle matTooltip="Visão Mês" value="month" checked><mat-icon>view_module</mat-icon></mat-button-toggle>
@@ -11,6 +11,17 @@
     </app-header>
 
     <mat-card  fxFlex fxLayout="column" class="content-page" [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
+
+        <div fxFlex fxLayout="row" fxLayoutGap="20px" fxLayoutGap.xs="-10px" fxLayoutAlign="center end" class="legend">
+            <div fxLayout="row">
+                <mat-icon style="color: #F44336; font-size: 20px;">stop_circle</mat-icon>
+                <span class="info-title">Despesas</span>
+            </div>
+            <div fxLayout="row">
+                <mat-icon style="color: #36f44c; font-size: 20px;">stop_circle</mat-icon>
+                <span class="info-title">Receitas</span>
+            </div>
+        </div>
 
         <div *ngIf="view === 'day'" fxFlex fxLayoutAlign="center" class="filter">
             <app-input-datepicker fxFlex="250px" fxFlex.xs="100" 
@@ -31,7 +42,7 @@
                 [refresh]="refresh"
                 [activeDayIsOpen]="activeDayIsOpen"
                 (dayClicked)="dayClicked($event.day)"
-                (eventClicked)="editEvent('edit', $event.event)"
+                (eventClicked)="editEvent($event.event)"
                 (eventTimesChanged)="eventTimesChanged($event)"
                 (beforeViewRender)="beforeMonthViewRender($event)">
             </mwl-calendar-month-view>
@@ -42,7 +53,7 @@
                 [events]="events"
                 [refresh]="refresh"
                 (dayClicked)="dayClicked($event.day)"
-                (eventClicked)="editEvent('edit', $event.event)"
+                (eventClicked)="editEvent($event.event)"
                 (eventTimesChanged)="eventTimesChanged($event)">
             </mwl-calendar-week-view>
             <mwl-calendar-day-view
@@ -52,7 +63,7 @@
                 [events]="events"
                 [refresh]="refresh"
                 (dayClicked)="dayClicked($event.day)"
-                (eventClicked)="editEvent('edit', $event.event)"
+                (eventClicked)="editEvent($event.event)"
                 (eventTimesChanged)="eventTimesChanged($event)">
             </mwl-calendar-day-view>
         </div>

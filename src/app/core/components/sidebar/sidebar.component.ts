@@ -17,18 +17,18 @@ export const ROUTES: any[] = [
   },
   {
     label: 'ADMINISTRADOR', type: 'subheading', children: [
-      { route: '/auth/contas', label: 'Contas', icon: 'account_balance_wallet', type: 'link' },
-      { route: '/auth/planejamento', label: 'Planejamento', icon: 'card_travel', type: 'link' },
+      { route: '/auth/calendario', label: 'Calendário', icon: 'event', type: 'link' },
       { route: '/auth/categorias', label: 'Categorias', icon: 'category', type: 'link' },
-      { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'import_export', type: 'link' },
+      { route: '/auth/contas', label: 'Contas', icon: 'account_balance_wallet', type: 'link' },
       { route: '/auth/fazer', label: 'Gerenciador de Tarefas', icon: 'content_paste', type: 'link' },
-      { route: '/auth/agendamento', label: 'Agendamentos', icon: 'event', type: 'link' },
+      { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'import_export', type: 'link' },
+      { route: '/auth/planejamento', label: 'Planejamento', icon: 'card_travel', type: 'link' },
     ]
   },
   {
     label: 'CONFIGURAÇÕES', type: 'subheading', children: [
-      { route: '/auth/perfil', label: 'Perfil', icon: 'account_circle', type: 'link' },
       { route: '/auth/customizar', label: 'Layout e Cores', icon: 'bubble_chart', type: 'link' },
+      { route: '/auth/perfil', label: 'Perfil', icon: 'account_circle', type: 'link' },
       { route: '/notifications', label: 'Notificações', icon: 'notifications', type: 'link' },
     ]
   }

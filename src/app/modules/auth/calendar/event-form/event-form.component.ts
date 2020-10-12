@@ -1,76 +1,63 @@
-import { Component, Inject, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CalendarEvent } from 'angular-calendar';
 
 import { CalendarEventModel } from '../event.model';
 
 @Component({
-    selector     : 'calendar-event-form-dialog',
-    templateUrl  : './event-form.component.html',
-    styleUrls    : ['./event-form.component.scss'],
+    selector: 'calendar-event-form-dialog',
+    templateUrl: './event-form.component.html',
+    styleUrls: ['./event-form.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 
-export class CalendarEventFormDialogComponent
-{
-    action: string;
-    event: CalendarEvent;
-    eventForm: FormGroup;
-    dialogTitle: string;
-    presetColors;
+export class CalendarEventFormDialogComponent implements OnInit {
+    form: FormGroup;
+    event: any;
 
-    
     constructor(
         public matDialogRef: MatDialogRef<CalendarEventFormDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
-        private _formBuilder: FormBuilder
-    )
-    {
+    ) {
         this.event = _data.event;
-        this.action = _data.action;
-
-        if ( this.action === 'edit' )
-        {
-            this.dialogTitle = this.event.title;
-        }
-        else
-        {
-            this.dialogTitle = 'New Event';
-            this.event = new CalendarEventModel({
-                start: _data.date,
-                end  : _data.date
-            });
-        }
-
-        this.eventForm = this.createEventForm();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+    ngOnInit(): void {
+        this.createForm();
+        this.fillForm();
+    }
 
-    /**
-     * Create the event form
-     *
-     * @returns {FormGroup}
-     */
-    createEventForm(): FormGroup
-    {
-        return new FormGroup({
-            title : new FormControl(this.event.title),
-            start : new FormControl(this.event.start),
-            end   : new FormControl(this.event.end),
-            allDay: new FormControl(this.event.allDay),
-            color : this._formBuilder.group({
-                primary  : new FormControl(this.event.color.primary),
-                secondary: new FormControl(this.event.color.secondary)
-            }),
-            meta  :
-                this._formBuilder.group({
-                    location: new FormControl(this.event.meta.location),
-                    notes   : new FormControl(this.event.meta.notes)
-                })
+    createForm(): void {
+        const pessoa = JSON.parse(localStorage.getItem('user'));
+        this.form = new FormGroup({
+            descricao: new FormControl(null, [
+                Validators.required,
+                Validators.maxLength(150),
+            ]),
+            total: new FormControl(0, [Validators.required, Validators.min(0.01)]),
+            dtConta: new FormControl(new Date(), Validators.required),
+            dtConclusao: new FormControl(null),
+            dtLembrete: new FormControl(null),
+            concluido: new FormControl(0),
+            contaFixa: new FormControl(0),
+            categoria: new FormControl(null, Validators.required),
+            tipoMovimentacao: new FormControl(1, Validators.required),
+            conta: new FormControl(null, Validators.required),
+            pessoa: new FormControl({ id: pessoa.id }),
+            repetir: new FormControl(0),
         });
+
+        this.form.disable();
     }
+
+    fillForm(): void {
+        this.form.patchValue(this.event);
+        this.form.get('tipoMovimentacao').setValue(this.event?.tipoMovimentacao?.descricao);
+        this.form.get('conta').setValue(this.event?.conta?.descricao);
+        this.form.get('categoria').setValue(this.event?.categoria?.descricao);
+        console.log(this.event);
+        
+    }
+
 }

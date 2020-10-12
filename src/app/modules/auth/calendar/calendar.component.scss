@@ -198,3 +198,16 @@
     position: relative;
     overflow: hidden;
 }
+
+.toolbar {
+    margin-top: -20px;
+}
+
+.legend {
+    margin-bottom: 10px;
+
+    .info-title {
+        font-family: Muli, Helvetica Neue, Arial, sans-serif;
+        margin-left: 3px;
+    }
+}

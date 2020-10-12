@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { StyleService } from 'src/app/shared/services/style.service';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
@@ -18,12 +20,15 @@ export class InputCurrencyComponent implements OnInit {
 
   @Output() changeValue = new EventEmitter();
 
+  appearance$: Observable<string>;
+
   constructor(
-      private _utilsService: UtilsService
+    private _utilsService: UtilsService,
+    private _styleService: StyleService
   ) { }
 
   ngOnInit(): void {
-
+    this.appearance$ = this._styleService.appearance$;
   }
 
   checkRequired(): boolean {

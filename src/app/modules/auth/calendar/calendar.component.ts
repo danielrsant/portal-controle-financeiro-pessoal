@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { AUTO_STYLE } from '@angular/animations';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay } from 'angular-calendar';
-import { addDays, addHours, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays } from 'date-fns';
+import { isSameDay, isSameMonth, startOfDay } from 'date-fns';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { sharedAnimations } from 'src/app/shared/animations';
 
 import { CalendarService } from '../../../services/calendar.service';
@@ -17,7 +19,7 @@ import { CalendarEventModel } from './event.model';
     encapsulation: ViewEncapsulation.None,
     animations: sharedAnimations
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
 
     formFilter: FormGroup;
     dtToday: Date = new Date();
@@ -25,70 +27,15 @@ export class CalendarComponent implements OnInit {
     actions: CalendarEventAction[];
     activeDayIsOpen: boolean;
     dialogRef: any;
-    events: CalendarEvent[] = [
-        {
-            start: subDays(startOfDay(new Date()), 1),
-            end: addDays(new Date(), 1),
-            title: 'Testando, titulo.....................',
-            allDay: true,
-            color: {
-                primary: '#F44336',
-                secondary: '#FFCDD2'
-            },
-            resizable: {
-                beforeStart: true,
-                afterEnd: true
-            },
-            draggable: true,
-            meta: {
-                location: 'Los Angeles',
-                notes: 'Eos eu verear adipiscing, ex ornatus denique iracundia sed, quodsi oportere appellantur an pri.'
-            }
-        },
-        {
-            start: subDays(endOfMonth(new Date()), 3),
-            end: addDays(endOfMonth(new Date()), 3),
-            title: 'Testando, titulo..................... 2',
-            allDay: false,
-            color: {
-                primary: '#1E90FF',
-                secondary: '#D1E8FF'
-            },
-            resizable: {
-                beforeStart: true,
-                afterEnd: true
-            },
-            draggable: true,
-            meta: {
-                location: 'Los Angeles',
-                notes: 'Eos eu verear adipiscing, ex ornatus denique iracundia sed, quodsi oportere appellantur an pri.'
-            }
-        },
-        {
-            start: addHours(startOfDay(new Date()), 2),
-            end: new Date(),
-            title: 'Testando, titulo..................... 3',
-            allDay: false,
-            color: {
-                primary: '#673AB7',
-                secondary: '#D1C4E9'
-            },
-            resizable: {
-                beforeStart: true,
-                afterEnd: true
-            },
-            draggable: true,
-            meta: {
-                location: 'Los Angeles',
-                notes: 'Eos eu verear adipiscing, ex ornatus denique iracundia sed, quodsi oportere appellantur an pri.'
-            }
-        }
-    ];
+    events: CalendarEvent[] = [];
+    eventsAllData = [];
 
     refresh: Subject<any> = new Subject();
     selectedDay: any;
     view: string;
     viewDate: Date;
+
+    destroy$ = new Subject();
 
     constructor(
         private _matDialog: MatDialog,
@@ -99,36 +46,57 @@ export class CalendarComponent implements OnInit {
         this.viewDate = new Date();
         this.activeDayIsOpen = true;
         this.selectedDay = { date: startOfDay(new Date()) };
-
-        this.actions = [
-            {
-                label: '<i class="material-icons s-16 md-dark">edit</i>',
-                onClick: ({ event }: { event: CalendarEvent }): void => {
-                    this.editEvent('edit', event);
-                }
-            },
-            {
-                label: '<i class="material-icons s-16 md-dark">delete</i>',
-                onClick: ({ event }: { event: CalendarEvent }): void => {
-                    this.deleteEvent(event);
-                }
-            }
-        ];
-
-        this.setEvents();
     }
 
 
     ngOnInit(): void {
         this.createFormFilter();
+        this.onRefresh();
         // this.refresh.next();
     }
 
-    createFormFilter() {
+    createFormFilter(): void {
         this.formFilter = new FormGroup({
-          date: new FormControl(new Date())
+            date: new FormControl(new Date())
         });
-      }
+    }
+
+    onRefresh(): void {
+        this._calendarService.loadAll().pipe(takeUntil(this.destroy$)).subscribe((response: any) => {
+            if (response) {
+                this.events = [];
+                console.log(response);
+                response.data.forEach(element => {
+                    this.events.push({        
+                        start: new Date(element?.dtCadastro),
+                        end: new Date(element?.dtConclusao),   
+                        title: element?.descricao,
+                        allDay: true,
+                        color: {
+                            primary: element?.tipoMovimentacao?.descricao === 'Despesa' ? '#F44336' : '#36f44c',
+                            secondary: '#FFCDD2'
+                        },
+                        resizable: {
+                            beforeStart: false,
+                            afterEnd: false
+                        },
+                        draggable: false,
+                        meta: {
+                            location: 'Situação: ' + element?.situacao,
+                            notes: 'Total: R$ ' + element?.total
+                        }
+                    });
+
+                    this.eventsAllData.push(element);
+                });
+                
+            }
+        },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
 
     setEvents(): void {
         this.events = this.events.map(item => {
@@ -173,43 +141,23 @@ export class CalendarComponent implements OnInit {
         this.refresh.next(true);
     }
 
-    deleteEvent(event): void { }
 
-
-    editEvent(action: string, event: CalendarEvent): void {
+    editEvent(event: CalendarEvent): void {
         const eventIndex = this.events.indexOf(event);
 
         this.dialogRef = this._matDialog.open(CalendarEventFormDialogComponent, {
-            panelClass: 'event-form-dialog',
+            maxHeight: '80vh',
+            height: AUTO_STYLE,
+            width: window.innerWidth < 900 ? '100%' : '50%',
             data: {
-                event,
-                action
+                event: this.eventsAllData[eventIndex],
             }
         });
-
-        this.dialogRef.afterClosed()
-            .subscribe(response => {});
     }
 
-
-    addEvent(): void {
-        this.dialogRef = this._matDialog.open(CalendarEventFormDialogComponent, {
-            panelClass: 'event-form-dialog',
-            data: {
-                action: 'new',
-                date: this.selectedDay.date
-            }
-        });
-        this.dialogRef.afterClosed()
-            .subscribe((response: FormGroup) => {
-                if (!response) {
-                    return;
-                }
-                const newEvent = response.getRawValue();
-                newEvent.actions = this.actions;
-                this.events.push(newEvent);
-                this.refresh.next(true);
-            });
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }
 
