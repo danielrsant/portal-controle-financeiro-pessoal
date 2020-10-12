@@ -1,0 +1,22 @@
+<app-header
+  [title]="title"
+  [icon]="icon">
+</app-header>
+
+<div class="content-page">
+  <app-data-table
+    [title]="title"
+    [selection]="selection"
+    [data]="dataSource"
+    [columns]="columns"
+    [config]="configuration"
+    (create)="onCreate()"
+    (refresh)="onRefresh($event)"
+    (search)="onSearch($event)"
+    (view)="onView($event)"
+    (update)="onUpdate($event)"
+    (delete)="onDelete($event)"
+    (dialogFilter)="openDialogFilter()"
+  >
+  </app-data-table>
+</div>

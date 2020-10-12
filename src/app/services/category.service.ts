@@ -24,13 +24,13 @@ export class CategoryService {
   }
 
   loadOne(id: number): Observable<any> {
-    const url = `${ this.API_BASE_URL }/categorias/${ id } `;
+    const url = `${this.API_BASE_URL}/categorias/${id} `;
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
   create(payload: any): Observable<any> {
-    const url = `${ this.API_BASE_URL }/categorias`;
+    const url = `${this.API_BASE_URL}/categorias`;
 
     return this.http.post(url, payload);
   }

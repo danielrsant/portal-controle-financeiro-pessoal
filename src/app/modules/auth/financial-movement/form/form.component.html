@@ -22,6 +22,17 @@
       searchField="descricao"
     ></app-input-select>
 
+    <app-input-select
+      fxFlex
+      [formGroup]="form"
+      formcontrolname="conta"
+      label="Conta"
+      [data]="(accounts$ | async)?.data"
+      valueField="id"
+      displayField="descricao"
+      searchField="descricao"
+    ></app-input-select>
+
     <app-input-currency
       fxFlex
       [formGroup]="form"

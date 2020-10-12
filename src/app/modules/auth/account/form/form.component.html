@@ -1,0 +1,25 @@
+<div fxFlex fxLayout="column">
+  <app-header [operation]="operation" [title]="title" [icon]="icon" [backPage]="true" [btn]="'Salvar'"
+    [btnDisabled]="form.invalid || !form.dirty ? true : false" (btnClick)="onSave()">
+  </app-header>
+
+  <mat-card fxFlex fxLayout="column" class="content-page-form">
+    <app-input-select fxFlex [formGroup]="form" formcontrolname="instituicaoFinanceira" label="Instituição financeira"
+      [data]="(financialInstutionals$ | async)?.data" valueField="id" displayField="descricao" searchField="descricao">
+    </app-input-select>
+
+    <app-input-text fxFlex="100" [formGroup]="form" formcontrolname="descricao" label="Descrição" maxLength="100"
+      autocomplete="off">
+    </app-input-text>
+
+    <app-input-select fxFlex [formGroup]="form" formcontrolname="tipoConta" label="Selecione o tipo da conta"
+      [data]="(accountTypes$ | async)?.data" valueField="id" displayField="descricao" searchField="descricao">
+    </app-input-select>
+
+    <div fxLayoutGap="30px">
+      <app-input-toggle [formGroup]="form" formcontrolname="incluirSoma" [label]="'Incluir na soma da dashboard?'">
+      </app-input-toggle>
+
+    </div>
+  </mat-card>
+</div>

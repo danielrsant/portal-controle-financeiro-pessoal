@@ -85,6 +85,13 @@ export class PageConfig {
       align: 'center',
     },
     {
+      label: 'Conta',
+      property: 'conta',
+      type: 'text',
+      visible: true,
+      align: 'center',
+    },
+    {
       label: 'Categoria',
       property: 'categoria',
       type: 'text',

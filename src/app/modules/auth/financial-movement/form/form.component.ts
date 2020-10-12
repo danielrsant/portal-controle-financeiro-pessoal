@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AccountService } from 'src/app/services/account.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
 import { FinancialMovementService } from '../../../../services/financial-movement.service';
@@ -30,6 +31,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   categories$: Observable<any[]>;
   movementTypes$: Observable<any[]>;
+  accounts$: Observable<any[]>;
 
   movementTypeParams = {
     title: 'Receita',
@@ -47,6 +49,7 @@ export class FormComponent implements OnInit, OnDestroy {
     private _financialMovementService: FinancialMovementService,
     private _categoryService: CategoryService,
     private _movementTypeService: MovementTypeService,
+    private _accountService: AccountService,
     private _dashboardService: DashboardService,
     private _loadingService: LoadingService,
     private _currencyPipe: CurrencyPipe
@@ -64,6 +67,7 @@ export class FormComponent implements OnInit, OnDestroy {
   onRefresh(): void {
     this.categories$ = this._categoryService.loadAll({ filter: 'status||$eq||1' });
     this.movementTypes$ = this._movementTypeService.loadAll();
+    this.accounts$ = this._accountService.loadAll();
   }
 
   setParamsAccount(): void {
@@ -140,6 +144,7 @@ export class FormComponent implements OnInit, OnDestroy {
       contaFixa: new FormControl(0),
       categoria: new FormControl(null, Validators.required),
       tipoMovimentacao: new FormControl(1, Validators.required),
+      conta: new FormControl(null, Validators.required),
       pessoa: new FormControl({ id: pessoa.id }),
       repetir: new FormControl(0),
     });
@@ -167,10 +172,11 @@ export class FormComponent implements OnInit, OnDestroy {
           });
 
           this.form.patchValue(response);
-          const { categoria, tipoMovimentacao, pessoa, concluido } = response;
+          const { categoria, tipoMovimentacao, pessoa, concluido, conta } = response;
           this.form.get('categoria').setValue(categoria.id);
           this.form.get('tipoMovimentacao').setValue(tipoMovimentacao.id);
           this.form.get('pessoa').setValue(pessoa.id);
+          this.form.get('conta').setValue(conta.id);
 
           if (this.operation === Operation.VIEW) {
             this.form.disable();
@@ -234,6 +240,16 @@ export class FormComponent implements OnInit, OnDestroy {
           this._loadingService.hide();
           console.log(err);
         });
+    } else {
+      if (this.operation === Operation.NEW) {
+        this._router.navigate(['..'], { relativeTo: this._activatedRoute });
+      }
+
+      if (this.operation === Operation.EDIT) {
+        this._router.navigate(['../..'], {
+          relativeTo: this._activatedRoute,
+        });
+      }
     }
   }
 
@@ -292,7 +308,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onUpdate(): void {
-    this.form.get('total').enable();
+    this.form.enable();
     this._financialMovementService
       .update(this.form.value.id, this.form.value)
       .pipe(takeUntil(this.destroy$)).subscribe(

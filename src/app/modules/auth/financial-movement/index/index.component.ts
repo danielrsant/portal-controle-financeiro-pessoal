@@ -98,6 +98,7 @@ export class IndexComponent implements OnInit, OnDestroy {
             item.dtLembrete = item.dtLembrete ? moment.utc(item.dtLembrete).format('DD/MM/YYYY') : 'Sem lembrete';
             item.tipoMovimentacao = item.tipoMovimentacao.descricao === 'Receita' ? {icon: 'arrow_upward', color: '#ABE188'} : {icon: 'arrow_downward', color: 'red'};
             item.categoria = item.categoria.descricao;
+            item.conta = item.conta.descricao;
             item.total = item.total ? this._currencyPipe.transform(item.total, 'BRL') : 'R$00.00';
             return item;
           });
