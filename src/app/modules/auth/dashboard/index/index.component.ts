@@ -269,8 +269,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dashboardService.getLimits().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          console.log(response);
-          
+
           response.data.forEach(element => {
             const max = parseFloat(element.limite) + parseFloat(element.limite);
             const limitValue = parseFloat(element.limite);

@@ -1,9 +1,11 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { DashboardService } from 'src/app/services/dashboard.service';
 
 import { FinancialMovementService } from '../../../../services/financial-movement.service';
 import { MovementTypeService } from '../../../../services/movement-type.service';
@@ -45,7 +47,9 @@ export class FormComponent implements OnInit, OnDestroy {
     private _financialMovementService: FinancialMovementService,
     private _categoryService: CategoryService,
     private _movementTypeService: MovementTypeService,
-    private _loadingService: LoadingService
+    private _dashboardService: DashboardService,
+    private _loadingService: LoadingService,
+    private _currencyPipe: CurrencyPipe
   ) { }
 
   ngOnInit(): void {
@@ -186,6 +190,53 @@ export class FormComponent implements OnInit, OnDestroy {
     }
   }
 
+  checkLimiteCategoria(id): void {
+    if (id && this.form.get('tipoMovimentacao').value === 2) {
+      this._loadingService.show();
+      this._categoryService.loadOne(id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(response => {
+          this._loadingService.hide();
+          if (!response) {
+            return;
+          }
+
+          this._loadingService.show();
+          this._dashboardService.getTotalByCategory(id).subscribe(res => {
+            this._loadingService.hide();
+            if (!res) {
+              return;
+            }
+
+            const { descricao, limite } = response;
+            const { total } = res;
+
+            if (parseFloat(total) === parseFloat(limite)) {
+              alert(`Você atingiu o limite de ${this._currencyPipe.transform(limite, 'BRL')} na categoria ${descricao}!`);
+            } else if (parseFloat(total) > parseFloat(limite)) {
+              alert(`Você ultrapassou o limite de ${this._currencyPipe.transform(limite, 'BRL')} na categoria ${descricao}!`);
+            }
+
+            if (this.operation === Operation.NEW) {
+              this._router.navigate(['..'], { relativeTo: this._activatedRoute });
+            }
+
+            if (this.operation === Operation.EDIT) {
+              this._router.navigate(['../..'], {
+                relativeTo: this._activatedRoute,
+              });
+            }
+          }, err => {
+            this._loadingService.hide();
+            console.log(err);
+          });
+        }, err => {
+          this._loadingService.hide();
+          console.log(err);
+        });
+    }
+  }
+
   onSave(): void {
     this._loadingService.show();
     if (this.form.dirty) {
@@ -206,7 +257,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   onCreate(): void {
     const { repetir } = this.form.value;
-    const qtdVezes = Number(repetir) ? Number(repetir) : 1;
+    const qtdVezes = Number(repetir) ? Number(repetir) === 1 ? 2 : Number(repetir) : 1;
     let formAux: any = Array.from({ length: qtdVezes }).map(
       () => new FormGroup(this.form.controls)
     );
@@ -231,7 +282,7 @@ export class FormComponent implements OnInit, OnDestroy {
       (response: any) => {
         if (response) {
           this._loadingService.hide();
-          this._router.navigate(['..'], { relativeTo: this._activatedRoute });
+          this.checkLimiteCategoria(this.form.get('categoria').value);
         }
       },
       (error) => {
@@ -241,15 +292,14 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onUpdate(): void {
+    this.form.get('total').enable();
     this._financialMovementService
       .update(this.form.value.id, this.form.value)
       .pipe(takeUntil(this.destroy$)).subscribe(
         (response: any) => {
           if (response) {
             this._loadingService.hide();
-            this._router.navigate(['../..'], {
-              relativeTo: this._activatedRoute,
-            });
+            this.checkLimiteCategoria(this.form.get('categoria').value);
           }
         },
         (error) => {

@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -74,6 +75,12 @@ export class DashboardService {
 
   getLimits(): Observable<any[]> {
     const url = `${this.API_BASE_URL}/movimentacoes/despesas-categoria`;
+
+    return this.http.get(url).pipe(map((result: any) => result));
+  }
+
+  getTotalByCategory(id: number): Observable<any> {
+    const url = `${this.API_BASE_URL}/movimentacoes/categoria/${id}/total`;
 
     return this.http.get(url).pipe(map((result: any) => result));
   }

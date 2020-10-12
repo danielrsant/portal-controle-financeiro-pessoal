@@ -61,7 +61,7 @@ export class FormComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.maxLength(80),
       ]),
-      limite: new FormControl(null),
+      // limite: new FormControl(null),
       status: new FormControl(1),
       pessoa: new FormControl({ id: pessoa.id }),
     });
