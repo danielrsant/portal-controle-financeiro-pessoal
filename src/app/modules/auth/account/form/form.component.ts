@@ -1,20 +1,15 @@
-import { AccountTypeService } from './../../../../services/account-type.service';
-import { FinancialInstitutionService } from './../../../../services/financial-institution.service';
-import { CurrencyPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment-timezone';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { DashboardService } from 'src/app/services/dashboard.service';
-
-import { FinancialMovementService } from '../../../../services/financial-movement.service';
-import { MovementTypeService } from '../../../../services/movement-type.service';
-import { LoadingService } from '../../../../shared/components/several-components/loading/loading.service';
-import { CategoryService } from './../../../../services/category.service';
-import { Operation } from './../../../../shared/enums/operation';
 import { AccountService } from 'src/app/services/account.service';
+
+import { LoadingService } from '../../../../shared/components/several-components/loading/loading.service';
+import { AccountTypeService } from './../../../../services/account-type.service';
+import { FinancialInstitutionService } from './../../../../services/financial-institution.service';
+import { Operation } from './../../../../shared/enums/operation';
 
 // tslint:disable: variable-name
 
@@ -45,6 +40,7 @@ export class FormComponent implements OnInit, OnDestroy {
     private _accountTypeService: AccountTypeService,
     private _financialInstutionalService: FinancialInstitutionService,
     private _loadingService: LoadingService,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -155,7 +151,7 @@ export class FormComponent implements OnInit, OnDestroy {
           this._router.navigate(['../..'], { relativeTo: this._activatedRoute });
         },
         (error) => {
-          console.log(error);
+          this._toastr.error(error.error.message);
           this._loadingService.hide();
         }
       );

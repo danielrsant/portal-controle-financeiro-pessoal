@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CategoryService } from 'src/app/services/category.service';
@@ -26,7 +27,8 @@ export class FormComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _categoryService: CategoryService,
-    private _loadingService: LoadingService
+    private _loadingService: LoadingService,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -109,7 +111,7 @@ export class FormComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        console.log(error);
+        this._toastr.error(error.error.message);
         this._loadingService.hide();
       }
     );
@@ -122,7 +124,7 @@ export class FormComponent implements OnInit, OnDestroy {
         this._router.navigate(['../..'], { relativeTo: this._activatedRoute });
       },
       (error) => {
-        console.log(error);
+        this._toastr.error(error.error.message);
         this._loadingService.hide();
       }
     );

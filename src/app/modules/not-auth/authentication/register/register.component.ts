@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -24,6 +25,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         private _authenticationService: AuthenticationService,
         private _loading: LoadingService,
         private _router: Router,
+        private _activatedRoute: ActivatedRoute,
+        private _toastr: ToastrService
     ) { }
 
     ngOnInit(): void {
@@ -42,22 +45,22 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
 
     onRegister(): void {
-        const payload = { ...this.form.value,  ...{ pessoa:  this.formPerson.value } };
-        console.log(payload);
+        const payload = { ...this.form.value, ...{ pessoa: this.formPerson.value } };
         this._loading.show();
         this._authenticationService.register(payload).pipe(takeUntil(this.onDestroy$)).subscribe(response => {
             if (response) {
-                console.log(response);
+                this._router.navigate([`../login`], { relativeTo: this._activatedRoute });
+                this._toastr.success('Conta criada com Sucesso!');
             }
             this._loading.hide();
         },
             error => {
                 this._loading.hide();
-                console.log(error);
+                this._toastr.error(error.error.message);
             });
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.onDestroy$.next();
         this.onDestroy$.complete();
     }

@@ -5,7 +5,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CategoryService } from 'src/app/services/category.service';
 import { Config } from 'src/app/shared/components/several-components/data-table/config';
@@ -30,6 +31,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _categoryService: CategoryService,
     private _dialog: MatDialog,
     private _currencyPipe: CurrencyPipe,
+    private _toastr: ToastrService
   ) {}
 
   title = 'Categorias';
@@ -75,7 +77,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        console.log(error);
+        this._toastr.error(error.error.message);
       }
     );
     this.filterOptions();

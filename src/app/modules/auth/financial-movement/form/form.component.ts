@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment-timezone';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account.service';
@@ -52,7 +53,8 @@ export class FormComponent implements OnInit, OnDestroy {
     private _accountService: AccountService,
     private _dashboardService: DashboardService,
     private _loadingService: LoadingService,
-    private _currencyPipe: CurrencyPipe
+    private _currencyPipe: CurrencyPipe,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -319,7 +321,7 @@ export class FormComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
-          console.log(error);
+          this._toastr.error(error.error.message);
           this._loadingService.hide();
         }
       );

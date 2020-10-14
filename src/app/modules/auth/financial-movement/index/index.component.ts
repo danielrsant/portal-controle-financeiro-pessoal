@@ -6,6 +6,7 @@ import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CategoryService } from 'src/app/services/category.service';
@@ -35,6 +36,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _financialMovementService: FinancialMovementService,
     private _currencyPipe: CurrencyPipe,
     private _dialog: MatDialog,
+    private _toastr: ToastrService
   ) { }
 
   title = 'Movimentações';
@@ -109,7 +111,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        console.log(error);
+        this._toastr.error(error.error.message);
       }
     );
     this.filterOptions();

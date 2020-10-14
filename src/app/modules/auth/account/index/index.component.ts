@@ -5,6 +5,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account.service';
@@ -30,6 +31,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _accountService: AccountService,
     private _dialog: MatDialog,
     private _currencyPipe: CurrencyPipe,
+    private _toastr: ToastrService
   ) { }
 
   title = 'Contas';
@@ -77,7 +79,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        console.log(error);
+        this._toastr.error(error.error.message);
       }
     );
     this.filterOptions();

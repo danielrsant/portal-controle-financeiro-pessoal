@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay } from 'angular-calendar';
 import { isSameDay, isSameMonth, startOfDay } from 'date-fns';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { sharedAnimations } from 'src/app/shared/animations';
@@ -39,7 +40,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
     constructor(
         private _matDialog: MatDialog,
-        private _calendarService: CalendarService
+        private _calendarService: CalendarService,
+        private _toastr: ToastrService
     ) {
         // Set the defaults
         this.view = 'month';
@@ -93,7 +95,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
             }
         },
             (error) => {
-                console.log(error);
+                this._toastr.error(error.error.message);
             }
         );
     }
