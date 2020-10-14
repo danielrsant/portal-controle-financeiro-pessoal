@@ -2,7 +2,7 @@
   <app-header [title]="title" [icon]="icon">
   </app-header>
 
-  <mat-card fxFlex fxLayout="row" fxLayoutAlign="space-evenly" class="content-page-form">
+  <mat-card fxFlex fxLayout="row" fxLayoutAlign="space-evenly" class="content-page-form" style="padding-bottom: 38px;">
 
     <div cdkDropListGroup class="group">
 
@@ -13,7 +13,7 @@
           <div>
             <button color="primary" mat-stroked-button (click)="addToDo('fazer')">
               <mat-icon>add</mat-icon>
-              <span>Adicionar</span>
+              <span>Criar Tarefa</span>
             </button>
           </div>
         </div>
@@ -25,7 +25,7 @@
 
         <div cdkDropList [cdkDropListData]="toDo" class="list" (cdkDropListDropped)="drop($event, 'toDo')">
           <div class="box" *ngFor="let item of toDo; let index = index" cdkDrag>
-            <span *ngIf="!(index === editIndexToDo)">{{ item?.description }}</span>
+            <span *ngIf="!(index === editIndexToDo)" class="edit-cursor" (dblclick)="editToDo(index)">{{ item?.descricao }}</span>
             <span *ngIf="index === editIndexToDo">
               <app-input-text (keyup)="$event.keyCode === 13 ? update(item, 'toDo', $event) : $event.preventDefault()"
                 [formGroup]="form" [formcontrolname]="'editToDo'" [appearance]="'standard'"
@@ -47,7 +47,7 @@
           <div>
             <button color="primary" mat-stroked-button (click)="addDone('feito')">
               <mat-icon>add</mat-icon>
-              <span>Adicionar</span>
+              <span>Criar Tarefa</span>
             </button>
           </div>
         </div>
@@ -59,7 +59,7 @@
 
         <div cdkDropList [cdkDropListData]="done" class="list" (cdkDropListDropped)="drop($event, 'done')">
           <div class="box" *ngFor="let item of done; let index = index" cdkDrag>
-            <span *ngIf="!(index === editIndexDone)">{{ item?.description }}</span>
+            <span *ngIf="!(index === editIndexDone)" class="edit-cursor" (dblclick)="editDone(index)">{{ item?.descricao }}</span>
             <span *ngIf="index === editIndexDone">
               <app-input-text (keyup)="$event.keyCode === 13 ? update(item, 'done', $event) : $event.preventDefault()"
                 [formGroup]="form" [formcontrolname]="'editDone'" [appearance]="'standard'"

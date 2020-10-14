@@ -1,7 +1,9 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Operation } from 'src/app/shared/enums/operation';
 
 import { ToDoService } from '../../../../services/to-do.service';
@@ -20,17 +22,6 @@ export class IndexComponent implements OnInit, OnDestroy {
   form: FormGroup;
   destroy$ = new Subject();
 
-  data = [
-    { id: 1, description: 'Descrição', done: false },
-    { id: 2, description: 'Descrição', done: false },
-    { id: 3, description: 'Descrição', done: false },
-    { id: 4, description: 'Descrição', done: false },
-    { id: 5, description: 'Descrição', done: true },
-    { id: 6, description: 'Descrição', done: true },
-    { id: 7, description: 'Descrição', done: true },
-    { id: 8, description: 'Descrição', done: true },
-  ];
-
   toDo = [];
   done = [];
 
@@ -41,7 +32,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   editIndexDone: number;
 
   constructor(
-    private _toDoService: ToDoService
+    private _toDoService: ToDoService,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -51,18 +43,32 @@ export class IndexComponent implements OnInit, OnDestroy {
       newDone: new FormControl(),
       editDone: new FormControl()
     });
-
-    this.separateData();
+    
+    this.onRefresh();
   }
 
-  separateData(): void {
-    this.data.forEach(element => {
-      if (element.done) {
-        this.done.push(element);
-      } else {
-        this.toDo.push(element);
+  onRefresh(): void {
+    this._toDoService.loadAll().pipe(takeUntil(this.destroy$)).subscribe(
+      (response: any) => {
+        if (response) {
+          this.toDo = [];
+          this.done = [];
+          response.data.forEach(element => {
+            if (element.concluido) {
+              this.done.push(element);
+            } else {
+              this.toDo.push(element);
+            }
+          });
+
+          console.log(response);
+          
+        }
+      },
+      (error) => {
+        this._toastr.error(error.error.message);
       }
-    });
+    );
   }
 
 
@@ -78,17 +84,14 @@ export class IndexComponent implements OnInit, OnDestroy {
       );
 
       const obj: any = event.container.data[event.currentIndex];
-
-      this.data.map(element => {
-        if (element.id === obj.id) {
-          if (type === 'done') {
-            element.done = true;
-          } else {
-            element.done = false;
-          }
-        }
-      });
-
+      obj.pessoa = obj.pessoa.id;
+      if (type === 'toDo') {
+        obj.concluido = false;
+      } else {
+        obj.concluido = true;
+      }
+      
+      this.save(obj);
     }
   }
 
@@ -117,32 +120,66 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   update(item, type: 'toDo' | 'done', event): void {
-    this.data = this.data.map(element => {
-      if (element.id === item.id) {
-        element.description = event.target.value;
-      }
-      return element;
-    });
+    const payload = {
+      id: item.id,
+      descricao: event.target.value, 
+      concluido: type === 'toDo' ? false : true,
+      pessoa: JSON.parse(localStorage.getItem('user')).id
+    };
+    
+   
 
-    if (type === 'toDo') {
-      this.editIndexToDo = null;
-    } else {
-      this.editIndexDone = null;
-    }
+    this.save(payload);
   }
 
   create(type: 'toDo' | 'done', event): void {
-    if (type === 'toDo') {
-      this.toDo.splice(0, 0, { id: this.toDo.length, description: event.target.value, done: false });
-      this.form.get('newToDo').setValue(null);
-    } else {
-      this.done.splice(0, 0, { id: this.done.length, description: event.target.value, done: true });
-      this.form.get('newDone').setValue(null);
-    }
+    const payload = {
+      descricao: event.target.value, 
+      concluido: type === 'toDo' ? false : true,
+      pessoa: JSON.parse(localStorage.getItem('user')).id
+    };
+
+    this.save(payload);
+  }
+
+  save(payload): void {
+    this._toDoService.save(payload).pipe(takeUntil(this.destroy$)).subscribe(
+      (response: any) => {
+        if (response) {
+          if (payload.id) {
+            this._toastr.success('Atualizado com Sucesso!');     
+            if (payload.concluido) {
+              this.editIndexDone = null;
+            } else {
+              this.editIndexToDo = null;
+            }
+          } else {
+            this._toastr.success('Adicionado com Sucesso!');
+            if (payload.concluido) {
+              this.showInputNewDone = false;
+            } else {
+              this.showInputNewToDo = false;
+            }
+          }
+          this.onRefresh();
+        }
+      },
+      (error) => {
+        this._toastr.error(error.error.message);
+      }
+    );
   }
 
   delete(item): void {
-
+    this._toDoService.destroy(item.id).pipe(takeUntil(this.destroy$)).subscribe(
+      (response: any) => {
+          this._toastr.success('Excluído com Sucesso!');
+          this.onRefresh();
+      },
+      (error) => {
+        this._toastr.error(error.error.message);
+      }
+    );
   }
 
   ngOnDestroy(): void {

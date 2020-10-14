@@ -29,20 +29,16 @@ export class ToDoService {
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
-  create(payload: any): Observable<any> {
+  save(payload: any): Observable<any> {
     const url = `${ this.API_BASE_URL }/tarefas`;
 
     return this.http.post(url, payload);
   }
 
-  update(id: number, payload: any): Observable<any> {
-    const url = `${this.API_BASE_URL}/tarefas/${id}`;
+  destroy(id: number): Observable<any> {
+    const url = `${ this.API_BASE_URL }/tarefas/${id}`;
 
-    return this.http.put(url, payload).pipe(map((result: any) => result.data));
-  }
-
-  destroy(id: number): boolean {
-    return;
+    return this.http.delete(url);
   }
 
 }
