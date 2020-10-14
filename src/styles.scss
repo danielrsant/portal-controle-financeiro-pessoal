@@ -2,11 +2,7 @@
 @import "./app/shared/@decorators/scss/breakpoints.scss";
 @import '~perfect-scrollbar/css/perfect-scrollbar.css';
 
-html, body {
-    min-height: 100vh;
-    height: auto;
-    margin: 0;
-}
+html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .content-page {
