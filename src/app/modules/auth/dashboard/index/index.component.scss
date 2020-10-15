@@ -14,10 +14,10 @@
 
         .card-header {
             border-radius: 3px;
-            padding: 15px;
+            padding: 5px;
             margin: -50px 5px 5px 0px;
             float: left;
-            height: 85px;
+            height: 65px;
 
             .card-icon {
                 color: white;
@@ -153,6 +153,13 @@
     background: -webkit-linear-gradient(to left, #9752a7, #9931B1);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #9752a7, #9931B1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(96, 7, 104, 0.4);
+} 
+
+.card-color-orange {
+    background: #bf5d2e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #75442d, #743214);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #75442d, #743214); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(96, 7, 104, 0.4);
 }
 
 mat-card-title {
@@ -164,6 +171,37 @@ mat-card-title {
 
     .chart-align {
         justify-self: center !important
+    }
+}
+
+::ng-deep .advanced-pie-legend .total-value {
+    font-size: 36px !important;
+    height: 30px !important;
+}
+
+::ng-deep .advanced-pie-legend .legend-items-container .legend-items .legend-item .item-color {
+    float: left !important;
+    height: 55px !important;
+    margin-right: 7px !important;
+    width: 4px !important;
+}
+
+::ng-deep .advanced-pie-legend .legend-items-container .legend-items {
+    white-space: nowrap !important;
+    height: 70px !important;
+}
+
+::ng-deep .advanced-pie-legend .legend-items-container .legend-items .legend-item {
+    cursor: pointer !important;
+    display: inline-block !important;
+    margin-right: 20px !important;
+    margin-top: 5px !important;
+
+    .item-value {
+        font-size: 24px !important;
+        margin-left: 11px !important;
+        margin-top: -6px !important;
+        margin-bottom: 5px !important;
     }
 }
 

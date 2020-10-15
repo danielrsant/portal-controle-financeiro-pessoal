@@ -52,14 +52,20 @@ export class IndexComponent implements OnInit, OnDestroy {
     {
       title: 'Saldo Disponível',
       subTitle: '',
-      icon: 'account_balance',
+      icon: 'account_balance_wallet',
       color: 'card-color-blue',
     },
     {
       title: 'Saldo Previsto',
       subTitle: '',
-      icon: 'account_balance_wallet',
+      icon: 'request_page',
       color: 'card-color-pinot-noir',
+    },
+    {
+      title: 'Balanço Diário',
+      subTitle: '',
+      icon: 'account_balance_wallet',
+      color: 'card-color-orange',
     },
   ];
 
@@ -224,15 +230,26 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dashboardService.getLineChart().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.times = response.data.map(element => {
-            element.series = element.items.map(item => {
-              item.value = parseFloat(item.value);
-              return item;
+          const despesa: any = {};
+          const receita: any = {};
+          despesa.name = 'Despesas';
+          receita.name = 'Receitas';
+          despesa.series = [];
+          receita.series = [];
+
+          response.data.forEach(element => {
+            element.items.forEach(item => {
+              despesa.series = [...despesa.series, ...[{
+                value: parseFloat(item.total_despesa),
+                name: item.name
+              }]];
+              receita.series = [...receita.series, ...[{
+                value: parseFloat(item.total_receita),
+                name: item.name
+              }]];
             });
-            element.name = element.descricao;
-            delete element.items;
-            delete element.descricao;
-            return element;
+
+            this.times = [ despesa, receita ];
           });
         }
       },
@@ -269,7 +286,6 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dashboardService.getLimits().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-
           response.data.forEach(element => {
             const max = parseFloat(element.limite) + parseFloat(element.limite);
             const limitValue = parseFloat(element.limite);
@@ -279,7 +295,7 @@ export class IndexComponent implements OnInit, OnDestroy {
             let icon = '';
             let color = '';
 
-            if ((limitValue / 2) < value) {
+            if (limitValue < value) {
               status = 'Ultrapassou o limite!';
               icon = 'sentiment_very_dissatisfied';
               color = 'red';
@@ -339,6 +355,16 @@ export class IndexComponent implements OnInit, OnDestroy {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
   }
 
+  formatDataLabel(value): string {
+    return 'R$ ' + value;
+  }
+
+  formatDataLabel2(value): string {
+    console.log(value);
+    
+    return value + '%';
+  }
+ 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
