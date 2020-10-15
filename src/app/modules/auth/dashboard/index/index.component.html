@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column">
     <div fxFlex fxLayout="row wrap" fxLayoutAlign="flex-start" class="content">
-        <div fxFlex fxLayout="row" *ngFor="let card of cards">
+        <div fxFlex fxLayout="row wrap" *ngFor="let card of cards">
             <mat-card fxFlex class="card card-top">
                 <div class="card-header {{card?.color}} card-header-icon">
                     <mat-icon class="card-icon">{{ card?.icon }}</mat-icon>
