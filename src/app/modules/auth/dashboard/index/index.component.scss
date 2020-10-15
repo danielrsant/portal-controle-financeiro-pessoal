@@ -26,6 +26,8 @@
             @include media-breakpoint('lt-sm') {
                 height: 50px;
                 width: 50px;
+                text-align: center;
+                padding-top: 13px;
             }
 
             @include media-breakpoint('gt-xs') {

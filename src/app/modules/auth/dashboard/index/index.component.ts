@@ -64,7 +64,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     {
       title: 'Balanço Diário',
       subTitle: '',
-      icon: 'account_balance_wallet',
+      icon: 'account_balance',
       color: 'card-color-orange',
     },
   ];
