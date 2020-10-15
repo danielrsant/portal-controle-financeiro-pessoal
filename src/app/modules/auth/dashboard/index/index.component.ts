@@ -240,16 +240,17 @@ export class IndexComponent implements OnInit, OnDestroy {
           response.data.forEach(element => {
             element.items.forEach(item => {
               despesa.series = [...despesa.series, ...[{
-                value: parseFloat(item.total_despesa),
+                value: item.total_despesa,
                 name: item.name
               }]];
               receita.series = [...receita.series, ...[{
-                value: parseFloat(item.total_receita),
+                value: item.total_receita,
                 name: item.name
               }]];
             });
 
             this.times = [ despesa, receita ];
+            
           });
         }
       },
@@ -273,7 +274,11 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dashboardService.getPieChartData(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.single = response.data;
+          this.single = response.data.map(element => {
+            element.value = parseFloat(element.value);
+            delete element.limite;
+            return element;   
+          });
         }
       },
       (error) => {
@@ -356,12 +361,10 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   formatDataLabel(value): string {
-    return 'R$ ' + value;
+    return value + ' reais';
   }
 
   formatDataLabel2(value): string {
-    console.log(value);
-    
     return value + '%';
   }
  
