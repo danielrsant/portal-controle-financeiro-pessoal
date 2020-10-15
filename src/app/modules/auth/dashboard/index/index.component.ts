@@ -240,17 +240,16 @@ export class IndexComponent implements OnInit, OnDestroy {
           response.data.forEach(element => {
             element.items.forEach(item => {
               despesa.series = [...despesa.series, ...[{
-                value: item.total_despesa,
+                value: parseFloat(item.total_despesa),
                 name: item.name
               }]];
               receita.series = [...receita.series, ...[{
-                value: item.total_receita,
+                value: parseFloat(item.total_receita),
                 name: item.name
               }]];
             });
 
             this.times = [ despesa, receita ];
-            
           });
         }
       },
