@@ -103,7 +103,7 @@ export class FormComponent implements OnInit, OnDestroy {
           this.form.patchValue(response);
           const { tipoConta, instituicaoFinanceira, pessoa } = response;
           this.form.get('tipoConta').setValue(tipoConta.id);
-          this.form.get('instituicaoFinanceira').setValue(instituicaoFinanceira.id);
+          this.form.get('instituicaoFinanceira').setValue(instituicaoFinanceira ? instituicaoFinanceira.id : null);
           this.form.get('pessoa').setValue(pessoa.id);
 
           if (this.operation === Operation.VIEW) {

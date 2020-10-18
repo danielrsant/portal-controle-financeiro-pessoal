@@ -40,6 +40,13 @@ export class PageConfig {
       align: 'start',
     },
     {
+      label: 'Incluir soma na dashboard',
+      property: 'incluirSoma',
+      type: 'checkbox',
+      visible: true,
+      align: 'start',
+    },
+    {
       label: 'Status',
       property: 'status',
       type: 'checkbox',
@@ -61,6 +68,23 @@ export class PageConfig {
       type: 'text',
       label: 'Descrição',
       fxFlex: '60'
+    },
+    {
+      formcontrolname: 'instituicaoFinanceira',
+      type: 'select',
+      label: 'Instituição financeira',
+      fxFlex: '60',
+      select: {
+        data: [],
+        valueField: 'id',
+        displayField: 'descricao',
+        searchField: 'descricao'
+      }
+    },
+    {
+      formcontrolname: 'incluirSoma',
+      type: 'toggle',
+      label: 'Incluir soma na dashboard?',
     },
     {
       formcontrolname: 'status',

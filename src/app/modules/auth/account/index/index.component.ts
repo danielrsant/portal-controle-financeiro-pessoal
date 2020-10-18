@@ -1,3 +1,4 @@
+import { FinancialInstitutionService } from './../../../../services/financial-institution.service';
 import { AUTO_STYLE } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CurrencyPipe } from '@angular/common';
@@ -31,7 +32,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _accountService: AccountService,
     private _dialog: MatDialog,
     private _currencyPipe: CurrencyPipe,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _financialInstutionalService: FinancialInstitutionService,
   ) { }
 
   title = 'Contas';
@@ -52,6 +54,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
 
   ngOnInit(): void {
+    this.setFormFilter();
     this.onRefresh(this.paginationInitial);
   }
 
@@ -83,6 +86,16 @@ export class IndexComponent implements OnInit, OnDestroy {
       }
     );
     this.filterOptions();
+  }
+
+  setFormFilter(): void {
+    this._financialInstutionalService.loadAll({ filter: 'status||$eq||1' })
+      .pipe(takeUntil(this.destroy$)).subscribe((response: any) => {
+        if (!response) { return; }
+        const instituicaoFinanceira = this.filterFields.find(field => field.formcontrolname === 'instituicaoFinanceira');
+        instituicaoFinanceira.select.data = response.data;
+      });
+
   }
 
   filterOptions(): void {

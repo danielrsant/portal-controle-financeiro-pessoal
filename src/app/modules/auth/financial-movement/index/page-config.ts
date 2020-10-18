@@ -41,15 +41,15 @@ export class PageConfig {
       align: 'start',
     },
     {
-      label: 'Dt. conclusão',
-      property: 'dtConclusao',
+      label: 'Dt. vencimento',
+      property: 'dtConta',
       type: 'text',
       visible: true,
       align: 'center',
     },
     {
-      label: 'Dt. limite',
-      property: 'dtConta',
+      label: 'Dt. pagamento',
+      property: 'dtConclusao',
       type: 'text',
       visible: true,
       align: 'center',
@@ -138,12 +138,12 @@ export class PageConfig {
     {
       formcontrolname: 'dtConta',
       type: 'datepicker',
-      label: 'Data limite'
+      label: 'Dt. vencimento'
     },
     {
       formcontrolname: 'dtConclusao',
       type: 'datepicker',
-      label: 'Data de conclusão'
+      label: 'Dt. pagamento'
     },
     {
       formcontrolname: 'concluido',

@@ -44,6 +44,12 @@ export class FormComponent implements OnInit, OnDestroy {
 
   destroy$ = new Subject();
 
+  repetitionType = [
+    { id: 1, descricao: 'Único' },
+    { id: 2, descricao: 'Todo mês' },
+    { id: 3, descricao: 'Parcelado' },
+  ]
+
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
@@ -62,7 +68,6 @@ export class FormComponent implements OnInit, OnDestroy {
     this.createForm();
     this.onRefresh();
     this.setParamsAccount();
-    this.onListenToggleInput();
     this.setForm();
   }
 
@@ -88,15 +93,6 @@ export class FormComponent implements OnInit, OnDestroy {
     });
   }
 
-  onListenToggleInput(): void {
-    this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((data) => {
-      if (data.contaFixa && data.repetir) {
-        this.form.get('contaFixa').reset();
-        this.form.get('repetir').reset();
-      }
-    });
-  }
-
   onChangeConcluidoToggleButton(value): void {
     if (this.operation === Operation.EDIT) {
       if (value) {
@@ -111,6 +107,36 @@ export class FormComponent implements OnInit, OnDestroy {
       }
     }
 
+    if (value) {
+      this.form.get('dtConclusao').enable();
+      const date = this.form.get('dtConclusao').value ? this.form.get('dtConclusao').value : new Date();
+      this.form.get('dtConclusao').setValue(date);
+    } else {
+      this.form.get('dtConclusao').disable();
+    }
+
+    if (this.form.controls.dtLembrete.invalid) {
+      this._toastr.error('A data de lembrete é menor que a data atual');
+    }
+  }
+
+  onChangeSelectRepetitionType(value): void {
+    switch (value) {
+      case 1:
+        this.form.get('contaFixa').setValue(0);
+        this.form.get('repetir').setValue(0);
+        this.form.get('repetir').disable();
+        break;
+      case 2:
+        this.form.get('contaFixa').setValue(1);
+        this.form.get('repetir').setValue(0);
+        this.form.get('repetir').disable();
+        break;
+      case 3:
+        this.form.get('contaFixa').setValue(0);
+        this.form.get('repetir').enable();
+        break;
+    }
   }
 
   setOperation(): void {
@@ -140,7 +166,7 @@ export class FormComponent implements OnInit, OnDestroy {
       ]),
       total: new FormControl(0, [Validators.required, Validators.min(0.01)]),
       dtConta: new FormControl(new Date(), Validators.required),
-      dtConclusao: new FormControl(null),
+      dtConclusao: new FormControl({ value: null, disabled: true }),
       dtLembrete: new FormControl(null),
       concluido: new FormControl(0),
       contaFixa: new FormControl(0),
@@ -148,7 +174,8 @@ export class FormComponent implements OnInit, OnDestroy {
       tipoMovimentacao: new FormControl(1, Validators.required),
       conta: new FormControl(null, Validators.required),
       pessoa: new FormControl({ id: pessoa.id }),
-      repetir: new FormControl(0),
+      repetir: new FormControl({ value: 0, disabled: true }),
+      tipoRepeticao: new FormControl(1, Validators.required)
     });
   }
 
@@ -169,12 +196,15 @@ export class FormComponent implements OnInit, OnDestroy {
             if (['dtConta', 'dtLembrete', 'dtConclusao'].includes(key) && response[key]) {
 
               const [year, month, day] = response[key].split('-');
-              response[key] = new Date(year, month - 1, day);
+              response[key] = moment.tz(new Date(year, month - 1, day), 'America/Sao_Paulo').toDate();
             }
           });
 
+          const { categoria, tipoMovimentacao, pessoa, concluido, conta, contaFixa } = response;
+
+          this.onChangeConcluidoToggleButton(concluido);
+          this.onChangeSelectRepetitionType(contaFixa ? contaFixa : 1);
           this.form.patchValue(response);
-          const { categoria, tipoMovimentacao, pessoa, concluido, conta } = response;
           this.form.get('categoria').setValue(categoria.id);
           this.form.get('tipoMovimentacao').setValue(tipoMovimentacao.id);
           this.form.get('pessoa').setValue(pessoa.id);
@@ -187,11 +217,10 @@ export class FormComponent implements OnInit, OnDestroy {
             this.form.get('contaFixa').disable();
           }
 
-          this.onChangeConcluidoToggleButton(concluido);
           this._loadingService.hide();
         },
         (err) => {
-          console.log(err);
+          this._toastr.error(err);
           this._loadingService.hide();
         }
       );
@@ -220,9 +249,9 @@ export class FormComponent implements OnInit, OnDestroy {
             const { total } = res;
 
             if (parseFloat(total) === parseFloat(limite)) {
-              alert(`Você atingiu o limite de ${this._currencyPipe.transform(limite, 'BRL')} na categoria ${descricao}!`);
+              this._toastr.warning(`Você atingiu o limite de ${this._currencyPipe.transform(limite, 'BRL')} na categoria ${descricao}!`);
             } else if (parseFloat(total) > parseFloat(limite)) {
-              alert(`Você ultrapassou o limite de ${this._currencyPipe.transform(limite, 'BRL')} na categoria ${descricao}!`);
+              this._toastr.warning(`Você ultrapassou o limite de ${this._currencyPipe.transform(limite, 'BRL')} na categoria ${descricao}!`);
             }
 
             if (this.operation === Operation.NEW) {
@@ -236,11 +265,11 @@ export class FormComponent implements OnInit, OnDestroy {
             }
           }, err => {
             this._loadingService.hide();
-            console.log(err);
+            this._toastr.error(err);
           });
         }, err => {
           this._loadingService.hide();
-          console.log(err);
+          this._toastr.error(err);
         });
     } else {
       if (this.operation === Operation.NEW) {
@@ -257,14 +286,14 @@ export class FormComponent implements OnInit, OnDestroy {
 
   onSave(): void {
     this._loadingService.show();
+
+    const { dtConclusao } = this.form.controls;
+
+    if (dtConclusao.disabled) {
+      dtConclusao.setValue(null);
+    }
+
     if (this.form.dirty) {
-      if (this.form.get('concluido').value) {
-        this.form
-          .get('dtConclusao')
-          .setValue(
-            moment.tz(new Date(), 'America/Sao_Paulo').format('YYYY-MM-DD')
-          );
-      }
       if (this.operation === Operation.NEW) {
         this.onCreate();
       } else {
