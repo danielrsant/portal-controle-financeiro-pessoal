@@ -1,0 +1,21 @@
+<div fxFlex fxLayout="column">
+
+  <app-header [title]="title" [icon]="icon">
+  </app-header>
+
+  <div fxLayout="row" fxLayoutGap="15px" class="content">
+    <mat-card *ngFor="let item of dataSource">
+      <mat-card-content>
+        <mat-card-title>{{ item?.descricao }}</mat-card-title>
+        <mat-card-subtitle class="mt-5">Restam 30 dias - {{ item?.dtConclusao | date: 'dd/MM/yyyy' }}</mat-card-subtitle>
+        <mat-progress-bar mode="determinate" value="35"></mat-progress-bar>
+        <mat-card-subtitle class="mt-5">R$45,00 de {{  item?.total | currency: 'BRL' }}</mat-card-subtitle>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card fxLayoutAlign="center center" (click)="onCreate()">
+      <mat-card-title>Criar novo objetivo</mat-card-title>
+    </mat-card>
+  </div>
+
+</div>

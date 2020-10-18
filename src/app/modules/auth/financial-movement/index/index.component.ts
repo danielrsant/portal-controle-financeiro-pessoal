@@ -31,12 +31,12 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _utilsService: UtilsService,
     private _loadingService: LoadingService,
+    private _dialog: MatDialog,
+    private _toastr: ToastrService,
+    private _currencyPipe: CurrencyPipe,
     private _categoryService: CategoryService,
     private _movementTypeService: MovementTypeService,
     private _financialMovementService: FinancialMovementService,
-    private _currencyPipe: CurrencyPipe,
-    private _dialog: MatDialog,
-    private _toastr: ToastrService
   ) { }
 
   title = 'Movimentações';

@@ -14,16 +14,16 @@
           <button mat-raised-button color="primary" matStepperNext>Próximo</button>
         </form>
       </mat-step>
-      
+
       <!-- <mat-step [stepControl]="form" label="Informe sua meta total de gastos para o mês">
         <mat-slider style="display: flex; margin-top: 30px" color="primary" [max]="100" [min]="0" [step]="5"
           [thumbLabel]="true" [(ngModel)]="percentualDespesa" [vertical]="false">
         </mat-slider>
-    
+
         <h3 style="width: 100%; text-align: center;">{{ percentualDespesa }}% -
           {{ form.get('receitaMensal').value * (percentualDespesa / 100) | currency: 'BRL' }}
         </h3>
-    
+
         <div fxLayoutGap="15px">
           <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
           <button mat-raised-button color="primary" matStepperNext>Próximo</button>

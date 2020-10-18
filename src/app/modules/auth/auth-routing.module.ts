@@ -47,6 +47,10 @@ const routes: Routes = [
         loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
       },
       {
+        path: 'objetivos',
+        loadChildren: () => import('./objective/objective.module').then(m => m.ObjectiveModule)
+      },
+      {
         path: 'perfil',
         loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
       },
