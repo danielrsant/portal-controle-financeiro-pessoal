@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
@@ -10,7 +10,7 @@ import { StyleService } from 'src/app/shared/services/style.service';
   templateUrl: './input-select.component.html',
   styleUrls: ['./input-select.component.scss']
 })
-export class InputSelectComponent implements OnInit, OnDestroy {
+export class InputSelectComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() formGroup: FormGroup;
   @Input() formcontrolname: string;
@@ -47,7 +47,7 @@ export class InputSelectComponent implements OnInit, OnDestroy {
     private _styleService: StyleService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.appearance$ = this._styleService.appearance$;
 
     this.dataFilterCtrl.valueChanges.pipe(debounceTime(300), takeUntil(this.onDestroy$)).subscribe(
@@ -59,21 +59,21 @@ export class InputSelectComponent implements OnInit, OnDestroy {
       });
   }
 
-  onSearch(value) {
+  onSearch(value): void {
     this.dataFilterCtrl.setValue(value);
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (this.data) {
       this.filteredData.next(this.data);
     }
   }
 
-  checkRequired() {
+  checkRequired(): any {
     return this._utilsService.hasRequiredField(this.formGroup.get(this.formcontrolname));
   }
 
-  protected filterData() {
+  protected filterData(): any {
     if (!this.data) {
       return;
     }
@@ -93,13 +93,13 @@ export class InputSelectComponent implements OnInit, OnDestroy {
     this._cdr.detectChanges();
   }
 
-  onSelectChange(event) {
+  onSelectChange(event): void {
     this.select.emit(event);
     this.formGroup.get(this.formcontrolname).setValue(event.value);
     this.selectSearch.setValue(null);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.onDestroy$.next();
     this.onDestroy$.complete();
   }
