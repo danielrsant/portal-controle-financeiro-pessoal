@@ -22,6 +22,7 @@ export const ROUTES: any[] = [
       { route: '/auth/contas', label: 'Contas', icon: 'account_balance_wallet', type: 'link' },
       { route: '/auth/fazer', label: 'Gerenciador de Tarefas', icon: 'content_paste', type: 'link' },
       { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'import_export', type: 'link' },
+      { route: '/auth/objetivos', label: 'Objetivos', icon: 'date_range', type: 'link' },
       { route: '/auth/planejamento', label: 'Planejamento', icon: 'card_travel', type: 'link' },
     ]
   },

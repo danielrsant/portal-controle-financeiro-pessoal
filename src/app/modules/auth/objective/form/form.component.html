@@ -15,7 +15,6 @@
       label="Selecione a data de conclusao" [min]="dtHoje">
     </app-input-datepicker>
 
-    <app-input-currency *ngIf="operation === 'EDIT'" fxFlex [formGroup]="formMovimentacao" formcontrolname="total" label="Valor do depósito">
-    </app-input-currency>
+    <button mat-raised-button *ngIf="operation === 'EDIT'" color="primary" (click)="openDialog()">Depositar</button>
   </mat-card>
 </div>

@@ -9,6 +9,8 @@ import { takeUntil } from 'rxjs/operators';
 import { FinancialMovementService } from '../../../../services/financial-movement.service';
 import { LoadingService } from '../../../../shared/components/several-components/loading/loading.service';
 import { Operation } from './../../../../shared/enums/operation';
+import { MatDialog } from '@angular/material/dialog';
+import { FormDialogComponent } from '../components/form-dialog/form-dialog.component';
 
 // tslint:disable: variable-name
 
@@ -37,7 +39,8 @@ export class FormComponent implements OnInit, OnDestroy {
     private _objectiveService: ObjectiveService,
     private _financialMovementService: FinancialMovementService,
     private _loadingService: LoadingService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -81,23 +84,6 @@ export class FormComponent implements OnInit, OnDestroy {
       pessoa: new FormControl({ id: pessoa.id }),
     });
 
-    this.formMovimentacao = new FormGroup({
-      id: new FormControl(null),
-      descricao: new FormControl(null, [
-        Validators.required,
-        Validators.maxLength(150),
-      ]),
-      total: new FormControl(0, [Validators.required, Validators.min(0.01)]),
-      dtConta: new FormControl(new Date(), Validators.required),
-      dtConclusao: new FormControl({ value: null, disabled: true }),
-      dtLembrete: new FormControl(null),
-      concluido: new FormControl(0),
-      contaFixa: new FormControl(0),
-      categoria: new FormControl(null, Validators.required),
-      tipoMovimentacao: new FormControl(1, Validators.required),
-      conta: new FormControl(null, Validators.required),
-      pessoa: new FormControl({ id: pessoa.id }),
-    });
   }
 
   setForm(): void {
@@ -178,6 +164,19 @@ export class FormComponent implements OnInit, OnDestroy {
       err => {
         this._toastr.error(err);
         this._loadingService.hide();
+      });
+  }
+
+  openDialog(): void {
+    this._dialog.open(FormDialogComponent, {
+      data: {
+        objetivoId: this.form.get('id').value,
+        descricao: this.form.get('descricao').value
+      },
+    })
+      .afterClosed()
+      .subscribe(response => {
+        console.log('response', response);
       });
   }
 
