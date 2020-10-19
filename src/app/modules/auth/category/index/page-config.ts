@@ -17,6 +17,7 @@ export class PageConfig {
       type: 'text',
       visible: true,
       align: 'start',
+      sort: true
     },
     {
       label: 'Descrição',
@@ -24,6 +25,7 @@ export class PageConfig {
       type: 'text',
       visible: true,
       align: 'start',
+      sort: true
     },
     {
       label: 'Limite',

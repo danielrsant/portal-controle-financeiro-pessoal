@@ -87,10 +87,10 @@
             </td>
           </ng-container>
 
-          <ng-container *ngFor="let column of columns; trackBy: trackByProperty">
+          <ng-container *ngFor="let column of columns; trackBy: trackByProperty" [matColumnDef]="column.property">
 
             <!-- Image Column -->
-            <ng-container *ngIf="column.type === 'image'" [matColumnDef]="column.property">
+            <ng-container *ngIf="column.type === 'image'">
               <th *matHeaderCellDef mat-header-cell></th>
               <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
                 <img [src]="row[column.property] || DEFAULT_AVATAR" class="avatar h-8 w-8 align-middle">
@@ -98,7 +98,7 @@
             </ng-container>
 
             <!-- Checkbox Column -->
-            <ng-container *ngIf="column.type === 'checkbox'" [matColumnDef]="column.property">
+            <ng-container *ngIf="column.type === 'checkbox'">
               <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label.toUpperCase() }}</th>
               <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
                 <mat-checkbox [checked]="row[column.property]" [disabled]="column.disabled" color="primary">
@@ -107,7 +107,7 @@
             </ng-container>
 
             <!-- Color Column -->
-            <ng-container *ngIf="column.type === 'color'" [matColumnDef]="column.property">
+            <ng-container *ngIf="column.type === 'color'">
               <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label.toUpperCase() }}</th>
               <td *matCellDef="let row" class="w-8 min-w-8 pr-0" [ngStyle]="{'text-align': column?.align}" mat-cell>
                 <mat-icon [color]="row[column.property]">colorize</mat-icon>
@@ -115,24 +115,30 @@
             </ng-container>
 
             <!-- Text Columns -->
-            <ng-container *ngIf="column.type === 'icon'" [matColumnDef]="column.property">
-              <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}
-              </th>
+            <ng-container *ngIf="column.type === 'icon'">
               <td *matCellDef="let row" [ngClass]="column.cssClasses" [ngStyle]="{'text-align': column?.align}"
                 mat-cell><mat-icon [ngStyle]="{'color': row[column.property].color}">{{ row[column.property].icon }}</mat-icon></td>
             </ng-container>
 
             <!-- Text Columns -->
-            <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
-              <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}
-              </th>
+            <ng-container *ngIf="column.type === 'text'">
+              <ng-container *ngIf="column.sort">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ column.label.toUpperCase() }}
+                </th>
+              </ng-container>
+              <ng-container *ngIf="!column.sort">
+                <th mat-header-cell *matHeaderCellDef>
+                  {{ column.label.toUpperCase() }}
+                </th>
+              </ng-container>
               <td *matCellDef="let row" [ngClass]="column.cssClasses" [ngStyle]="{'text-align': column?.align}"
                 mat-cell>{{ row[column.property] }}</td>
             </ng-container>
 
             <!-- Actions Column -->
-            <ng-container *ngIf="column.type === 'actions'" [matColumnDef]="column.property">
-              <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label.toUpperCase() }}
+            <ng-container *ngIf="column.type === 'actions'">
+              <th *matHeaderCellDef class="uppercase" mat-header-cell> {{ column.label.toUpperCase() }}
               </th>
               <td [ngStyle]="{'text-align': column?.align}" mat-cell *matCellDef="let element" class="right-align">
                 <button mat-icon-button [matMenuTriggerFor]="moreMenu" (click)="$event.stopPropagation();">
