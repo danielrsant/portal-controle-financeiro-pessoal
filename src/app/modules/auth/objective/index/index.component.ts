@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ObjectiveService } from 'src/app/services/objective.service';
 import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
 import { UtilsService } from 'src/app/shared/services/utils.service';
-import { takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -57,7 +57,16 @@ export class IndexComponent implements OnInit {
     }
 
     this._loadingService.show();
-    this._objectiveService.loadAll(this.options).pipe(takeUntil(this.destroy$)).subscribe(
+    this._objectiveService.loadAll(this.options).pipe(takeUntil(this.destroy$), map((response: any) => {
+      response.data = response.data.map(data => {
+        data.total = Number(data.total);
+        data.total_depositado = Number(data.total_depositado);
+
+        return data;
+      });
+      console.log(response);
+      return response;
+    })).subscribe(
       (response: any) => {
         if (response) {
           this.dataSource = response.data;
@@ -73,6 +82,12 @@ export class IndexComponent implements OnInit {
 
   onCreate(): void {
     this._router.navigate([`../new`], { relativeTo: this._activatedRoute });
+  }
+
+  onAdd(id: number): void {
+    this._router.navigate([`../${id}/edit`], {
+      relativeTo: this._activatedRoute,
+    });
   }
 
 }
