@@ -25,6 +25,8 @@ export class FormComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
+  formMovimentacao: FormGroup;
+
   dtHoje = new Date();
 
   destroy$ = new Subject();
@@ -33,6 +35,7 @@ export class FormComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _objectiveService: ObjectiveService,
+    private _financialMovementService: FinancialMovementService,
     private _loadingService: LoadingService,
     private _toastr: ToastrService
   ) { }
@@ -77,6 +80,24 @@ export class FormComponent implements OnInit, OnDestroy {
       dtConclusao: new FormControl(null, Validators.required),
       pessoa: new FormControl({ id: pessoa.id }),
     });
+
+    this.formMovimentacao = new FormGroup({
+      id: new FormControl(null),
+      descricao: new FormControl(null, [
+        Validators.required,
+        Validators.maxLength(150),
+      ]),
+      total: new FormControl(0, [Validators.required, Validators.min(0.01)]),
+      dtConta: new FormControl(new Date(), Validators.required),
+      dtConclusao: new FormControl({ value: null, disabled: true }),
+      dtLembrete: new FormControl(null),
+      concluido: new FormControl(0),
+      contaFixa: new FormControl(0),
+      categoria: new FormControl(null, Validators.required),
+      tipoMovimentacao: new FormControl(1, Validators.required),
+      conta: new FormControl(null, Validators.required),
+      pessoa: new FormControl({ id: pessoa.id }),
+    });
   }
 
   setForm(): void {
@@ -96,7 +117,9 @@ export class FormComponent implements OnInit, OnDestroy {
 
           this.form.patchValue(response);
 
-          this.form.disable();
+          if (this.operation === Operation.VIEW) {
+            this.form.disable();
+          }
         },
         (err) => {
           this._toastr.error(err);
@@ -147,6 +170,15 @@ export class FormComponent implements OnInit, OnDestroy {
           this._loadingService.hide();
         }
       );
+
+    this._financialMovementService.create([this.formMovimentacao.value]).subscribe(response => {
+      this._loadingService.hide();
+      console.log(response);
+    },
+      err => {
+        this._toastr.error(err);
+        this._loadingService.hide();
+      });
   }
 
   ngOnDestroy(): void {

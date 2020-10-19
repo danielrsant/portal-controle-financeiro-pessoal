@@ -11,19 +11,13 @@ export class ObjectiveService {
   API_BASE_URL: string = environment.API;
   pessoaId = JSON.parse(localStorage.getItem('user')).id;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   loadAll(payload: any = {}): Observable<any[]> {
     const url = `${this.API_BASE_URL}/objetivos`;
-    if (!payload.filter) {
-      payload.filter = [];
-    }
-
-    payload.filter.push(`pessoa.id||$eq||${this.pessoaId}`);
-    payload.filter.push(`status||$eq||1`);
 
     return this.http
-      .get(url, { params: payload })
+      .get(url, { params: { pessoaId: this.pessoaId } })
       .pipe(map((result: any) => result));
   }
 

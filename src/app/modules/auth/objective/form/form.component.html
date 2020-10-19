@@ -8,12 +8,14 @@
       autocomplete="off">
     </app-input-text>
 
-    <app-input-currency fxFlex [formGroup]="form" formcontrolname="total" label="'Valor do objetivo">
+    <app-input-currency fxFlex [formGroup]="form" formcontrolname="total" label="Valor do objetivo">
     </app-input-currency>
 
     <app-input-datepicker [formGroup]="form" [clearOption]="true" formcontrolname="dtConclusao"
       label="Selecione a data de conclusao" [min]="dtHoje">
     </app-input-datepicker>
 
+    <app-input-currency *ngIf="operation === 'EDIT'" fxFlex [formGroup]="formMovimentacao" formcontrolname="total" label="Valor do depósito">
+    </app-input-currency>
   </mat-card>
 </div>
