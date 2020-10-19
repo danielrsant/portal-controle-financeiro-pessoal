@@ -33,6 +33,7 @@ export class PageConfig {
       type: 'text',
       visible: true,
       align: 'start',
+      sort: true
     },
     {
       label: 'Status',

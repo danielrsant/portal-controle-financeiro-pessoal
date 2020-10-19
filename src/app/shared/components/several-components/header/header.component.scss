@@ -1,5 +1,11 @@
 @import "src/app/shared/@decorators/scss/breakpoints";
 
+:host {
+  @include media-breakpoint('xs') {
+    height: 240px !important;
+  }
+}
+
 .header {
   display: flex;
   flex-direction: row;

@@ -16,14 +16,16 @@ export class PageConfig {
       property: 'id',
       type: 'text',
       visible: true,
-      align: 'start'
+      align: 'start',
+      sort: true
     },
     {
       label: 'Descrição',
       property: 'descricao',
       type: 'text',
       visible: true,
-      align: 'start'
+      align: 'start',
+      sort: true
     },
     {
       label: 'Conta fixa',

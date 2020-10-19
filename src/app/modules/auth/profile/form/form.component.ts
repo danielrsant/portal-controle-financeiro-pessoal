@@ -21,6 +21,9 @@ export class FormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   dtToday = new Date();
 
+  images = ['1', '2', '3', '4', '5', '6', '7', '8'];
+  imageSelected = '1';
+
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
@@ -94,6 +97,10 @@ export class FormComponent implements OnInit, OnDestroy {
         this._loadingService.hide();
       }
     );
+  }
+
+  selectImage(image): void {
+    this.imageSelected = image;
   }
 
   ngOnDestroy(): void { }

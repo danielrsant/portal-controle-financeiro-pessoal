@@ -3,7 +3,6 @@
         [operation]="operation"
         [title]="title"
         [icon]="icon"
-        [backPage]="true"
         [btn]="'Salvar'"
         [btnDisabled]="form.invalid ? true : false"
         (btnClick)="onSave()">
@@ -11,16 +10,10 @@
 
     <mat-card fxFlex fxLayout="column" class="content-page">
 
-        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
-            <app-user-input-file 
-                [formGroup]="form" 
-                [formcontrolname]="'image'" 
-                [isImage]="true" 
-                [accept]="'image/jpeg, image/png'"
-                [showImage]="true" 
-                [label]="'Selecionar Imagem'" 
-                (insertedFile)="insertedFile($event)">
-            </app-user-input-file>
+        <div fxFlex fxLayout="row wrap" fxLayoutAlign="center" style="min-height: 130px;">
+            <div *ngFor="let image of images; let index = index" style="max-width: 120px !important">
+                <img class="image" width="100" [ngClass]="{'selected': image === imageSelected}" src="assets/images/users/{{image}}.png" (click)="selectImage(image)">
+            </div>
         </div>
         
         <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayout.xs="column">
