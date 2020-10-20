@@ -64,7 +64,6 @@ export class IndexComponent implements OnInit {
 
         return data;
       });
-      console.log(response);
       return response;
     })).subscribe(
       (response: any) => {

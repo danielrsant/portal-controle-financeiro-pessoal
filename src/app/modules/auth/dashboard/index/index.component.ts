@@ -61,12 +61,6 @@ export class IndexComponent implements OnInit, OnDestroy {
       icon: 'request_page',
       color: 'card-color-pinot-noir',
     },
-    {
-      title: 'Balanço Diário',
-      subTitle: '',
-      icon: 'account_balance',
-      color: 'card-color-orange',
-    },
   ];
 
   times;
@@ -103,8 +97,8 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   createFormFilter(): void {
     this.formFilter = new FormGroup({
-      dtPeriodo1: new FormControl(null),
-      dtPeriodo2: new FormControl(null)
+      dtPeriodo1: new FormControl(new Date()),
+      dtPeriodo2: new FormControl()
     });
 
     this.listenDtPeriodo2();
@@ -114,6 +108,11 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.formFilter.get('dtPeriodo2').valueChanges.pipe(takeUntil(this.destroy$)).subscribe(data => {
       if (data) {
         this.getPieChartData();
+        this.getCards();
+        this.getLineChart();
+        this.getPieChartData();
+        this.getBarBalance();
+        this.getLimits();
       }
     });
   }
@@ -131,7 +130,17 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   // DESPESAS
   getExpense(): void {
-    this._dashboardService.getExpense().pipe(takeUntil(this.destroy$)).subscribe(
+    let payload = {};
+
+    if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
+
+      payload = {
+        dtPeriodo1: moment(this.formFilter.value.dtPeriodo1).format('YYYY-MM-DD'),
+        dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
+      };
+    }
+
+    this._dashboardService.getExpense(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
           this.cards[1].subTitle = this._currencyPipe.transform(response.total, 'BRL');
@@ -145,7 +154,17 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   // RECEITAS
   getRevenue(): void {
-    this._dashboardService.getRevenue().pipe(takeUntil(this.destroy$)).subscribe(
+    let payload = {};
+
+    if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
+
+      payload = {
+        dtPeriodo1: moment(this.formFilter.value.dtPeriodo1).format('YYYY-MM-DD'),
+        dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
+      };
+    }
+
+    this._dashboardService.getRevenue(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
           this.cards[0].subTitle = this._currencyPipe.transform(response.total, 'BRL');
@@ -159,7 +178,17 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   // CONTAS A PAGAR
   getTotalAccountsPayable(): void {
-    this._dashboardService.getTotalAccountsPayable().pipe(takeUntil(this.destroy$)).subscribe(
+    let payload = {};
+
+    if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
+
+      payload = {
+        dtPeriodo1: moment(this.formFilter.value.dtPeriodo1).format('YYYY-MM-DD'),
+        dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
+      };
+    }
+
+    this._dashboardService.getTotalAccountsPayable(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
           this.cards[2].subTitle = response.total;
@@ -173,7 +202,17 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   // CONTAS A RECEBER
   getTotalAccountsReceivable(): void {
-    this._dashboardService.getTotalAccountsReceivable().pipe(takeUntil(this.destroy$)).subscribe(
+    let payload = {};
+
+    if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
+
+      payload = {
+        dtPeriodo1: moment(this.formFilter.value.dtPeriodo1).format('YYYY-MM-DD'),
+        dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
+      };
+    }
+
+    this._dashboardService.getTotalAccountsReceivable(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
           this.cards[3].subTitle = response.total;
@@ -185,9 +224,19 @@ export class IndexComponent implements OnInit, OnDestroy {
     );
   }
 
-   // ATRASADAS
-   getOverdueBills(): void {
-    this._dashboardService.getOverdueBills().pipe(takeUntil(this.destroy$)).subscribe(
+  // ATRASADAS
+  getOverdueBills(): void {
+    let payload = {};
+
+    if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
+
+      payload = {
+        dtPeriodo1: moment(this.formFilter.value.dtPeriodo1).format('YYYY-MM-DD'),
+        dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
+      };
+    }
+
+    this._dashboardService.getOverdueBills(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
           this.cards[4].subTitle = response.total;
@@ -201,7 +250,17 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   // SALDO DISPONÍVEL
   getBalance(): void {
-    this._dashboardService.getBalance().pipe(takeUntil(this.destroy$)).subscribe(
+    let payload = {};
+
+    if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
+
+      payload = {
+        dtPeriodo1: moment(this.formFilter.value.dtPeriodo1).format('YYYY-MM-DD'),
+        dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
+      };
+    }
+
+    this._dashboardService.getBalance(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
           this.cards[5].subTitle = this._currencyPipe.transform(response.total, 'BRL');
@@ -215,7 +274,17 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   // SALDO PREVISTO
   getExpectedBalance(): void {
-    this._dashboardService.getExpectedBalance().pipe(takeUntil(this.destroy$)).subscribe(
+    let payload = {};
+
+    if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
+
+      payload = {
+        dtPeriodo1: moment(this.formFilter.value.dtPeriodo1).format('YYYY-MM-DD'),
+        dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
+      };
+    }
+
+    this._dashboardService.getExpectedBalance(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
           this.cards[6].subTitle = this._currencyPipe.transform(response.total, 'BRL');
@@ -260,7 +329,7 @@ export class IndexComponent implements OnInit, OnDestroy {
               }]];
             });
 
-            this.times = [ receita, despesa ];
+            this.times = [receita, despesa];
           });
         }
       },
@@ -287,7 +356,7 @@ export class IndexComponent implements OnInit, OnDestroy {
           this.single = response.data.map(element => {
             element.value = parseFloat(element.value);
             delete element.limite;
-            return element;   
+            return element;
           });
         }
       },
@@ -336,13 +405,13 @@ export class IndexComponent implements OnInit, OnDestroy {
             }
 
             this.limits.push({
-                category: element.name,
-                status: status,
-                icon: icon,
-                color: color,
-                max: max,
-                limit: limitValue,
-                value: value,
+              category: element.name,
+              status: status,
+              icon: icon,
+              color: color,
+              max: max,
+              limit: limitValue,
+              value: value,
             });
           });
         }
@@ -355,7 +424,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   getBarBalance(): void {
     let payload = {};
-    
+
     if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
 
       payload = {
@@ -363,24 +432,24 @@ export class IndexComponent implements OnInit, OnDestroy {
         dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
       };
     }
-
     this._dashboardService.getBarBalance(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
+
           this.multi = [
             {
-                name: 'Balanço',
-                balanco: response.balanco,
-                series: [
-                    {
-                        name: 'Receitas',
-                        value: parseFloat(response.receita)
-                    },
-                    {
-                        name: 'Despesas',
-                        value: -parseFloat(response.despesa)
-                    }
-                ]
+              name: 'Balanço',
+              balanco: response.balanco,
+              series: [
+                {
+                  name: 'Receitas',
+                  value: parseFloat(response.receita)
+                },
+                {
+                  name: 'Despesas',
+                  value: -parseFloat(response.despesa)
+                }
+              ]
             }
           ];
         }
@@ -426,7 +495,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   formatDataLabel2(value): string {
     return value + '%';
   }
- 
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

@@ -176,7 +176,6 @@ export class FormComponent implements OnInit, OnDestroy {
     })
       .afterClosed()
       .subscribe(response => {
-        console.log('response', response);
       });
   }
 

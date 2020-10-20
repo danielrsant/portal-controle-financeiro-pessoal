@@ -14,51 +14,79 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
 
-  getExpense(): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/movimentacoes/tipo-movimentacao/2/saldo`;
+  getExpense(payload?: any): Observable<any[]> {
+    let url = `${this.API_BASE_URL}/movimentacoes/tipo-movimentacao/2/saldo`;
+
+    if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
+      url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
+    }
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
-  getRevenue(): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/movimentacoes/tipo-movimentacao/1/saldo`;
+  getRevenue(payload?: any): Observable<any[]> {
+    let url = `${this.API_BASE_URL}/movimentacoes/tipo-movimentacao/1/saldo`;
+
+    if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
+      url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
+    }
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
-  getTotalAccountsReceivable(): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/movimentacoes/tipo-movimentacao/1/nao-concluidas`;
+  getTotalAccountsReceivable(payload?: any): Observable<any[]> {
+    let url = `${this.API_BASE_URL}/movimentacoes/tipo-movimentacao/1/nao-concluidas`;
+
+    if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
+      url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
+    }
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
-  getTotalAccountsPayable(): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/movimentacoes/tipo-movimentacao/2/nao-concluidas`;
+  getTotalAccountsPayable(payload?: any): Observable<any[]> {
+    let url = `${this.API_BASE_URL}/movimentacoes/tipo-movimentacao/2/nao-concluidas`;
+
+    if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
+      url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
+    }
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
-  getOverdueBills(): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/movimentacoes/atrasadas`;
+  getOverdueBills(payload?: any): Observable<any[]> {
+    let url = `${this.API_BASE_URL}/movimentacoes/atrasadas`;
+
+    if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
+      url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
+    }
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
-  getBalance(): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/movimentacoes/saldo`;
+  getBalance(payload?: any): Observable<any[]> {
+    let url = `${this.API_BASE_URL}/movimentacoes/saldo`;
+
+    if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
+      url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
+    }
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
-  getExpectedBalance(): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/movimentacoes/saldo/lancamento-futuro`;
+  getExpectedBalance(payload?: any): Observable<any[]> {
+    let url = `${this.API_BASE_URL}/movimentacoes/saldo/lancamento-futuro`;
+
+    if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
+      url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
+    }
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
-  
+
   getTotalByCategory(id: number): Observable<any> {
-    const url = `${this.API_BASE_URL}/movimentacoes/categoria/${id}/total`;
-    
+    let url = `${this.API_BASE_URL}/movimentacoes/categoria/${id}/total`;
+
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
@@ -88,7 +116,7 @@ export class DashboardService {
     if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
       url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
     }
-    
+
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
@@ -98,8 +126,8 @@ export class DashboardService {
     if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
       url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
     }
-  
+
     return this.http.get(url).pipe(map((result: any) => result));
   }
-  
+
 }
