@@ -11,7 +11,7 @@
 
     <h4 *ngIf="showMessages">Selecione uma cor primária para seu sistema</h4>
 
-    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center">
+    <div fxFlex fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="center">
         <div *ngFor="let color of colorVariables | keyvalue" (click)="selectColor(color.value)" matRipple>
             <button mat-mini-fab [ngStyle]="{ 'background-color': color.key }"></button>
         </div>
@@ -36,7 +36,7 @@
             </app-input-select>
         </div>
 
-        <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-between">
             <app-input-datepicker-range fxFlex 
                 [appearance]="form.get('appearance').value" 
                 [formGroup]="form"
@@ -53,7 +53,7 @@
         </app-input-text>
         </div>
 
-        <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-between">
             <app-input-select fxFlex 
                 [appearance]="form.get('appearance').value" 
                 [formGroup]="form"

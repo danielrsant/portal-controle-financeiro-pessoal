@@ -1,7 +1,9 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isThisSecond } from 'date-fns';
 import { Observable, Subject } from 'rxjs';
@@ -19,6 +21,11 @@ import { PlannerService } from './../../../../services/planner.service';
   styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent implements OnInit, OnDestroy {
+
+  smallScreen: boolean;
+
+  @ViewChild('stepper', { static: false }) stepper: MatStepper;
+
   constructor(
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
@@ -26,8 +33,16 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _loadingService: LoadingService,
     private _plannerService: PlannerService,
     private _categoryService: CategoryService,
-    private _formBuilder: FormBuilder
-  ) { }
+    private _formBuilder: FormBuilder,
+    private breakpointObserver: BreakpointObserver
+  ) {
+    breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small
+    ]).subscribe(result => {
+      this.smallScreen = result.matches; 
+    });
+  }
 
   title = 'Planejamento';
   icon = 'card_travel';
@@ -166,6 +181,10 @@ export class IndexComponent implements OnInit, OnDestroy {
       categorias.removeAt(index);
     }
 
+  }
+
+  nextStepper(): void {
+    this.stepper.next();
   }
 
   ngOnDestroy(): void {
