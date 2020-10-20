@@ -4,20 +4,20 @@
   </app-header>
 
   <mat-card fxFlex fxLayout="column" class="content-page-form">
-    <div fxLayout="row" fxLayoutAlign="flex-end">
-      <app-input-toggle fxLayout="column" [formGroup]="form" formcontrolname="concluido" [label]="movementTypeParams.statusAccount"
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="flex-end">
+      <app-input-toggle fxFlex="5" fxFlex.xs="100" fxLayout="column" [formGroup]="form" formcontrolname="concluido" [label]="movementTypeParams.statusAccount"
         (changeValue)="onChangeConcluidoToggleButton($event.checked)"></app-input-toggle>
 
-      <app-input-datepicker [formGroup]="form" [clearOption]="false" formcontrolname="dtConclusao"
+      <app-input-datepicker fxFlex="45" fxFlex.xs="100" [formGroup]="form" [clearOption]="false" formcontrolname="dtConclusao"
         label="Selecione a data do pagamento">
       </app-input-datepicker>
     </div>
 
-    <div fxLayout="row" fxLayoutGap="15px">
-      <app-input-select [formGroup]="form" formcontrolname="conta" label="Conta" [data]="(accounts$ | async)?.data"
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap.xs="-15px" fxLayoutGap="15px">
+      <app-input-select fxFlex [formGroup]="form" formcontrolname="conta" label="Conta" [data]="(accounts$ | async)?.data"
         valueField="id" displayField="descricao" searchField="descricao"></app-input-select>
 
-      <app-input-select [formGroup]="form" formcontrolname="tipoMovimentacao" label="Tipo de movimentação"
+      <app-input-select fxFlex [formGroup]="form" formcontrolname="tipoMovimentacao" label="Tipo de movimentação"
         [data]="(movementTypes$ | async)?.data" valueField="id" displayField="descricao" searchField="descricao">
       </app-input-select>
 
@@ -26,11 +26,11 @@
       </app-input-text>
     </div>
 
-    <div fxLayout="row" fxLayoutGap="15px">
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap.xs="-15px" fxLayoutGap="15px">
       <app-input-currency fxFlex [formGroup]="form" formcontrolname="total"
         [label]="'Valor da ' + movementTypeParams.title"></app-input-currency>
 
-      <app-input-datepicker [formGroup]="form" [clearOption]="false" formcontrolname="dtConta"
+      <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtConta"
         label="Selecione a data de vencimento">
       </app-input-datepicker>
     </div>
@@ -39,7 +39,7 @@
       [data]="(categories$ | async)?.data" valueField="id" displayField="descricao" searchField="descricao">
     </app-input-select>
 
-    <div fxLayout="row" fxLayoutGap="15px">
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap.xs="-15px" fxLayoutGap="15px">
       <app-input-select fxFlex [formGroup]="form" (select)="onChangeSelectRepetitionType($event?.value)"
         formcontrolname="tipoRepeticao" label="Tipo de repetição" [data]="repetitionType" valueField="id"
         displayField="descricao" searchField="descricao">

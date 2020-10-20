@@ -5,24 +5,24 @@
 
   <mat-card fxFlex fxLayout="column" class="content-page-form">
 
-    <div fxLayout="row" fxLayoutGap="15px">
-      <app-input-select [formGroup]="form" formcontrolname="conta" label="Conta" [data]="(accounts$ | async)?.data"
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+      <app-input-select fxFlex [formGroup]="form" formcontrolname="conta" label="Conta" [data]="(accounts$ | async)?.data"
         valueField="id" displayField="descricao" searchField="descricao"></app-input-select>
 
-      <app-input-select [formGroup]="form" formcontrolname="tipoMovimentacao" label="Tipo de movimentação"
+      <app-input-select fxFlex [formGroup]="form" formcontrolname="tipoMovimentacao" label="Tipo de movimentação"
         [data]="(movementTypes$ | async)?.data" valueField="id" displayField="descricao" searchField="descricao">
       </app-input-select>
 
-      <app-input-datepicker [formGroup]="form" [clearOption]="false" formcontrolname="dtConclusao"
+      <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtConclusao"
         label="Selecione a data do pagamento">
       </app-input-datepicker>
     </div>
 
-    <div fxLayout="row" fxLayoutGap="15px">
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
       <app-input-currency fxFlex [formGroup]="form" formcontrolname="total"
         [label]="'Valor da ' + movementTypeParams.title"></app-input-currency>
 
-      <app-input-datepicker [formGroup]="form" [clearOption]="false" formcontrolname="dtConta"
+      <app-input-datepicker fxFlex [formGroup]="form" [clearOption]="false" formcontrolname="dtConta"
         label="Selecione a data de vencimento">
       </app-input-datepicker>
     </div>
@@ -31,7 +31,7 @@
       [data]="(categories$ | async)?.data" valueField="id" displayField="descricao" searchField="descricao">
     </app-input-select>
 
-    <div fxLayout="row" fxLayoutGap="15px">
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
       <app-input-select fxFlex [formGroup]="form" (select)="onChangeSelectRepetitionType($event?.value)"
         formcontrolname="tipoRepeticao" label="Tipo de repetição" [data]="repetitionType" valueField="id"
         displayField="descricao" searchField="descricao">

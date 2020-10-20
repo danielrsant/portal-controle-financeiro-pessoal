@@ -11,6 +11,7 @@ import { LoadingService } from '../../../../shared/components/several-components
 import { Operation } from './../../../../shared/enums/operation';
 import { MatDialog } from '@angular/material/dialog';
 import { FormDialogComponent } from '../components/form-dialog/form-dialog.component';
+import { AUTO_STYLE } from '@angular/animations';
 
 // tslint:disable: variable-name
 
@@ -22,7 +23,7 @@ import { FormDialogComponent } from '../components/form-dialog/form-dialog.compo
 export class FormComponent implements OnInit, OnDestroy {
   id: number;
   title: string;
-  icon = 'import_export';
+  icon = 'done';
   operation: Operation;
 
   form: FormGroup;
@@ -169,6 +170,10 @@ export class FormComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     this._dialog.open(FormDialogComponent, {
+      maxHeight: '80vh',
+      maxWidth: '100vh',
+      height: AUTO_STYLE,
+      width: window.innerWidth < 900 ? '95%' : '50%',
       data: {
         objetivoId: this.form.get('id').value,
         descricao: this.form.get('descricao').value

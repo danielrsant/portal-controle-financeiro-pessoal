@@ -18,7 +18,7 @@ import { Subject } from 'rxjs';
 export class IndexComponent implements OnInit {
 
   title = 'Objetivos';
-  icon = 'date_range';
+  icon = 'done';
 
   operation: Operation = Operation.INDEX;
 

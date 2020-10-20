@@ -3,7 +3,7 @@
         [btnDisabled]="form.invalid ? true : false" (btnClick)="onSave()">
     </app-header>
 
-    <mat-card fxFlex fxLayout="column" class="content-page">
+    <mat-card fxFlex fxLayout="column" class="content-page-form">
 
         <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
             <app-input-text fxFlex [formGroup]="form" [formcontrolname]="'descricao'"

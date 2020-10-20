@@ -25,9 +25,9 @@
   <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content" style="margin-top: 0px;">
 
     <mat-card fxFlex fxLayout="column" class="card">
-      <mat-card-title fxLayout="column" fxFlex>
+      <mat-card-title class="chart-title" fxFlex fxLayout="column">
         <div layout="row" fxLayoutAlign="space-between center">
-          <span fxFlex class="chart-title">Categorias X Gastos</span>
+          <span fxFlex>Categorias X Gastos</span>
         </div>
       </mat-card-title>
       <div class="chart" class="pad">
@@ -41,9 +41,9 @@
     </mat-card>
 
     <mat-card fxFlex fxLayout="column" class="card">
-      <mat-card-title fxFlex>
+      <mat-card-title class="chart-title" fxFlex fxLayout="column">
         <div layout="row" fxLayoutAlign="space-between center">
-          <span fxFlex class="chart-title">Movimentações</span>
+          <span fxFlex>Movimentações</span>
         </div>
       </mat-card-title>
       <div class="chart">
@@ -58,20 +58,20 @@
   </div>
 
   <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content" style="margin-top: -5px !important;">
-    <mat-card fxFlex fxLayout="column" class="card" style="height: 22rem !important;">
-      <mat-card-title>
+    <mat-card fxFlex fxLayout="column" class="card">
+      <mat-card-title class="chart-title" fxFlex fxLayout="column">
         <div layout="row" fxLayoutAlign="space-between center">
-          <span fxFlex class="chart-title">Balanço mensal</span>
+          <span fxFlex>Balanço mensal</span>
         </div>
       </mat-card-title>
-      <div class="chart" class="pad">
+      <div fxFlex fxLayout="row wrap" class="chart" class="pad">
         <mat-divider></mat-divider>
         <ngx-charts-bar-vertical-stacked class="chart-align" [view]="view"
           [scheme]="{ domain: [ '#4DAA51', '#E5423E' ] }" [results]="multi" [animations]="true" [barPadding]="18"
           [gradient]="true" [xAxis]="true" [yAxis]="true" [legend]="true" [legendPosition]="legendPosition"
           [showXAxisLabel]="false" [showYAxisLabel]="false">
         </ngx-charts-bar-vertical-stacked>
-        <span *ngIf="multi" fxLayout="row" fxLayoutAlign="center" style="margin-top: 10px;">
+        <span fxFlex *ngIf="multi" fxLayout="row" fxLayoutAlign="center" style="margin-top: 10px;">
           <h2>
             Balanço atual: R$ <h1>{{ multi[0]?.balanco }}</h1>
           </h2>
@@ -80,10 +80,10 @@
 
     </mat-card>
 
-    <mat-card fxFlex fxLayout="column" class="card" style="height: 22rem !important; overflow: auto">
-      <mat-card-title fxLayout="column" fxFlex>
+    <mat-card fxFlex fxLayout="column" class="card">
+      <mat-card-title class="chart-title" fxLayout="column">
         <div layout="row" fxLayoutAlign="space-between center">
-          <span fxFlex class="chart-title">Limite de Gastos</span>
+          <span fxFlex>Limite de Gastos</span>
         </div>
       </mat-card-title>
       <div class="chart" class="pad">
