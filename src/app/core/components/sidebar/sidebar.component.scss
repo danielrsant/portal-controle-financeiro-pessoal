@@ -153,6 +153,13 @@
   border-right: solid 0px rgba(0,0,0,.12);
 }
 
+::ng-deep .mat-drawer-inner-container {
+  width: 100% !important;
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  height: auto !important;
+}
+
 .mat-expansion-panel {
   margin: 10px 20px 0 20px;
 }
