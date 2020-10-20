@@ -10,7 +10,7 @@
         <form [formGroup]="form">
           <ng-template matStepLabel>Informe sua receita mensal</ng-template>
           <app-input-currency [formGroup]="form" formcontrolname="receitaMensal" label="Valor da receita mensal"
-            appearance="outline"></app-input-currency>
+          ></app-input-currency>
           <button mat-raised-button color="primary" matStepperNext>Próximo</button>
         </form>
       </mat-step>
@@ -25,7 +25,7 @@
         </h3>
 
         <div fxLayoutGap="15px">
-          <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+          <button mat-raised-button matStepperPrevious>Voltar</button>
           <button mat-raised-button color="primary" matStepperNext>Próximo</button>
         </div>
       </mat-step> -->
@@ -38,7 +38,7 @@
           valueField="id" displayField="descricao" searchField="descricao">
         </app-input-select>
 
-        <mat-form-field appearance="outline" style="width: 100%" *ngIf="formAux.get('categoriaSelecionada').value">
+        <mat-form-field style="width: 100%" *ngIf="formAux.get('categoriaSelecionada').value">
           <mat-chip-list #chipList aria-label="Categorias">
             <mat-chip *ngFor="let categoria of categoriasSelecionadas" [removable]="true"
               (removed)="removeCategoria(categoria)">
@@ -50,7 +50,7 @@
 
 
         <div fxLayoutGap="15px">
-          <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+          <button mat-raised-button matStepperPrevious>Voltar</button>
           <button mat-raised-button color="primary" matStepperNext>Próximo</button>
         </div>
 
@@ -69,14 +69,14 @@
               </div>
               <div>
                 <app-input-currency [formGroup]="form.get('categorias')?.controls[i]" formcontrolname="limite"
-                  label="Limite R$" appearance="outline"></app-input-currency>
+                  label="Limite R$"></app-input-currency>
               </div>
 
             </ng-container>
           </div>
 
           <div fxLayoutGap="15px">
-            <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+            <button mat-raised-button matStepperPrevious>Voltar</button>
             <button mat-raised-button color="primary" (click)="onSave()">Concluir</button>
           </div>
         </ng-container>

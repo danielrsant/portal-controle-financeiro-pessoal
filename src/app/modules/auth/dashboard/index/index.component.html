@@ -15,29 +15,30 @@
         </div>
     </div>
 
+    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <app-input-datepicker-range style="margin-top: 10px; margin-bottom: -12px;"
+            [appearance]="'outline'"
+            [formGroup]="formFilter" 
+            [formcontrolnameStart]="'dtPeriodo1'"
+            [formcontrolnameEnd]="'dtPeriodo2'" 
+            [label]="'Período'"
+            (clear)="formFilter.get('dtPeriodo1').setValue(null)">
+        </app-input-datepicker-range>
+    </div>
+
     <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content" style="margin-top: 0px;">
         
-
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxLayout="column" fxFlex>
-                <div layout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-                    <span fxFlex="60">Categorias X Gastos</span>
-                    <span fxFlex>
-                        <app-input-datepicker-range 
-                        [formGroup]="formFilter" 
-                        [formcontrolnameStart]="'dtPeriodo1'"
-                        [formcontrolnameEnd]="'dtPeriodo2'" 
-                        [label]="'Período'"
-                        (clear)="formFilter.get('dtPeriodo1').setValue(null)">
-                    </app-input-datepicker-range>
-                    </span>
+                <div layout="row" fxLayoutAlign="space-between center">
+                    <span fxFlex class="chart-title">Categorias X Gastos</span>
                 </div>
             </mat-card-title>
             <div class="chart" class="pad">
                 <mat-divider></mat-divider>
                 <ngx-charts-advanced-pie-chart class="chart-align"
                     [view]="view"
-                    [scheme]="{ domain: ['#4DD0E1', '#BA68C8', '#FF7043', '#5AA454', '#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'] }"
+                    [scheme]="{ domain: ['#4556B6', '#F19114', '#993AAF', '#0BB3C8', '#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'] }"
                     [animations]="true"
                     [results]="single"
                     [label]="'Total Gasto'"
@@ -52,22 +53,14 @@
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxFlex>
                 <div layout="row" fxLayoutAlign="space-between center">
-                    <span fxFlex>Movimentações</span>
-                    <span fxFlex="5" fxFlex.xs="10">
-                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu xPosition="before" #settings1="matMenu">
-                            <button mat-menu-item>Informações</button>
-                        </mat-menu>
-                    </span>
+                    <span fxFlex class="chart-title">Movimentações</span>
                 </div>
             </mat-card-title>
             <div class="chart">
                 <mat-divider></mat-divider>
                 <ngx-charts-line-chart class="chart-align"
                     [view]="view"
-                    [scheme]="{ domain: [ '#4DD0E1', '#BA68C8' ] }"
+                    [scheme]="{ domain: [ '#4DAA51', '#E5423E' ] }"
                     [results]="times"
                     [gradient]="true"
                     [animations]="true"
@@ -85,30 +78,21 @@
         </mat-card>
     </div>
 
-    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
+    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content" style="margin-top: -5px !important;">
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title>
                 <div layout="row" fxLayoutAlign="space-between center">
-                    <span fxFlex>Economia Anual</span>
-                    <span fxFlex="5" fxFlex.xs="10">
-                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu xPosition="before" #settings1="matMenu">
-                            <button mat-menu-item>Informações</button>
-                        </mat-menu>
-                    </span>
+                    <span fxFlex class="chart-title">Economia Anual</span>
                 </div>
             </mat-card-title>
             <div class="chart" class="pad">
                 <mat-divider></mat-divider>
-                <ngx-charts-bar-vertical-2d class="chart-align"
+                <ngx-charts-bar-vertical-stacked class="chart-align"
                     [view]="view"
-                    [scheme]="{ domain: [ '#4DD0E1', '#BA68C8', '#FF7043' ] }"
+                    [scheme]="{ domain: [ '#4DAA51', '#E5423E' ] }"
                     [results]="multi"
                     [animations]="true"
                     [barPadding]="18"
-                    [groupPadding]="28"
                     [gradient]="true"
                     [xAxis]="true"
                     [yAxis]="true"
@@ -116,44 +100,20 @@
                     [legendPosition]="legendPosition"
                     [showXAxisLabel]="false"
                     [showYAxisLabel]="false">
-                </ngx-charts-bar-vertical-2d>
+                </ngx-charts-bar-vertical-stacked>
+                <span *ngIf="multi" fxLayout="row" fxLayoutAlign="center" style="margin-top: 10px;">
+                    <h2>
+                       Balanço atual: R$ <h1>{{ multi[0]?.balanco }}</h1>
+                    </h2>
+                </span>
             </div>
+
         </mat-card>
 
-        <mat-card fxFlex fxLayout="column" class="card">
-            <mat-card-title fxFlex>
-                <div layout="row" fxLayoutAlign="space-between center">
-                    <span fxFlex>Outro</span>
-                    <span fxFlex="5" fxFlex.xs="10">
-                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu xPosition="before" #settings1="matMenu">
-                            <button mat-menu-item>Informações</button>
-                        </mat-menu>
-                    </span>
-                </div>
-            </mat-card-title>
-            <div class="chart" class="push-top-sm">
-                <mat-divider></mat-divider>
-                
-            </div>
-        </mat-card>
-    </div>
-
-    <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content">
         <mat-card fxFlex fxLayout="column" class="card">
             <mat-card-title fxLayout="column" fxFlex>
                 <div layout="row" fxLayoutAlign="space-between center">
-                    <span fxFlex>Limite de Gastos</span>
-                    <span fxFlex="3" fxFlex.xs="10">
-                        <button mat-icon-button matTooltip="Card settings" [mat-menu-trigger-for]="settings1">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu xPosition="before" #settings1="matMenu">
-                            <button mat-menu-item>Informações</button>
-                        </mat-menu>
-                    </span>
+                    <span fxFlex class="chart-title">Limite de Gastos</span>
                 </div>
             </mat-card-title>
             <div class="chart" class="pad">

@@ -1,13 +1,13 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { single, multi, times, limit } from './data';
-import { DashboardService } from '../../../../services/dashboard.service';
-import { takeUntil } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { LoadingService } from 'src/app/shared/components/several-components/loading/loading.service';
+
+import { DashboardService } from '../../../../services/dashboard.service';
 
 @Component({
   selector: 'app-index',
@@ -71,8 +71,8 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   times;
   single;
-  limits = [];
-  multi = multi;
+  limits;
+  multi;
 
   view: any[];
   viewGauge = [300, 100];
@@ -97,6 +97,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.getCards();
     this.getLineChart();
     this.getPieChartData();
+    this.getBarBalance();
     this.getLimits();
   }
 
@@ -227,29 +228,39 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   getLineChart(): void {
-    this._dashboardService.getLineChart().pipe(takeUntil(this.destroy$)).subscribe(
+    let payload = {};
+
+    if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
+
+      payload = {
+        dtPeriodo1: moment(this.formFilter.value.dtPeriodo1).format('YYYY-MM-DD'),
+        dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
+      };
+    }
+
+    this._dashboardService.getLineChart(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          const despesa: any = {};
           const receita: any = {};
-          despesa.name = 'Despesas';
+          const despesa: any = {};
           receita.name = 'Receitas';
+          despesa.name = 'Despesas';
           despesa.series = [];
           receita.series = [];
 
           response.data.forEach(element => {
             element.items.forEach(item => {
-              despesa.series = [...despesa.series, ...[{
-                value: parseFloat(item.total_despesa),
-                name: item.name
-              }]];
               receita.series = [...receita.series, ...[{
                 value: parseFloat(item.total_receita),
                 name: item.name
               }]];
+              despesa.series = [...despesa.series, ...[{
+                value: parseFloat(item.total_despesa),
+                name: item.name
+              }]];
             });
 
-            this.times = [ despesa, receita ];
+            this.times = [ receita, despesa ];
           });
         }
       },
@@ -287,9 +298,20 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   getLimits(): void {
-    this._dashboardService.getLimits().pipe(takeUntil(this.destroy$)).subscribe(
+    let payload = {};
+
+    if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
+
+      payload = {
+        dtPeriodo1: moment(this.formFilter.value.dtPeriodo1).format('YYYY-MM-DD'),
+        dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
+      };
+    }
+
+    this._dashboardService.getLimits(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
+          this.limits = [];
           response.data.forEach(element => {
             const max = parseFloat(element.limite) + parseFloat(element.limite);
             const limitValue = parseFloat(element.limite);
@@ -302,7 +324,7 @@ export class IndexComponent implements OnInit, OnDestroy {
             if (limitValue < value) {
               status = 'Ultrapassou o limite!';
               icon = 'sentiment_very_dissatisfied';
-              color = 'red';
+              color = '#E5423E';
             } else if ((limitValue / 2) > value && limitValue < value) {
               status = 'Quase lá!';
               icon = 'sentiment_satisfied';
@@ -310,7 +332,7 @@ export class IndexComponent implements OnInit, OnDestroy {
             } else {
               status = 'Longe do Limite!';
               icon = 'mood';
-              color = 'green';
+              color = '#4DAA51';
             }
 
             this.limits.push({
@@ -323,6 +345,44 @@ export class IndexComponent implements OnInit, OnDestroy {
                 value: value,
             });
           });
+        }
+      },
+      (error) => {
+        this._loadingService.hide();
+      }
+    );
+  }
+
+  getBarBalance(): void {
+    let payload = {};
+    
+    if (this.formFilter.value.dtPeriodo1 && this.formFilter.value.dtPeriodo2) {
+
+      payload = {
+        dtPeriodo1: moment(this.formFilter.value.dtPeriodo1).format('YYYY-MM-DD'),
+        dtPeriodo2: moment(this.formFilter.value.dtPeriodo2).format('YYYY-MM-DD')
+      };
+    }
+
+    this._dashboardService.getBarBalance(payload).pipe(takeUntil(this.destroy$)).subscribe(
+      (response: any) => {
+        if (response) {
+          this.multi = [
+            {
+                name: 'Balanço',
+                balanco: response.balanco,
+                series: [
+                    {
+                        name: 'Receitas',
+                        value: parseFloat(response.receita)
+                    },
+                    {
+                        name: 'Despesas',
+                        value: -parseFloat(response.despesa)
+                    }
+                ]
+            }
+          ];
         }
       },
       (error) => {

@@ -212,3 +212,19 @@
         margin-left: 3px;
     }
 }
+
+.cal-month-view .cal-header .cal-cell {
+    font-weight: 600;
+    color: black;
+}
+
+.cal-month-view .cal-day-number {
+    color: #EDEDED;
+    font-size: 1.2em;
+    font-weight: 400;
+    opacity: 0.5;
+    margin-top: 15px;
+    margin-right: 15px;
+    float: right;
+    margin-bottom: 10px;
+}

@@ -55,11 +55,10 @@ export class DashboardService {
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
-
-
-  getLineChart(): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/movimentacoes/movimentacoes-tipo-movimentacao`;
-
+  
+  getTotalByCategory(id: number): Observable<any> {
+    const url = `${this.API_BASE_URL}/movimentacoes/categoria/${id}/total`;
+    
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
@@ -73,39 +72,34 @@ export class DashboardService {
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
-  getLimits(): Observable<any[]> {
-    const url = `${this.API_BASE_URL}/movimentacoes/despesas-categoria`;
+  getLineChart(payload?: any): Observable<any[]> {
+    let url = `${this.API_BASE_URL}/movimentacoes/movimentacoes-tipo-movimentacao`;
+
+    if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
+      url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
+    }
 
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
-  getTotalByCategory(id: number): Observable<any> {
-    const url = `${this.API_BASE_URL}/movimentacoes/categoria/${id}/total`;
+  getBarBalance(payload?: any): Observable<any[]> {
+    let url = `${this.API_BASE_URL}/movimentacoes/balanco`;
 
+    if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
+      url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
+    }
+    
     return this.http.get(url).pipe(map((result: any) => result));
   }
 
+  getLimits(payload?: any): Observable<any[]> {
+    let url = `${this.API_BASE_URL}/movimentacoes/despesas-categoria`;
 
-  // loadOne(id: number): Observable<any> {
-  //   const url = `${ this.API_BASE_URL }/categorias/${ id } `;
-
-  //   return this.http.get(url).pipe(map((result: any) => result));
-  // }
-
-  // create(payload: any): Observable<any> {
-  //   const url = `${ this.API_BASE_URL }/categorias`;
-
-  //   return this.http.post(url, payload);
-  // }
-
-  // update(id: number, payload: any): Observable<any> {
-  //   const url = `${this.API_BASE_URL}/categorias/${id}`;
-
-  //   return this.http.put(url, payload).pipe(map((result: any) => result.data));
-  // }
-
-  // destroy(id: number): boolean {
-  //   return;
-  // }
-
+    if (payload && payload.dtPeriodo1 && payload.dtPeriodo2) {
+      url = `${url}?dtPeriodo=${payload.dtPeriodo1}&dtPeriodo=${payload.dtPeriodo2}`;
+    }
+  
+    return this.http.get(url).pipe(map((result: any) => result));
+  }
+  
 }
