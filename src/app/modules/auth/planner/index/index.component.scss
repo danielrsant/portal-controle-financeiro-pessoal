@@ -3,3 +3,15 @@
     font-weight: 600 !important;
     color: #039BE5 !important;
 }
+
+:host ::ng-deep .mat-vertical-stepper-header {
+    padding: 24px 0px !important;
+}
+
+:host ::ng-deep .mat-stepper-vertical-line::before {
+    content: "" !important;
+    position: absolute !important;
+    left: -25px !important;
+    border-left-width: 1px !important;
+    border-left-style: solid !important;
+}
