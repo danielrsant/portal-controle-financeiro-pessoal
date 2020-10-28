@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "agenda10": {
+    "financys": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/agenda10",
+            "outputPath": "dist/financys",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -59,7 +59,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumError": "12.8kb"
                 }
               ]
             }
@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "agenda10:build"
+            "browserTarget": "financys:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "agenda10:build:production"
+              "browserTarget": "financys:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "agenda10:build"
+            "browserTarget": "financys:build"
           }
         },
         "test": {
@@ -117,11 +117,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "agenda10:serve"
+            "devServerTarget": "financys:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "agenda10:serve:production"
+              "devServerTarget": "financys:serve:production"
             }
           }
         },
@@ -132,7 +132,7 @@
       }
     }
   },
-  "defaultProject": "agenda10",
+  "defaultProject": "financys",
   "cli": {
     "analytics": "eaeb0057-73d9-4588-8f3b-b0a5ac32d04e"
   }

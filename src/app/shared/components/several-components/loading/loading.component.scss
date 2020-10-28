@@ -22,13 +22,11 @@
         margin-top: 2rem;
         font-size: 1.5rem;
       }
-  }
+  } 
 }
-
 
 
 .loader-status ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-  stroke: #0378b3 !important;
+  stroke: rgba(var(--color-primary));
 }
-
 
