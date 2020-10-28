@@ -8,7 +8,7 @@
                     </button>
                 </div>
 
-                <div fxFlex fxFlex.xs="80" fxLayout="row" fxLayoutAlign="center center">
+                <div fxFlex fxFlex.xs="80" fxLayout="row" fxLayout.xs="row wrap" fxLayoutAlign="center center">
                     <button fxHide.gt-xs *ngIf="backPage" mat-icon-button class="pointer" (click)="onBackPage()">
                         <mat-icon class="icon">arrow_back</mat-icon>
                     </button>
@@ -18,7 +18,7 @@
                 </div>
 
                 <div fxFlex fxLayout="row" fxLayoutAlign="end center" fxLayoutAlign.xs="center center">
-                    <button color="accent" *ngIf="btn" class="btn pointer" [disabled]="btnDisabled" mat-raised-button (click)="onClickBtn()">
+                    <button color="accent" *ngIf="btn" class="btn pointer" [disabled]="btnDisabled" mat-stroked-button (click)="onClickBtn()">
                         <span>{{ btn }}</span>
                     </button>
                 </div>

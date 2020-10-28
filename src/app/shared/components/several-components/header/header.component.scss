@@ -46,9 +46,14 @@
   }
 
   .btn {
-    color: white;
     min-width: 200px;
   }
+
+  ::ng-deep .mat-stroked-button:not(.mat-button-disabled) {
+    border-color: white !important;
+    color: white !important;
+  }
+
 
   .content {
     margin: 0px 20px 0px 20px !important;

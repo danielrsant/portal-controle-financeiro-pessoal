@@ -18,10 +18,10 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },
-      {
-        path: 'fazer',
-        loadChildren: () => import('./to-do/to-do.module').then(m => m.ToDoModule)
-      },
+      // {
+      //   path: 'fazer',
+      //   loadChildren: () => import('./to-do/to-do.module').then(m => m.ToDoModule)
+      // },
       {
         path: 'funcionarios',
         loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule)

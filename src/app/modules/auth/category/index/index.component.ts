@@ -94,8 +94,9 @@ export class IndexComponent implements OnInit, OnDestroy {
   openDialogFilter(): void {
     this._dialog.open(FilterDialogComponent, {
       maxHeight: '80vh',
+      maxWidth: '90%',
       height: AUTO_STYLE,
-      width: window.innerWidth < 900 ? '100%' : '50%',
+      width: window.innerWidth < 900 ? '90%' : '50%',
       data: {
         form: this.formFilter,
         fields: this.filterFields

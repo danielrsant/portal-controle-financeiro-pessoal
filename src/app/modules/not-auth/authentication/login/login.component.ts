@@ -67,8 +67,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     openDialog(): void {
         const dialogRef = this.dialog.open(ModalComponent, {
             maxHeight: '80vh',
+            maxWidth: '90%',
             height: AUTO_STYLE,
-            width: '60%',
+            width: window.innerWidth < 900 ? '90%' : '50%',
             data: null,
             panelClass: 'custom-dialog-container'
         }).afterClosed().pipe(takeUntil(this.onDestroy$)).subscribe(data => {
@@ -76,7 +77,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.onDestroy$.next();
         this.onDestroy$.complete();
     }

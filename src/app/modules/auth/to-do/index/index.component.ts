@@ -15,21 +15,14 @@ import { ToDoService } from '../../../../services/to-do.service';
 })
 export class IndexComponent implements OnInit, OnDestroy {
 
-  title = 'Gerenciador de Tarefas';
+  title = 'Lembretes';
   icon = 'content_paste';
   operation: Operation = Operation.INDEX;
 
+  toDo = [];
+
   form: FormGroup;
   destroy$ = new Subject();
-
-  toDo = [];
-  done = [];
-
-  showInputNewToDo = false;
-  showInputNewDone = false;
-
-  editIndexToDo: number;
-  editIndexDone: number;
 
   constructor(
     private _toDoService: ToDoService,
@@ -39,11 +32,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.form = new FormGroup({
       newToDo: new FormControl(),
-      editToDo: new FormControl(),
-      newDone: new FormControl(),
-      editDone: new FormControl()
     });
-    
     this.onRefresh();
   }
 
@@ -51,72 +40,19 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._toDoService.loadAll().pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          this.toDo = [];
-          this.done = [];
-          response.data.forEach(element => {
-            if (element.concluido) {
-              this.done.push(element);
-            } else {
-              this.toDo.push(element);
-            }
-          });
-
           console.log(response);
-          
+          this.toDo = [];
+          response.data.forEach(element => {
+            if (!element.concluido) {
+              this.toDo.push(element);
+            } 
+          });
         }
       },
       (error) => {
         this._toastr.error(error.error.message);
       }
     );
-  }
-
-
-  drop(event: CdkDragDrop<string[]>, type: 'toDo' | 'done'): void {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-
-      const obj: any = event.container.data[event.currentIndex];
-      obj.pessoa = obj.pessoa.id;
-      if (type === 'toDo') {
-        obj.concluido = false;
-      } else {
-        obj.concluido = true;
-      }
-      
-      this.save(obj);
-    }
-  }
-
-  addToDo(type): void {
-    this.showInputNewToDo = !this.showInputNewToDo;
-  }
-
-  addDone(type): void {
-    this.showInputNewDone = !this.showInputNewDone;
-  }
-
-  editToDo(index): void {
-    if (index === this.editIndexToDo) {
-      this.editIndexToDo = null;
-    } else {
-      this.editIndexToDo = index;
-    }
-  }
-
-  editDone(index): void {
-    if (index === this.editIndexDone) {
-      this.editIndexDone = null;
-    } else {
-      this.editIndexDone = index;
-    }
   }
 
   update(item, type: 'toDo' | 'done', event): void {
@@ -127,15 +63,13 @@ export class IndexComponent implements OnInit, OnDestroy {
       pessoa: JSON.parse(localStorage.getItem('user')).id
     };
     
-   
-
     this.save(payload);
   }
 
-  create(type: 'toDo' | 'done', event): void {
+  create(event): void {
     const payload = {
       descricao: event.target.value, 
-      concluido: type === 'toDo' ? false : true,
+      concluido:  false,
       pessoa: JSON.parse(localStorage.getItem('user')).id
     };
 
@@ -146,21 +80,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._toDoService.save(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          if (payload.id) {
-            this._toastr.success('Atualizado com Sucesso!');     
-            if (payload.concluido) {
-              this.editIndexDone = null;
-            } else {
-              this.editIndexToDo = null;
-            }
-          } else {
-            this._toastr.success('Adicionado com Sucesso!');
-            if (payload.concluido) {
-              this.showInputNewDone = false;
-            } else {
-              this.showInputNewToDo = false;
-            }
-          }
+          console.log(response);
+          
           this.onRefresh();
         }
       },

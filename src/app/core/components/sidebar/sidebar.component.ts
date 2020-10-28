@@ -20,7 +20,7 @@ export const ROUTES: any[] = [
       { route: '/auth/calendario', label: 'Calendário', icon: 'event', type: 'link' },
       { route: '/auth/categorias', label: 'Categorias', icon: 'category', type: 'link' },
       { route: '/auth/contas', label: 'Contas', icon: 'account_balance_wallet', type: 'link' },
-      { route: '/auth/fazer', label: 'Gerenciador de Tarefas', icon: 'content_paste', type: 'link' },
+      // { route: '/auth/fazer', label: 'Lembretes', icon: 'content_paste', type: 'link' },
       { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'import_export', type: 'link' },
       { route: '/auth/objetivos', label: 'Objetivos', icon: 'done', type: 'link' },
       { route: '/auth/planejamento', label: 'Planejamento', icon: 'card_travel', type: 'link' },
@@ -30,7 +30,7 @@ export const ROUTES: any[] = [
     label: 'CONFIGURAÇÕES', type: 'subheading', children: [
       { route: '/auth/customizar', label: 'Layout e Cores', icon: 'bubble_chart', type: 'link' },
       { route: '/auth/perfil', label: 'Perfil', icon: 'account_circle', type: 'link' },
-      { route: '/notifications', label: 'Notificações', icon: 'notifications', type: 'link' },
+      // { route: '/notifications', label: 'Notificações', icon: 'notifications', type: 'link' },
     ]
   }
 ];
@@ -72,6 +72,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.documentElement = document.documentElement;
+  }
+
+  onProfile(): void {
+    this._router.navigate([`../auth/perfil`], { relativeTo: this._activatedRoute });
   }
 
   onConfig(): void {

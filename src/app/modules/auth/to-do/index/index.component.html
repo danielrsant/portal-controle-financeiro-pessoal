@@ -2,76 +2,31 @@
   <app-header [title]="title" [icon]="icon">
   </app-header>
 
-  <mat-card fxFlex fxLayout="row" fxLayoutAlign="space-evenly" class="content-page-form" style="padding-bottom: 38px;">
+  <mat-card fxFlex fxLayout="row" class="content-page-form" style="padding-bottom: 38px;">
 
-    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" cdkDropListGroup class="group">
+    <div fxFlex fxLayout="column" fxLayoutGap="10px">
 
-      <div fxFlex class="container" style="border-top: 3px solid #c5c136;">
+      <div fxLayout="row" fxLayoutAlign="center" style="margin: 10px;">
+        <button color="primary" mat-stroked-button (click)="create(form.value.newToDo)">
+          <mat-icon>add</mat-icon>
+          <span>Criar Lembrete</span>
+        </button>
 
-        <div fxLayout="row" fxLayoutAlign="space-between">
-          <h2 class="title">A Fazer</h2>
-          <div>
-            <button color="primary" mat-stroked-button (click)="addToDo('fazer')">
-              <mat-icon>add</mat-icon>
-              <span>Criar Tarefa</span>
-            </button>
-          </div>
-        </div>
-
-        <div *ngIf="showInputNewToDo" fxLayoutAlign="center">
-          <app-input-text (keyup)="$event.keyCode === 13 ? create('toDo', $event) : $event.preventDefault()" fxFlex="50" [formGroup]="form" [formcontrolname]="'newToDo'" [label]="'Nova Tarefa'"
-            [appearance]="'outline'"></app-input-text>
-        </div>
-
-        <div cdkDropList [cdkDropListData]="toDo" class="list" (cdkDropListDropped)="drop($event, 'toDo')">
-          <div class="box" *ngFor="let item of toDo; let index = index" cdkDrag>
-            <span *ngIf="!(index === editIndexToDo)" class="edit-cursor" (dblclick)="editToDo(index)">{{ item?.descricao }}</span>
-            <span *ngIf="index === editIndexToDo">
-              <app-input-text (keyup)="$event.keyCode === 13 ? update(item, 'toDo', $event) : $event.preventDefault()"
-                [formGroup]="form" [formcontrolname]="'editToDo'" [appearance]="'standard'"
-                style="height: 40px; margin-top: -31px;">
-              </app-input-text>
-            </span>
-            <div class="actions">
-              <mat-icon class="icon-action" matTooltip="Editar" (click)="editToDo(index)">edit</mat-icon>
-              <mat-icon class="icon-action" matTooltip="Excluír" (click)="delete(item)">delete_outline</mat-icon>
-            </div>
-          </div>
-        </div>
+        <app-input-text fxFlex="50" [formGroup]="form" [formcontrolname]="'newToDo'" [label]="'Novo Lembrete'"
+          [appearance]="'outline'">
+        </app-input-text>
       </div>
 
-      <div fxFlex class="container" style="border-top: 3px solid green;">
-
-        <div fxLayout="row" fxLayoutAlign="space-between">
-          <h2 class="title">Feito</h2>
-          <div>
-            <button color="primary" mat-stroked-button (click)="addDone('feito')">
-              <mat-icon>add</mat-icon>
-              <span>Criar Tarefa</span>
-            </button>
+      <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="center" style="margin: 10px;">
+        <mat-card fxFlex fxLayout="row" fxLayoutAlign="space-between center"
+          *ngFor="let item of toDo; let index = index">
+          <div fxFlex>
+            {{ item?.descricao }}
           </div>
-        </div>
-
-        <div *ngIf="showInputNewDone" fxLayoutAlign="center">
-          <app-input-text (keyup)="$event.keyCode === 13 ? create('done', $event) : $event.preventDefault()" fxFlex="50" [formGroup]="form" [formcontrolname]="'newDone'" [label]="'Nova Tarefa'"
-            [appearance]="'outline'"></app-input-text>
-        </div>
-
-        <div cdkDropList [cdkDropListData]="done" class="list" (cdkDropListDropped)="drop($event, 'done')">
-          <div class="box" *ngFor="let item of done; let index = index" cdkDrag>
-            <span *ngIf="!(index === editIndexDone)" class="edit-cursor" (dblclick)="editDone(index)">{{ item?.descricao }}</span>
-            <span *ngIf="index === editIndexDone">
-              <app-input-text (keyup)="$event.keyCode === 13 ? update(item, 'done', $event) : $event.preventDefault()"
-                [formGroup]="form" [formcontrolname]="'editDone'" [appearance]="'standard'"
-                style="height: 40px; margin-top: -31px;">
-              </app-input-text>
-            </span>
-            <div class="actions">
-              <mat-icon class="icon-action" matTooltip="Editar" (click)="editDone(index)">edit</mat-icon>
-              <mat-icon class="icon-action" matTooltip="Excluír" (click)="delete(item)">delete_outline</mat-icon>
-            </div>
+          <div fxFlex fxLayoutAlign="end">
+            <mat-icon class="icon-action" matTooltip="Excluír" (click)="delete(item)">delete_outline</mat-icon>
           </div>
-        </div>
+        </mat-card>
       </div>
 
     </div>

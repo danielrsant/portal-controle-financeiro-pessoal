@@ -1,7 +1,3 @@
-.content {
-  padding: 15px;
-}
-
 mat-card {
   min-width: 300px;
   cursor: pointer;
@@ -9,4 +5,8 @@ mat-card {
 
 .mt-5 {
   margin-top: 5px !important;
+}
+
+.mb {
+  margin-bottom: 10px !important;
 }
