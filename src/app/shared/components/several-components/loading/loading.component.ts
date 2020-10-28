@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
 import { LoadingService } from './loading.service';
 
 @Component({
@@ -12,7 +13,6 @@ export class LoadingComponent implements OnInit {
     public loadingService: LoadingService
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit(): void { }
 
 }
