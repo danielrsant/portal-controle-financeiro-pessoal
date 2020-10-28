@@ -149,8 +149,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
         this.dialogRef = this._matDialog.open(CalendarEventFormDialogComponent, {
             maxHeight: '80vh',
+            maxWidth: '90%',
             height: AUTO_STYLE,
-            width: window.innerWidth < 900 ? '100%' : '50%',
+            width: window.innerWidth < 900 ? '90%' : '50%',
             data: {
                 event: this.eventsAllData[eventIndex],
             }
