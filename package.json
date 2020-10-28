@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng build && node index.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -30,6 +30,7 @@
     "chartist": "^0.11.4",
     "date-fns": "^2.14.0",
     "echarts": "^4.8.0",
+    "express": "^4.17.1",
     "file-saver": "^2.0.2",
     "moment": "^2.26.0",
     "moment-timezone": "^0.5.31",
