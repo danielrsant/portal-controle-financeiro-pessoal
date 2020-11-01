@@ -48,7 +48,9 @@ export class LoginComponent implements OnInit, OnDestroy {
                     localStorage.setItem('user', JSON.stringify({ ...response.data.pessoa, ...{ email: response.data.email } }));
                     localStorage.setItem('token', response.token);
                     this.navigate();
-                    this.openDialog();
+                    if (!localStorage.getItem('custom')) {
+                        this.openDialog();
+                    }
                 } else {
                     this._toastrService.error('E-mail inexistente!');
                 }
@@ -65,6 +67,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     openDialog(): void {
+        localStorage.setItem('custom', 'true');
         const dialogRef = this.dialog.open(ModalComponent, {
             maxHeight: '80vh',
             maxWidth: '90%',

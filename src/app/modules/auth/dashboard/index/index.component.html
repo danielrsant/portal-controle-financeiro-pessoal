@@ -1,4 +1,12 @@
 <div fxFlex fxLayout="column">
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+    <app-input-datepicker-range fxFlex="90" style="margin-top: 10px; margin-bottom: -12px;" [appearance]="'outline'"
+      [formGroup]="formFilter" [formcontrolnameStart]="'dtPeriodo1'" [formcontrolnameEnd]="'dtPeriodo2'"
+      [label]="'Período'" (clear)="formFilter.get('dtPeriodo1').setValue(null)">
+    </app-input-datepicker-range>
+  </div>
+
   <div fxFlex fxLayout="row wrap" fxLayoutAlign="flex-start" class="content">
     <div fxFlex fxLayout="row wrap" *ngFor="let card of cards">
       <mat-card fxFlex class="card card-top">
@@ -13,13 +21,6 @@
         </div>
       </mat-card>
     </div>
-  </div>
-
-  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-    <app-input-datepicker-range style="margin-top: 10px; margin-bottom: -12px;" [appearance]="'outline'"
-      [formGroup]="formFilter" [formcontrolnameStart]="'dtPeriodo1'" [formcontrolnameEnd]="'dtPeriodo2'"
-      [label]="'Período'" (clear)="formFilter.get('dtPeriodo1').setValue(null)">
-    </app-input-datepicker-range>
   </div>
 
   <div fxFlex fxLayout="row" fxLayout.lt-md="column" class="content" style="margin-top: 0px;">
@@ -86,7 +87,7 @@
           <span fxFlex>Limite de Gastos</span>
         </div>
       </mat-card-title>
-      <div class="chart" class="pad">
+      <div class="chart" class="pad" *ngIf="limits && limits.length; else noLimits">
         <mat-divider></mat-divider>
 
         <mat-nav-list *ngFor="let limit of limits">
@@ -111,6 +112,10 @@
         </mat-nav-list>
 
       </div>
+
+      <ng-template #noLimits>
+        <div fxFlex fxLayout="column" fxLayoutAlign="center center" style="text-align: center; font-size: 19px;">Não há limites cadastrados neste Periodo!</div>
+      </ng-template>
     </mat-card>
   </div>
 

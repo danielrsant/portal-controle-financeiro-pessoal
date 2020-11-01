@@ -98,7 +98,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   createFormFilter(): void {
     this.formFilter = new FormGroup({
       dtPeriodo1: new FormControl(new Date()),
-      dtPeriodo2: new FormControl()
+      dtPeriodo2: new FormControl(new Date())
     });
 
     this.listenDtPeriodo2();
@@ -107,12 +107,14 @@ export class IndexComponent implements OnInit, OnDestroy {
   listenDtPeriodo2(): void {
     this.formFilter.get('dtPeriodo2').valueChanges.pipe(takeUntil(this.destroy$)).subscribe(data => {
       if (data) {
-        this.getPieChartData();
-        this.getCards();
-        this.getLineChart();
-        this.getPieChartData();
-        this.getBarBalance();
-        this.getLimits();
+        if (this.formFilter.value.dtPeriodo2) {
+          this.getPieChartData();
+          this.getCards();
+          this.getLineChart();
+          this.getPieChartData();
+          this.getBarBalance();
+          this.getLimits();
+        }
       }
     });
   }

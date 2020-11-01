@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  API: 'https://api-controle-financeiro-pessoa.herokuapp.com'
+  API: 'https://qafinancys-com-br.umbler.net'
   // API: 'http://localhost:3000'
 };
