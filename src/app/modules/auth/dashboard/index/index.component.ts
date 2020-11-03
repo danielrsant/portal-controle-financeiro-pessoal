@@ -100,7 +100,8 @@ export class IndexComponent implements OnInit, OnDestroy {
       dtPeriodo1: new FormControl(new Date()),
       dtPeriodo2: new FormControl(new Date())
     });
-
+    const today = new Date();
+    this.formFilter.get('dtPeriodo2').setValue(new Date(today.getFullYear(), today.getMonth() + 1, 0));
     this.listenDtPeriodo2();
   }
 

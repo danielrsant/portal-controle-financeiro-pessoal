@@ -67,11 +67,12 @@ export class CalendarComponent implements OnInit, OnDestroy {
         this._calendarService.loadAll().pipe(takeUntil(this.destroy$)).subscribe((response: any) => {
             if (response) {
                 this.events = [];
-                console.log(response);
                 response.data.forEach(element => {
+                    let dtElement = new Date(element?.dtConta);
+                    dtElement = new Date(dtElement.getTime() + dtElement.getTimezoneOffset() * 60000);
                     this.events.push({        
-                        start: new Date(element?.dtCadastro),
-                        end: new Date(element?.dtConclusao),   
+                        start: dtElement,
+                        end: dtElement,   
                         title: element?.descricao,
                         allDay: true,
                         color: {
