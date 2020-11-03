@@ -438,6 +438,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dashboardService.getBarBalance(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
+          console.log(response);
+          
 
           this.multi = [
             {

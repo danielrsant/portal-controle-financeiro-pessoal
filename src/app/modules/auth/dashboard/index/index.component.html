@@ -87,34 +87,36 @@
           <span fxFlex>Limite de Gastos</span>
         </div>
       </mat-card-title>
-      <div class="chart" class="pad" *ngIf="limits && limits.length; else noLimits">
+      <div class="chart" class="pad">
         <mat-divider></mat-divider>
+        <ng-container *ngIf="limits && limits.length; else noLimits">
 
-        <mat-nav-list *ngFor="let limit of limits">
-          <mat-list-item-content fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between">
-            <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-              <div fxFlex="15">
-                <mat-icon matListAvatar [ngStyle]="{'color': limit?.color}" style="font-size: 30px; margin-left: 15px;">
-                  {{ limit?.icon }}</mat-icon>
+          <mat-nav-list *ngFor="let limit of limits">
+            <mat-list-item-content fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between">
+              <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                <div fxFlex="15">
+                  <mat-icon matListAvatar [ngStyle]="{'color': limit?.color}" style="font-size: 30px; margin-left: 15px;">
+                    {{ limit?.icon }}</mat-icon>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center start">
+                  <span mat-line style="margin: 0; font-weight: 600; font-size: 18px;">{{ limit?.category}}</span>
+                  <p mat-line>{{ limit?.status}}</p>
+                </div>
               </div>
-              <div fxLayout="column" fxLayoutAlign="center start">
-                <span mat-line style="margin: 0; font-weight: 600; font-size: 18px;">{{ limit?.category}}</span>
-                <p mat-line>{{ limit?.status}}</p>
+              <div class="chart" fxFlex>
+                <ngx-charts-linear-gauge class="chart-align" [view]="viewGauge" [scheme]="{ domain: [ limit?.color ] }"
+                  [value]="limit?.value" [animations]="true" [previousValue]="limit?.limit" [min]="0" [max]="limit?.max"
+                  [units]="'Reais'">
+                </ngx-charts-linear-gauge>
               </div>
-            </div>
-            <div class="chart" fxFlex>
-              <ngx-charts-linear-gauge class="chart-align" [view]="viewGauge" [scheme]="{ domain: [ limit?.color ] }"
-                [value]="limit?.value" [animations]="true" [previousValue]="limit?.limit" [min]="0" [max]="limit?.max"
-                [units]="'Reais'">
-              </ngx-charts-linear-gauge>
-            </div>
-          </mat-list-item-content>
-        </mat-nav-list>
-
+            </mat-list-item-content>
+          </mat-nav-list>
+          
+        </ng-container>
       </div>
 
       <ng-template #noLimits>
-        <div fxFlex fxLayout="column" fxLayoutAlign="center center" style="text-align: center; font-size: 19px;">Não há limites cadastrados neste Periodo!</div>
+        <div fxFlex fxLayout="column" fxLayoutAlign="center center" style="text-align: center; font-size: 19px; margin-top: 100px; margin-bottom: 30px;">Não há limites cadastrados neste Periodo!</div>
       </ng-template>
     </mat-card>
   </div>
