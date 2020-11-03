@@ -83,7 +83,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this._router.navigate(['/login']);
   }
 

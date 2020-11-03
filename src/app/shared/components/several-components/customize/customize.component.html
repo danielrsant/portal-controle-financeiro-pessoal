@@ -2,14 +2,16 @@
 
     <h4 *ngIf="showMessages">Esta é a primeira vez que está utilizando nosso sistema, e queremos deixar a sua cara.</h4>
 
+    <h4 *ngIf="showMessages">Escolha um modo</h4>
+
     <div fxLayoutAlign="center" *ngIf="selectedStyle$ | async as selectedStyle">
         <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onChangeBtnToggle($event)">
-            <mat-button-toggle color="primary" [checked]="!darkTheme" value="light">Modo Claro</mat-button-toggle>
-            <mat-button-toggle value="dark" [checked]="darkTheme">Modo Escuro</mat-button-toggle>
+            <mat-button-toggle color="primary" [checked]="!darkTheme" value="light">Claro</mat-button-toggle>
+            <mat-button-toggle value="dark" [checked]="darkTheme">Escuro</mat-button-toggle>
         </mat-button-toggle-group>
     </div>
 
-    <h4 *ngIf="showMessages">Selecione uma cor primária para seu sistema</h4>
+    <h4 *ngIf="showMessages">Agora selecione uma cor primária para seu sistema</h4>
 
     <div fxFlex fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="center">
         <div *ngFor="let color of colorVariables | keyvalue" (click)="selectColor(color.value)" matRipple>
@@ -17,7 +19,7 @@
         </div>
     </div>
 
-    <h4 *ngIf="showMessages">Escolha um tipo de formulário</h4>
+    <h4 *ngIf="showMessages">Por fim, o tipo de formulário</h4>
 
     <mat-card fxFlex fxLayout="column">
 
@@ -26,7 +28,7 @@
                 [appearance]="'outline'" 
                 [formGroup]="form" 
                 formcontrolname="appearance"
-                label="Escolha um tipo" 
+                label="Selecione um tipo" 
                 [data]="formTypes" 
                 [optionClear]="false"
                 valueField="id" 
