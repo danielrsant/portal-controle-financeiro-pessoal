@@ -93,7 +93,18 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.getPieChartData();
     this.getBarBalance();
     this.getLimits();
+    this.refreshInterval();
   }
+
+  refreshInterval(): void {
+    setInterval(() => {
+      this.getCards();
+      this.getLineChart();
+      this.getPieChartData();
+      this.getBarBalance();
+      this.getLimits();
+    }, 60000);
+}
 
   createFormFilter(): void {
     this.formFilter = new FormGroup({
@@ -438,8 +449,6 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dashboardService.getBarBalance(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-          console.log(response);
-          
 
           this.multi = [
             {
