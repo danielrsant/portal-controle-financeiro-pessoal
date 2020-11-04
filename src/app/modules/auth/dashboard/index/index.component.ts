@@ -444,7 +444,7 @@ export class IndexComponent implements OnInit, OnDestroy {
           this.multi = [
             {
               name: 'Balanço',
-              balanco: response.balanco,
+              balanco: parseFloat(response.receita) - parseFloat(response.despesa),
               series: [
                 {
                   name: 'Receitas',
