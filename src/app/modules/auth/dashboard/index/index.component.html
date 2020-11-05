@@ -73,7 +73,7 @@
           <span fxFlex>Balanço mensal</span>
         </div>
       </mat-card-title>
-      <div fxFlex fxLayout="row wrap" class="chart" class="pad">
+      <div fxFlex fxLayout="column" class="chart" class="pad">
         <mat-divider></mat-divider>
         <ngx-charts-bar-vertical-stacked *ngIf="multi && multi.length; else noMulti" class="chart-align" [view]="view"
           [scheme]="{ domain: [ '#4DAA51', '#E5423E' ] }" [results]="multi" [animations]="true" [barPadding]="18"
