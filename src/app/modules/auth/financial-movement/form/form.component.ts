@@ -8,6 +8,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 
 import { FinancialMovementService } from '../../../../services/financial-movement.service';
 import { MovementTypeService } from '../../../../services/movement-type.service';
@@ -60,7 +61,8 @@ export class FormComponent implements OnInit, OnDestroy {
     private _dashboardService: DashboardService,
     private _loadingService: LoadingService,
     private _currencyPipe: CurrencyPipe,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _utilsService: UtilsService,
   ) { }
 
   ngOnInit(): void {
@@ -137,6 +139,23 @@ export class FormComponent implements OnInit, OnDestroy {
         this.form.get('repetir').enable();
         break;
     }
+  }
+
+  onSearch(search: string): void {
+    this._utilsService.paginatorWasChanged.emit();
+    const params = { filter: null };
+
+    if (search.length) {
+      params.filter = `descricao||$contL||${search}` ;
+      // params.s = JSON.stringify({
+      //   descricao: {
+      //     $contL: search,
+      //   },
+      // });
+    }
+
+    params.filter = 'status||$eq||1';
+    this.categories$ = this._categoryService.loadAll(params);
   }
 
   setOperation(): void {
