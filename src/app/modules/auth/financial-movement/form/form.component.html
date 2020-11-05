@@ -36,7 +36,7 @@
     </div>
 
     <app-input-select fxFlex [formGroup]="form" formcontrolname="categoria" label="Selecione uma categoria"
-      [data]="(categories$ | async)?.data" valueField="id" displayField="descricao" searchField="descricao">
+      [data]="(categories$ | async)?.data" valueField="id" displayField="descricao" searchField="descricao" (search)="onSearch($event)">
     </app-input-select>
 
     <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutGap.xs="-15px" fxLayoutGap="15px">
