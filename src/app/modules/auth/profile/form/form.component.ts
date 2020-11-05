@@ -63,10 +63,6 @@ export class FormComponent implements OnInit, OnDestroy {
   createForm(): void {
     this.form = new FormGroup({
       id: new FormControl(null),
-      descricao: new FormControl(null, [
-        Validators.required,
-        Validators.maxLength(80),
-      ]),
       nome: new FormControl(null, Validators.required),
       sobrenome: new FormControl(null, Validators.required),
       dtNascimento: new FormControl(null, Validators.required),
@@ -103,16 +99,16 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onUpdate(): void {
-    // this._profileService.update(this.form.value.id, this.form.value).subscribe(
-    //   (response: any) => {
-    //     this._loadingService.hide();
-    //     this._router.navigate(['../..'], { relativeTo: this._activatedRoute });
-    //   },
-    //   (error) => {
-    //     this._toastr.error(error.error.message);
-    //     this._loadingService.hide();
-    //   }
-    // );
+    const payload = this.form.value;
+    this._profileService.save(payload).pipe(takeUntil(this.destroy$)).subscribe(
+      (response: any) => {
+        this._toastr.success('Perfil atualizado com sucesso!');
+      },
+      (error) => {
+        this._toastr.error(error.error.message);
+        this._loadingService.hide();
+      }
+    );
   }
 
   selectImage(image): void {

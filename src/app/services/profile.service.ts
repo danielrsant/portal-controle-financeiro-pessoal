@@ -19,22 +19,10 @@ export class ProfileService {
     return this.http.get(url, { params: payload }).pipe(map((result: any) => result));
   }
 
-  loadOne(id: number): Observable<any> {
-    const url = `${ this.API_BASE_URL }/usuario/${ id } `;
-
-    return this.http.get(url).pipe(map((result: any) => result));
-  }
-
   save(payload: any): Observable<any> {
-    const url = `${ this.API_BASE_URL }/tarefas`;
+    const url = `${this.API_BASE_URL}/pessoas/${payload.id}`;
 
-    return this.http.post(url, payload);
-  }
-
-  destroy(id: number): Observable<any> {
-    const url = `${ this.API_BASE_URL }/tarefas/${id}`;
-
-    return this.http.delete(url);
+    return this.http.put(url, payload);
   }
 
 }
