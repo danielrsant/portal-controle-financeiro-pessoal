@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CalendarEvent } from 'angular-calendar';
-
-import { CalendarEventModel } from '../event.model';
+import * as moment from 'moment';
 
 @Component({
     selector: 'calendar-event-form-dialog',
@@ -36,7 +34,7 @@ export class CalendarEventFormDialogComponent implements OnInit {
                 Validators.maxLength(150),
             ]),
             total: new FormControl(0, [Validators.required, Validators.min(0.01)]),
-            dtConta: new FormControl(new Date(), Validators.required),
+            dtConta: new FormControl(null, Validators.required),
             dtConclusao: new FormControl(null),
             dtLembrete: new FormControl(null),
             concluido: new FormControl(0),
@@ -56,8 +54,8 @@ export class CalendarEventFormDialogComponent implements OnInit {
         this.form.get('tipoMovimentacao').setValue(this.event?.tipoMovimentacao?.descricao);
         this.form.get('conta').setValue(this.event?.conta?.descricao);
         this.form.get('categoria').setValue(this.event?.categoria?.descricao);
-        console.log(this.event);
-        
+        this.form.get('dtConta').setValue(moment.utc(this.event?.dtConta).format('YYYY-MM-DD'));
+        console.log(this.event, moment.utc(this.event?.dtConta).format('DD-MM-YYYY'));
     }
 
 }
