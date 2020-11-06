@@ -3,7 +3,9 @@ import { DOCUMENT } from '@angular/common';
 import { Inject } from '@angular/core';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { StyleService } from 'src/app/shared/services/style.service';
 
 import { trackByRoute } from '../../../shared/utils/track-by';
 
@@ -50,6 +52,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   fullScreenOpened = false;
 
   user: any;
+  userProfile$: Observable<string>;
 
   trackByRoute = trackByRoute;
 
@@ -60,6 +63,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private navigationService: NavigationService,
     private _media: MediaMatcher,
+    private _styleService: StyleService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     @Inject(DOCUMENT) private document: any
@@ -70,6 +74,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.userProfile$ = this._styleService.image$;
     this.user = JSON.parse(localStorage.getItem('user'));
     this.documentElement = document.documentElement;
   }

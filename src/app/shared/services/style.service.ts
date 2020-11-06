@@ -21,6 +21,9 @@ export class StyleService implements OnDestroy {
   private _styleSubject = new BehaviorSubject<Style>(this.defaultStyle);
   style$ = this._styleSubject.asObservable();
 
+  private _imageSubject = new BehaviorSubject<any>(localStorage.getItem('userPhoto') ? localStorage.getItem('userPhoto') : 'assets/images/users/1.png');
+  image$ = this._imageSubject.asObservable();
+
   private _inputThemeSubject = new BehaviorSubject<any>(localStorage.getItem('theme-input') ? localStorage.getItem('theme-input') : 'outline');
   appearance$ = this._inputThemeSubject.asObservable();
 
@@ -46,6 +49,11 @@ export class StyleService implements OnDestroy {
   setInputTheme(appearance): void {
     localStorage.setItem('theme-input', appearance);
     this._inputThemeSubject.next(appearance);
+  }
+
+  setImage(image): void {
+    localStorage.setItem('userPhoto', image);
+    this._imageSubject.next(image);
   }
 
   private _updateStyle(style: Style): void {

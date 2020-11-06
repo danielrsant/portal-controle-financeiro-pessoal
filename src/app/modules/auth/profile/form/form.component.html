@@ -12,7 +12,7 @@
 
         <div fxFlex fxLayout="row wrap" fxLayoutAlign="center" style="min-height: 130px;">
             <div *ngFor="let image of images; let index = index" style="max-width: 120px !important">
-                <img class="image" width="100" [ngClass]="{'selected': image === imageSelected}" src="assets/images/users/{{image}}.png" (click)="selectImage(image)">
+                <img class="image" width="100" [ngClass]="{'selected': image == imageSelected}" [src]="image" (click)="selectImage(image)">
             </div>
         </div>
         
