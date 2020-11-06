@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API: ''
+  API: 'http://api-financys-facthus-com-br.umbler.net'
 };
