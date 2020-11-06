@@ -75,7 +75,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       });
   }
 
-  onRefresh(params?: { page?: number; limit?: number; filter?: any }): void {
+  onRefresh(params?: any): void {
     this.options = { ...this.options, ...params };
 
     const { filter } = this.options;
@@ -154,21 +154,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     if (search.length) {
       params.filter = `descricao||$contL||${search}` ;
-    }
-
-    this.onRefresh({ ...params });
-  }
-
-  onSearch(search: string): void {
-    this._utilsService.paginatorWasChanged.emit();
-    const params = { s: null };
-
-    if (search.length) {
-      params.s = JSON.stringify({
-        descricao: {
-          $contL: search,
-        },
-      });
     }
 
     this.onRefresh({ ...params });
