@@ -143,11 +143,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     if (search.length) {
       params.filter = `descricao||$contL||${search}` ;
-      // params.s = JSON.stringify({
-      //   descricao: {
-      //     $contL: search,
-      //   },
-      // });
     }
 
     this.onRefresh({ ...params });
