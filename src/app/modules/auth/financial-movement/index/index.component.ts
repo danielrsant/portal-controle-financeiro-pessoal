@@ -75,12 +75,12 @@ export class IndexComponent implements OnInit, OnDestroy {
       });
   }
 
-  onRefresh(params?: { page?: number; limit?: number; s?: any }): void {
+  onRefresh(params?: { page?: number; limit?: number; filter?: any }): void {
     this.options = { ...this.options, ...params };
 
-    const { s } = this.options;
-    if (!s) {
-      delete this.options.s;
+    const { filter } = this.options;
+    if (!filter) {
+      delete this.options.filter;
     }
 
     const { sort } = this.options;
@@ -146,6 +146,17 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._financialMovementService.destroy(item.id).pipe(takeUntil(this.destroy$)).subscribe(response => {
       this.onRefresh();
     });
+  }
+
+  onSearch(search: string): void {
+    this._utilsService.paginatorWasChanged.emit();
+    const params = { filter: null };
+
+    if (search.length) {
+      params.filter = `descricao||$contL||${search}` ;
+    }
+
+    this.onRefresh({ ...params });
   }
 
   onSearch(search: string): void {
