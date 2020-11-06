@@ -449,23 +449,26 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._dashboardService.getBarBalance(payload).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
-
-          this.multi = [
-            {
-              name: 'Balanço',
-              balanco: parseFloat(response.receita) - parseFloat(response.despesa),
-              series: [
-                {
-                  name: 'Receitas',
-                  value: parseFloat(response.receita)
-                },
-                {
-                  name: 'Despesas',
-                  value: -parseFloat(response.despesa)
-                }
-              ]
-            }
-          ];
+          if (parseFloat(response.receita) === 0 && parseFloat(response.despesa) === 0) {
+            this.multi = [];
+          } else {
+            this.multi = [
+              {
+                name: 'Balanço',
+                balanco: parseFloat(response.receita) - parseFloat(response.despesa),
+                series: [
+                  {
+                    name: 'Receitas',
+                    value: parseFloat(response.receita)
+                  },
+                  {
+                    name: 'Despesas',
+                    value: -parseFloat(response.despesa)
+                  }
+                ]
+              }
+            ];
+          }
         }
       },
       (error) => {
