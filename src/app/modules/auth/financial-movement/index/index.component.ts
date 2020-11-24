@@ -153,7 +153,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     const params = { filter: null };
 
     if (search.length) {
-      params.filter = `descricao||$contL||${search}` ;
+      params.filter = [`descricao||$contL||${search}`] ;
     }
 
     this.onRefresh({ ...params });
