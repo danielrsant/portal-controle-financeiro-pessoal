@@ -13,26 +13,23 @@ import { trackByRoute } from '../../../shared/utils/track-by';
 export const ROUTES: any[] = [
   {
     label: 'DASHBOARDS', type: 'subheading', children: [
-      // { route: '/auth/admin', label: 'Administrador', icon: 'person', type: 'dropdown', children: [] },
       { route: '/auth/dashboard', label: 'Dashboard', icon: 'insert_chart_outlined', type: 'link' }
     ]
   },
   {
     label: 'ADMINISTRADOR', type: 'subheading', children: [
-      { route: '/auth/calendario', label: 'Calendário', icon: 'event', type: 'link' },
-      { route: '/auth/categorias', label: 'Categorias', icon: 'category', type: 'link' },
       { route: '/auth/contas', label: 'Contas', icon: 'account_balance_wallet', type: 'link' },
-      // { route: '/auth/fazer', label: 'Lembretes', icon: 'content_paste', type: 'link' },
+      { route: '/auth/categorias', label: 'Categorias', icon: 'category', type: 'link' },
       { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'import_export', type: 'link' },
-      { route: '/auth/objetivos', label: 'Objetivos', icon: 'done', type: 'link' },
+      { route: '/auth/calendario', label: 'Calendário', icon: 'event', type: 'link' },
       { route: '/auth/planejamento', label: 'Planejamento', icon: 'card_travel', type: 'link' },
+      { route: '/auth/objetivos', label: 'Objetivos', icon: 'done', type: 'link' },
     ]
   },
   {
     label: 'CONFIGURAÇÕES', type: 'subheading', children: [
       { route: '/auth/customizar', label: 'Layout e Cores', icon: 'bubble_chart', type: 'link' },
       { route: '/auth/perfil', label: 'Perfil', icon: 'account_circle', type: 'link' },
-      // { route: '/notifications', label: 'Notificações', icon: 'notifications', type: 'link' },
     ]
   }
 ];
