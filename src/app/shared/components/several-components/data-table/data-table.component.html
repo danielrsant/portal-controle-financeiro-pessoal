@@ -173,17 +173,22 @@
           class="hover:bg-hover trans-ease-out cursor-pointer" mat-row></tr>
 
       </table>
+    </ng-container>
+
+
+    <mat-card *ngIf="dataSource && !dataSource.filteredData.length" class="w-full empty-list">
+      <mat-icon style="margin-right: 20px;">cancel_presentation</mat-icon>
+      NENHUM REGISTRO ENCONTRADO
+    </mat-card>
+
+    <ng-container *ngIf="dataSource && dataSource.filteredData">
+
       <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex" [length]="length"
         class="sticky footer-paginator">
       </mat-paginator>
 
     </ng-container>
 
-  </div>
-
-  <div *ngIf="dataSource && !dataSource.filteredData.length" class="w-full empty-list">
-    <mat-icon style="margin-right: 20px;">cancel_presentation</mat-icon>
-    NENHUM REGISTRO ENCONTRADO
   </div>
 
 </div>

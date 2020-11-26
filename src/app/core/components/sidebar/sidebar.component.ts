@@ -20,8 +20,8 @@ export const ROUTES: any[] = [
     label: 'ADMINISTRADOR', type: 'subheading', children: [
       { route: '/auth/contas', label: 'Contas', icon: 'account_balance_wallet', type: 'link' },
       { route: '/auth/categorias', label: 'Categorias', icon: 'category', type: 'link' },
-      { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'import_export', type: 'link' },
       { route: '/auth/planejamento', label: 'Planejamento', icon: 'card_travel', type: 'link' },
+      { route: '/auth/movimentacoes', label: 'Movimentações', icon: 'import_export', type: 'link' },
       { route: '/auth/objetivos', label: 'Objetivos', icon: 'done', type: 'link' },
       { route: '/auth/calendario', label: 'Calendário', icon: 'event', type: 'link' },
     ]
