@@ -64,11 +64,11 @@ export class FormComponent implements OnInit, OnDestroy {
           : Operation.VIEW;
       this.title =
         this.operation === Operation.EDIT
-          ? 'Alterando Movimentação'
-          : 'Visualizando Movimentação';
+          ? 'Alterando Conta'
+          : 'Visualizando Conta';
     } else {
       this.operation = Operation.NEW;
-      this.title = 'Incluindo Movimentação';
+      this.title = 'Incluindo Conta';
     }
   }
 
@@ -132,6 +132,7 @@ export class FormComponent implements OnInit, OnDestroy {
   onCreate(): void {
     this._accountService.create(this.form.value).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
+        this._toastr.success('Registro salvo com sucesso!');
         this._loadingService.hide();
         this._router.navigate(['..'], { relativeTo: this._activatedRoute });
       },

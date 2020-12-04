@@ -159,6 +159,7 @@ export class FormComponent implements OnInit, OnDestroy {
       );
 
     this._financialMovementService.create([this.formMovimentacao.value]).subscribe(response => {
+      this._toastr.success('Registro salvo com sucesso!');
       this._loadingService.hide();
       console.log(response);
     },

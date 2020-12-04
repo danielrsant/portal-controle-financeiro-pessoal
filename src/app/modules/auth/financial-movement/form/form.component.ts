@@ -347,6 +347,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this._financialMovementService.create(formAux).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
+          this._toastr.success('Registro salvo com sucesso!');
           this._loadingService.hide();
           this.checkLimiteCategoria(this.form.get('categoria').value);
         }

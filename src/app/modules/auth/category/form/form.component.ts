@@ -106,6 +106,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this._categoryService.create(this.form.value).pipe(takeUntil(this.destroy$)).subscribe(
       (response: any) => {
         if (response) {
+          this._toastr.success('Registro salvo com sucesso!');
           this._loadingService.hide();
           this._router.navigate(['..'], { relativeTo: this._activatedRoute });
         }

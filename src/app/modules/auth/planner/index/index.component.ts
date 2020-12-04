@@ -6,6 +6,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isThisSecond } from 'date-fns';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CategoryService } from 'src/app/services/category.service';
@@ -34,7 +35,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     private _plannerService: PlannerService,
     private _categoryService: CategoryService,
     private _formBuilder: FormBuilder,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private _toastr: ToastrService
   ) {
     breakpointObserver.observe([
       Breakpoints.XSmall,
@@ -163,8 +165,8 @@ export class IndexComponent implements OnInit, OnDestroy {
         if (!response) {
           return;
         }
-
-        this._router.navigate(['../../dashboard'], { relativeTo: this._activatedRoute });
+        this._toastr.success('Registro salvo com sucesso!');
+        this.stepper.selectedIndex = 0;
       }, err => {
         this._loadingService.hide();
         console.log(err);
